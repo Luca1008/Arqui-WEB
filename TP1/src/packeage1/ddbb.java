@@ -20,6 +20,15 @@ public class ddbb {
         }
 
         String uri = "jdbc:derby:MyderbyDb;create=true";
-        Connection connection = DriverManager.getConnection(uri);
+
+        try {
+            Connection conn = DriverManager.getConnection(uri);
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 }
