@@ -1,4 +1,4 @@
-package main.java.com.example;
+package com.example;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
@@ -24,9 +24,9 @@ public class ddbb {
 
         try {
             Connection conn = DriverManager.getConnection(uri);
-            createTables(conn);
-            addPersona(conn, 1, "Juan", 20);
-            addPersona(conn, 1, "Paula", 30);
+            //createTables(conn);
+            addPersona(conn, 5, "Juan", 20);
+            addPersona(conn, 7, "Paula", 30);
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,7 +43,7 @@ public class ddbb {
         }
 
     private static void addPersona(Connection conn, int id, String name, int edad) throws SQLException{
-        String insert = "INSERT INTO persona (id, nombre) VALUES (?, ?, ?)";
+        String insert = "INSERT INTO persona (id, nombre, edad) VALUES (?, ?, ?)";
         PreparedStatement ps = conn.prepareStatement(insert);
         ps.setInt(1, id);
         ps.setString(2, name);
