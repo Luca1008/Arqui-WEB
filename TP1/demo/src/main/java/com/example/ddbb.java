@@ -24,9 +24,10 @@ public class ddbb {
 
         try {
             Connection conn = DriverManager.getConnection(uri);
-            //createTables(conn);
-            addPersona(conn, 5, "Juan", 20);
-            addPersona(conn, 7, "Paula", 30);
+            dropTables(conn);
+            createTables(conn);
+            addPersona(conn, 8, "Juan", 20);
+            addPersona(conn, 9, "Paula", 30);
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -34,6 +35,12 @@ public class ddbb {
 
         
 
+    }
+
+    private static void dropTables(Connection conn) throws SQLException {
+        String table = "DROP TABLE persona";
+        conn.prepareStatement(table).execute();
+        conn.commit();
     }
 
     private static void createTables (Connection conn) throws SQLException{
@@ -48,7 +55,7 @@ public class ddbb {
         ps.setInt(1, id);
         ps.setString(2, name);
         ps.setInt(3, edad);
-       // ps.setInt(3, edad);
+        ps.setInt(3, edad);
         ps.executeUpdate();
         ps.close();
         conn.commit();
