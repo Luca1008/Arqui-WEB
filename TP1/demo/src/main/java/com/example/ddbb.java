@@ -24,9 +24,9 @@ public class ddbb {
 
         try {
             Connection conn = DriverManager.getConnection(uri);
-            //createTables(conn);
-            addPersona(conn, 1, "Juan");
-            //addPersona(conn, 1, "Paula", 30);
+            createTables(conn);
+            addPersona(conn, 1, "Juan", 20);
+            addPersona(conn, 1, "Paula", 30);
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -37,16 +37,17 @@ public class ddbb {
     }
 
     private static void createTables (Connection conn) throws SQLException{
-            String table = "CREATE TABLE persona( id INT PRIMARY KEY, nombre VARCHAR(500) )";
+            String table = "CREATE TABLE persona( id INT PRIMARY KEY, nombre VARCHAR(500), edad INT )";
             conn.prepareStatement(table).execute();
             conn.commit();
         }
 
-    private static void addPersona(Connection conn, int id, String name) throws SQLException{
-        String insert = "INSERT INTO persona (id, nombre) VALUES (?, ?)";
+    private static void addPersona(Connection conn, int id, String name, int edad) throws SQLException{
+        String insert = "INSERT INTO persona (id, nombre) VALUES (?, ?, ?)";
         PreparedStatement ps = conn.prepareStatement(insert);
         ps.setInt(1, id);
         ps.setString(2, name);
+        ps.setInt(3, edad);
        // ps.setInt(3, edad);
         ps.executeUpdate();
         ps.close();

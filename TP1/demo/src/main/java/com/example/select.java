@@ -29,7 +29,7 @@ public class select {
             PreparedStatement ps = conn.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                System.out.println(rs.getInt(1)+" , "+rs.getString(2));
+                System.out.println(rs.getInt(1)+" , "+rs.getString(2)+" , "+rs.getInt(3));
             }
             conn.close();
         } catch (SQLException e) {
