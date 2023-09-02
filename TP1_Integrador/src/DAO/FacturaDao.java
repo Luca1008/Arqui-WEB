@@ -1,13 +1,13 @@
 package DAO;
 
 public interface FacturaDAO {
-    public void insert(Long id, Long idCliente ) throws SQLException;
+    public void insert(INT id, INT idCliente ) throws SQLException;
 
-    public void update(Long id, Long idCliente) throws SQLException;
+    public void update(INT id, INT idCliente) throws SQLException;
 
-    public void delete(Long id);
+    public void delete(INT id);
 
-    public Factura getById(Long id);
+    public Factura getById(INT id);
 
     public List<Factura> getAll();
 }

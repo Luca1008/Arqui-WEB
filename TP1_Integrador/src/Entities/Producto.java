@@ -3,10 +3,10 @@ package Entities;
 import java.util.Objects;
 
 public class Producto {
-	private Long idProducto;
+	private INT idProducto;
 	private String nombre;
 	private float valor;
-	public Producto(Long idProducto, String nombre, float valor) {
+	public Producto(INT idProducto, String nombre, float valor) {
 		super();
 		this.idProducto = idProducto;
 		this.nombre = nombre;

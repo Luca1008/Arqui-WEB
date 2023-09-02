@@ -4,7 +4,7 @@ package DAO;
 
 public class MySQLProductoDAO implements ProductoDAO {
 
-	public void insertar(Long id, String nombre, String email ) {
+	public void insertar(INT id, String nombre, String email ) {
 		System.out.println(id +"-"+nombre+"-"+email);
 		
 	}
