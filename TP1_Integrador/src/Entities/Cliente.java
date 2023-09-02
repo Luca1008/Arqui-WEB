@@ -3,10 +3,10 @@ package Entities;
 import java.util.Objects;
 
 public class Cliente {
-	private int idCliente;
+	private Long idCliente;
 	private String nombre;
 	private String email;
-	public Cliente(int idCliente, String nombre, String email) {
+	public Cliente(Long idCliente, String nombre, String email) {
 		super();
 		this.idCliente = idCliente;
 		this.nombre = nombre;
@@ -15,7 +15,7 @@ public class Cliente {
 	public int getIdCliente() {
 		return idCliente;
 	}
-	public void setIdCliente(int idCliente) {
+	public void setIdCliente(Long idCliente) {
 		this.idCliente = idCliente;
 	}
 	public String getNombre() {

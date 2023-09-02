@@ -6,13 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 
-public class ClienteDao implements DaoFactory{
+public class MySQLClienteDAO implements UsuarioDAO{
 	private Connection conn;
-		public ClienteDao(Connection conn) {
+		public MySQLClienteDAO(Connection conn) {
 		this.conn=conn;
 	}
 	@Override
-	public void insertar(String id, String nombre, String email ) throws SQLException {
+	public void insertar(Long id, String nombre, String email ) throws SQLException {
 		String table= "INSERT INTO Cliente(idCliente,email,nombre) VALUES (?, ?, ?)";
 		PreparedStatement ps = conn.prepareStatement(insert);
 		ps.setInt(1, id);
@@ -24,17 +24,25 @@ public class ClienteDao implements DaoFactory{
 		
 	}
 
-	//@Override
-	//public void eliminar(Cliente a) {
-		// TODO Auto-generated method stub
+	@Override
+	public void delete(int id) {
 		
-//	}
+	}
 
-	//@Override
-	//public void modificar(Cliente a) {
-		// TODO Auto-generated method stub
-		
-	//}
+	@Override
+	public void update(Long id, String nombre, String email ) throws SQLException {
+	
+	}
+
+	@Override
+	public Usuario getById(int id){
+
+	}
+
+	@Override
+	public List<Usuario> getAll(){
+
+	}
 
 	
 

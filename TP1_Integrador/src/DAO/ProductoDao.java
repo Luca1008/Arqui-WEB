@@ -1,26 +1,16 @@
 package DAO;
 
+import java.sql.SQLException;
+import java.util.List;
 
+public interface ProductoDAO {
+    public void insert(Long id, String nombre, float valor ) throws SQLException;
 
-public class ProductoDao implements DaoFactory {
+    public void update(Long id, String nombre, float valor ) throws SQLException;
 
-	public void insertar(String id, String nombre, String email ) {
-		System.out.println(id +"-"+nombre+"-"+email);
-		
-	}
+    public void delete(int id);
 
-	//@Override
-	//public void eliminar(Cliente a) {
-		// TODO Auto-generated method stub
-		
-//	}
+    public Producto getById(int id);
 
-	//@Override
-	//public void modificar(Cliente a) {
-		// TODO Auto-generated method stub
-		
-	//}
-
-	
-
+    public List<Producto> getAll();
 }

@@ -1,27 +1,13 @@
 package DAO;
 
+public interface FacturaDAO {
+    public void insert(Long id, Long idCliente ) throws SQLException;
 
+    public void update(Long id, Long idCliente) throws SQLException;
 
-public class FacturaDao implements DaoFactory  {
+    public void delete(Long id);
 
-	public void insertar(String id, String nombre, String email ) {
-		System.out.println(id +"-"+nombre+"-"+email);
-		
-	}
+    public Factura getById(Long id);
 
-	//@Override
-	//public void eliminar(Cliente a) {
-		// TODO Auto-generated method stub
-		
-//	}
-
-	//@Override
-	//public void modificar(Cliente a) {
-		// TODO Auto-generated method stub
-		
-	//}
-
-
-	
-
+    public List<Factura> getAll();
 }

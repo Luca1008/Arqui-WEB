@@ -3,10 +3,10 @@ package Entities;
 import java.util.Objects;
 
 public class Factura_producto {
-	private int idFactura;
-	private int idproducto;
+	private Long idFactura;
+	private Long idproducto;
 	private int cantidad;
-	public Factura_producto(int idFactura, int idproducto, int cantidad) {
+	public Factura_producto(Long idFactura, Long idproducto, int cantidad) {
 		super();
 		this.idFactura = idFactura;
 		this.idproducto = idproducto;
@@ -15,13 +15,13 @@ public class Factura_producto {
 	public int getIdFactura() {
 		return idFactura;
 	}
-	public void setIdFactura(int idFactura) {
+	public void setIdFactura(Long idFactura) {
 		this.idFactura = idFactura;
 	}
 	public int getIdproducto() {
 		return idproducto;
 	}
-	public void setIdproducto(int idproducto) {
+	public void setIdproducto(Long idproducto) {
 		this.idproducto = idproducto;
 	}
 	public int getCantidad() {

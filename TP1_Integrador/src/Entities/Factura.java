@@ -3,8 +3,8 @@ package Entities;
 import java.util.Objects;
 
 public class Factura {
-	private int idFactura;
-	private int idCliente;
+	private Long idFactura;
+	private Long idCliente;
 	public Factura(int idFactura, int idCliente) {
 		super();
 		this.idFactura = idFactura;
