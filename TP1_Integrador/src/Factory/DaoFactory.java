@@ -16,7 +16,7 @@ public interface DAOFactory {
 	void eliminarUsuario(int a);
 	void modificarUsuario(int a);
 	Usuario getByIdUsuario(int id);
-	List<Usuario> getAllUsuario()
+	List<Usuario> getAllUsuario();
 
 	void insertProducto(int id, String nombre, float valor ) throws SQLException;
     void updateProducto(int id, String nombre, float valor ) throws SQLException;
