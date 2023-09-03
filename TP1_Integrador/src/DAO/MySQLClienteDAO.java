@@ -12,7 +12,7 @@ public class MySQLClienteDAO implements UsuarioDAO{
 		this.conn=conn;
 	}
 	@Override
-	public void insertar(INT id, String nombre, String email ) throws SQLException {
+	public void insertar(int id, String nombre, String email ) throws SQLException {
 		String table= "INSERT INTO Cliente(idCliente,email,nombre) VALUES (?, ?, ?)";
 		PreparedStatement ps = conn.prepareStatement(insert);
 		ps.setInt(1, id);
@@ -25,17 +25,17 @@ public class MySQLClienteDAO implements UsuarioDAO{
 	}
 
 	@Override
-	public void delete(INT id) {
+	public void delete(int id) {
 		
 	}
 
 	@Override
-	public void update(INT id, String nombre, String email ) throws SQLException {
+	public void update(int id, String nombre, String email ) throws SQLException {
 	
 	}
 
 	@Override
-	public Usuario getById(INT id){
+	public Usuario getById(int id){
 
 	}
 

@@ -2,7 +2,7 @@ package DAO;
 
 public class MySQLFacturaDAO implements FacturaDao  {
 
-	public void insertar(INT id, String nombre, String email ) {
+	public void insertar(int id, String nombre, String email ) {
 		System.out.println(id +"-"+nombre+"-"+email);
 		
 	}

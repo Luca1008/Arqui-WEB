@@ -5,13 +5,13 @@ import java.sql.SQLException;
 public interface UsuarioDAO {
 
 
-    public void insert(INT id, String nombre, String email ) throws SQLException;
+    public void insert(int id, String nombre, String email ) throws SQLException;
 
-    public void update(INT id, String nombre, String email ) throws SQLException;
+    public void update(int id, String nombre, String email ) throws SQLException;
 
-    public void delete(INT id);
+    public void delete(int id);
 
-    public Usuario getById(INT id);
+    public Usuario getById(int id);
 
     public List<Usuario> getAll();
 

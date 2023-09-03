@@ -3,9 +3,9 @@ package Entities;
 import java.util.Objects;
 
 public class Factura {
-	private INT idFactura;
-	private INT idCliente;
-	public Factura(INT idFactura, INT idCliente) {
+	private int idFactura;
+	private int idCliente;
+	public Factura(intt idFactura, int idCliente) {
 		super();
 		this.idFactura = idFactura;
 		this.idCliente = idCliente;
