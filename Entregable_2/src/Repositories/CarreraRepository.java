@@ -4,7 +4,6 @@ package Repositories;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 import Entidades.Carrera;
-import Entidades.Estudiante;
 import Interfaces.InterfaceCarreraRepo;
 
 

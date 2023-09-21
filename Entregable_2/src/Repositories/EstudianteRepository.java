@@ -2,8 +2,6 @@ package Repositories;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 import org.springframework.stereotype.Repository;
 
 import Entidades.Carrera;

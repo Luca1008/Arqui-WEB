@@ -69,6 +69,7 @@ public class testEstudiante {
 		String apellido,edad,nombre,genero,ciudad,libreta_universitaria,id, duracion,id_estudiante,id_carrera,inscripcion,antiguedad,graduacion;
 		
 		CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(estudiantes));
+
 		
 		for(CSVRecord row: parser) {
 			id=(row.get("DNI"));
