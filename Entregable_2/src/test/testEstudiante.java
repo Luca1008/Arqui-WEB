@@ -24,11 +24,13 @@ import Repositories.Estudiante_carreraRepository;
 
 
 public class testEstudiante {
-	public static final String ESTUDIANTES_FILE = ".\\src\\dataset\\estudiantes.csv";
-	public static final String CARRERAS_FILE= ".\\src\\dataset\\carreras.csv";
-	public static final String ESTUDIANTE_CARRERA_FILE= ".\\src\\dataset\\estudiante_carrera.csv";
+
+	public static final String ESTUDIANTES_FILE = "Entregable_2\\src\\Entidades\\Carrera.java";
+	public static final String CARRERAS_FILE= "Entregable_2\\src\\dataset\\estudianteCarrera.csv";
+	public static final String ESTUDIANTE_CARRERA_FILE= "Entregable_2\\src\\dataset\\estudianteCarrera.csv";
 	public static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entregable2");
 	public static final EntityManager em = emf.createEntityManager();
+
 
 	public static void main(String[] args) throws FileNotFoundException, SQLException, IOException {
 		
@@ -47,6 +49,8 @@ public class testEstudiante {
 		emf.close();
 
 	}
+
+
 	public static void insertar() throws SQLException, FileNotFoundException, IOException{
 		CarreraRepository carrera = new CarreraRepository();
 		EstudianteRepository estudiante = new EstudianteRepository();
@@ -58,6 +62,10 @@ public class testEstudiante {
 		File estudiantes_carreras =new File(ESTUDIANTE_CARRERA_FILE);
 		
 		
+		// The line `String apellido,edad,nombre,genero,ciudad,libreta_universitaria,id,
+		// duracion,id_estudiante,id_carrera,inscripcion,antiguedad,graduacion;` is declaring multiple
+		// variables of type `String`. These variables are used to store the values read from the CSV file
+		// for each record. Each variable corresponds to a specific column in the CSV file.
 		String apellido,edad,nombre,genero,ciudad,libreta_universitaria,id, duracion,id_estudiante,id_carrera,inscripcion,antiguedad,graduacion;
 		
 		CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(estudiantes));
@@ -76,6 +84,7 @@ public class testEstudiante {
 		}
 		
 		parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(carreras));
+
 		for(CSVRecord row: parser) {
 			id=(row.get("id_carrera"));
 			nombre=(row.get("carrera"));
@@ -84,7 +93,8 @@ public class testEstudiante {
 			c=carrera.insertar_carrera(id,nombre, duracion);
 			em.persist(c);
 		}
-		/*parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(estudiantes_carreras));
+		parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(estudiantes_carreras));
+		
 		for(CSVRecord row: parser) {
 			id=(row.get("id"));
 			id_estudiante=(row.get("id_estudiante"));
@@ -95,7 +105,7 @@ public class testEstudiante {
 			Estudiante_carrera e = new Estudiante_carrera();
 			e=estudiante_carrera.insertar(id, id_estudiante, id_carrera,inscripcion,graduacion,antiguedad);
 			em.persist(e);
-		}*/
+		}
 		
 	}
 

@@ -4,18 +4,14 @@ import java.util.List;
 import Entidades.Carrera;
 import Entidades.Estudiante;
 
-public interface InterfaceEstudianteRepo  {
-	
-	
-	
-	
-	//c) recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple (por apellido)
+public interface InterfaceEstudianteRepo {
+    //c) recuperar todos los estudiantes, y especificar algï¿½n criterio de ordenamiento simple (por apellido)
 	List<Estudiante> listarEstudiantes();
 	
-	//e) recuperar todos los estudiantes, en base a su género.
+	//e) recuperar todos los estudiantes, en base a su gï¿½nero.
 	List<Estudiante> listarEstudiantes(String genero);
 	
-	//d) recuperar un estudiante, en base a su número de libreta universitaria.
+	//d) recuperar un estudiante, en base a su nï¿½mero de libreta universitaria.
 	Estudiante buscarPorLibreta(int libreta);
 	
 	//a) dar de alta un estudiante
@@ -23,5 +19,5 @@ public interface InterfaceEstudianteRepo  {
 	
 	//g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
 	List<Estudiante> estudiantesDe(Carrera carrera);
-	
 }
+
