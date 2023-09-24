@@ -1,59 +1,50 @@
 package Entidades;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-
+import java.util.ArrayList;
 import java.util.List;
-
-
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-
-import jakarta.persistence.Table;
-
-import javax.persistence.Entity;
 
 @Entity
 @Table(name="TABLA_ESTUDIANTES")
 public class Estudiante implements Serializable {
 	@Id
-	private String DNI;
-	@Column
-	private String nombre;
-	@Column
-	private String apellido;
-	@Column
-	private String edad;
-	@Column
-	private String genero;
-	@Column
-	private String ciudad;
-	@Column
-	private String libreta_universitaria;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String nombres;
+    private String apellido;
+    private int edad;
+    private String genero;
+    private String numDocumento;
+    private String ciudadResidencia;
+    private String numLibretaUniversitaria;
+    private boolean graduado;
 	
-	@ManyToMany
-    @JoinTable(name = "estudiante_carrera",
-               joinColumns = @JoinColumn(name = "estudiante_id"),
-               inverseJoinColumns = @JoinColumn(name = "carrera_id"))
-	 @Column(name = "fecha_inscripcion") 
-    private List<Carrera> carreras;
+	@OneToMany(mappedBy = "estudiante", cascade = CascadeType.ALL)
+    private List<EstudianteCarrera> estudianteCarreras = new ArrayList<>();
 
-	public String getDNI() {
-		return DNI;
+	public Estudiante() {
 	}
 
-	public void setDNI(String dNI) {
-		DNI = dNI;
+	public Estudiante(String nombres, String apellido, int edad, String genero, String numDocumento,
+			String ciudadResidencia, String numLibretaUniversitaria, boolean graduado) {
+		this.nombres = nombres;
+		this.apellido = apellido;
+		this.edad = edad;
+		this.genero = genero;
+		this.numDocumento = numDocumento;
+		this.ciudadResidencia = ciudadResidencia;
+		this.numLibretaUniversitaria = numLibretaUniversitaria;
+		this.graduado = graduado;
+		estudianteCarreras = new ArrayList<>();
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getNombres() {
+		return nombres;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
 	}
 
 	public String getApellido() {
@@ -64,11 +55,11 @@ public class Estudiante implements Serializable {
 		this.apellido = apellido;
 	}
 
-	public String getEdad() {
+	public int getEdad() {
 		return edad;
 	}
 
-	public void setEdad(String edad) {
+	public void setEdad(int edad) {
 		this.edad = edad;
 	}
 
@@ -80,29 +71,46 @@ public class Estudiante implements Serializable {
 		this.genero = genero;
 	}
 
-	public String getCiudad() {
-		return ciudad;
+	public String getNumDocumento() {
+		return numDocumento;
 	}
 
-	public void setCiudad(String ciudad) {
-		this.ciudad = ciudad;
+	public void setNumDocumento(String numDocumento) {
+		this.numDocumento = numDocumento;
 	}
 
-	public String getLibreta_universitaria() {
-		return libreta_universitaria;
+	public String getCiudadResidencia() {
+		return ciudadResidencia;
 	}
 
-	public void setLibreta_universitaria(String libreta_universitaria) {
-		this.libreta_universitaria = libreta_universitaria;
+	public void setCiudadResidencia(String ciudadResidencia) {
+		this.ciudadResidencia = ciudadResidencia;
 	}
 
-	public List<Carrera> getCarreras() {
-		return carreras;
+	public String getNumLibretaUniversitaria() {
+		return numLibretaUniversitaria;
 	}
 
-	public void setCarreras(List<Carrera> carreras) {
-		this.carreras = carreras;
+	public void setNumLibretaUniversitaria(String numLibretaUniversitaria) {
+		this.numLibretaUniversitaria = numLibretaUniversitaria;
 	}
+
+	public boolean isGraduado() {
+		return graduado;
+	}
+
+	public void setGraduado(boolean graduado) {
+		this.graduado = graduado;
+	}
+
+	@Override
+	public String toString() {
+		return "Estudiante [nombres=" + nombres + ", apellido=" + apellido + ", edad=" + edad + ", genero=" + genero
+				+ ", numDocumento=" + numDocumento + ", ciudadResidencia=" + ciudadResidencia
+				+ ", numLibretaUniversitaria=" + numLibretaUniversitaria + ", graduado=" + graduado + "]";
+	}
+
+	
 	
 
 }

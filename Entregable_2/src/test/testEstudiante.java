@@ -17,7 +17,7 @@ import org.apache.commons.csv.CSVRecord;
 
 import Entidades.Carrera;
 import Entidades.Estudiante;
-import Entidades.Estudiante_carrera;
+import Entidades.EstudianteCarrera;
 import Repositories.CarreraRepository;
 import Repositories.EstudianteRepository;
 import Repositories.Estudiante_carreraRepository;
@@ -103,7 +103,7 @@ public class testEstudiante {
 			inscripcion=(row.get("inscripcion"));
 			graduacion=(row.get("graduacion"));
 			antiguedad=(row.get("antiguedad"));
-			Estudiante_carrera e = new Estudiante_carrera();
+			EstudianteCarrera e = new EstudianteCarrera();
 			e=estudiante_carrera.insertar(id, id_estudiante, id_carrera,inscripcion,graduacion,antiguedad);
 			em.persist(e);
 		}

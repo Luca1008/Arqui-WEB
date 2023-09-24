@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 import Entidades.Carrera;
 import Entidades.Estudiante;
-import Entidades.Estudiante_carrera;
+import Entidades.EstudianteCarrera;
 import Interfaces.InterfaceEst_carr_repo;
 
 
@@ -27,15 +27,15 @@ public class Estudiante_carreraRepository implements InterfaceEst_carr_repo{
 	public void matricularEstudiante(Estudiante e, Carrera c) {
 
 		// Crea una nueva instancia de EstudianteCarrera
-        Estudiante_carrera estudianteCarrera = new Estudiante_carrera();
+        EstudianteCarrera estudianteCarrera = new EstudianteCarrera();
 		
 		// Establece las relaciones con el estudiante y la carrera
-        Estudiante_carrera.setEstudiante(e);
-        Estudiante_carrera.setCarrera(c);
+        EstudianteCarrera.setEstudiante(e);
+        EstudianteCarrera.setCarrera(c);
 
         String antiguedad = "0";
 		// Establece la antigüedad (u otro atributo relevante) en la relación
-        Estudiante_carrera.setAntiguedad(antiguedad);
+        EstudianteCarrera.setAntiguedad(antiguedad);
 
         // Inicia una transacción
         entityManager.getTransaction().begin();
@@ -49,9 +49,9 @@ public class Estudiante_carreraRepository implements InterfaceEst_carr_repo{
 	}
 
 	@Override
-	public Estudiante_carrera insertar(String id, String id_estudiante, String id_carrera, String inscripcion,
+	public EstudianteCarrera insertar(String id, String id_estudiante, String id_carrera, String inscripcion,
 			String graduacion, String antiguedad) {
-		Estudiante_carrera e = new Estudiante_carrera();
+		EstudianteCarrera e = new EstudianteCarrera();
 		e.setId(id);
 		e.setInscripcion(inscripcion);
 		e.setGraduacion(graduacion);
