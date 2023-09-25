@@ -17,7 +17,7 @@ import Interfaces.InterfaceEstudianteCarreraRepository;
 @Repository
 public class EstudianteCarreraRepository implements InterfaceEstudianteCarreraRepository{
 
-	private EntityManager em;
+	private static EntityManager em;
 
 	public EstudianteCarreraRepository() {
 		
@@ -27,7 +27,9 @@ public class EstudianteCarreraRepository implements InterfaceEstudianteCarreraRe
         this.em = entityManager;
     }
 
-	
+	public static void agragarEstudianteCarrera(EstudianteCarrera estudiante) {
+		em.persist(estudiante);
+	}
 
 	@Override
 	public List<Estudiante> obtenerEstudiantesPorCarreraYCiudad(String nombreCarrera, String ciudadResidencia) {

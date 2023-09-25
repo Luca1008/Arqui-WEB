@@ -33,25 +33,27 @@ public class testEstudiante {
 
 
 	public static void main(String[] args) throws FileNotFoundException, SQLException, IOException {
-
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entregable2");
-		EntityManager em = emf.createEntityManager();
 	
 		try {
 			em.getTransaction().begin();
-	
-			// Llamar a los métodos para insertar datos
-			insertarEstudiantes();
-			insertarCarreras();
-			insertarEstudiantesCarreras();
-	
+
 			// Llamar a los métodos para realizar consultas
 			EstudianteRepository estudianteRepository = new EstudianteRepository();
 			CarreraRepository carreraRepository = new CarreraRepository();
 			EstudianteCarreraRepository estudianteCarreraRepository = new EstudianteCarreraRepository();
 	
+			// Llamar a los métodos para insertar datos
+			insertarEstudiantes(estudianteRepository);
+			insertarCarreras(carreraRepository);
+			insertarEstudiantesCarreras(estudianteCarreraRepository);
+	
+			
+	
 			// Consultas y pruebas de otros métodos aquí
 			// Ejemplo: List<Estudiante> estudiantes = estudianteRepository.obtenerTodosEstudiantes();
+			@SuppressWarnings("unchecked")
+			List<Estudiante> estudiantes = estudianteRepository.obtenerTodosEstudiantes();
+			System.out.println("En esta base de datos hay "+ estudiantes.size()+ " estudiantes");
 	
 			em.getTransaction().commit();
 		} catch (Exception e) {
@@ -63,92 +65,64 @@ public class testEstudiante {
 		}
 	}
 	
-		public static void insertarEstudiantes() throws SQLException, FileNotFoundException, IOException {
+		public static void insertarEstudiantes(EstudianteRepository estudianteRepository) throws SQLException, FileNotFoundException, IOException {
 			// Código para insertar estudiantes desde el archivo CSV
+			File estudiantes =new File(ESTUDIANTES_FILE);
+			String apellido,nombre,genero,ciudad,libreta_universitaria,numDocumento;
+			int edad;
+			boolean graduado = false;
+
+			CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(estudiantes));
+			for (CSVRecord record : parser) {
+				numDocumento = record.get("numDocumento");
+				nombre = record.get("nombre");
+				apellido = record.get("apellido");
+                edad = Integer.parseInt(record.get("edad"));
+				genero = record.get("genero");
+				ciudad = record.get("ciudad");
+                libreta_universitaria = record.get("libreta_universitaria");
+                Estudiante estudiante = new Estudiante(nombre,apellido,edad,genero,numDocumento,ciudad,libreta_universitaria,graduado);
+                estudianteRepository.altaEstudiante(estudiante);
+            }
 		}
 	
-		public static void insertarCarreras() throws SQLException, FileNotFoundException, IOException {
+		public static void insertarCarreras(CarreraRepository carreraRepository) throws SQLException, FileNotFoundException, IOException {
 			// Código para insertar carreras desde el archivo CSV
+			File carreras =new File(CARRERAS_FILE);
+			String nombreCarrera;
+			int duracion;
+
+			CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(carreras));
+
+			for(CSVRecord record: parser) {
+				nombreCarrera=(record.get("carrera"));
+				duracion=Integer.parseInt(record.get("duracion"));
+				Carrera c= new Carrera(nombreCarrera, duracion);
+				carreraRepository.agragarCarrera(c);
+
+			}
 		}
 	
-		public static void insertarEstudiantesCarreras() throws SQLException, FileNotFoundException, IOException {
+		public static void insertarEstudiantesCarreras(EstudianteCarreraRepository estudianteCarreraRepository) throws SQLException, FileNotFoundException, IOException {
 			// Código para insertar relaciones Estudiante-Carrera desde el archivo CSV
-		}
+			File estudiantes_carreras =new File(ESTUDIANTE_CARRERA_FILE);
+			CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(estudiantes_carreras));
+			Long id, id_estudiante, id_carrera;
+			int antiguedad,inscripcion,graduacion;
 
-		em.getTransaction().begin();
-		
-		
-		
-		insertar();
-		
-	
-		@SuppressWarnings("unchecked")
-		List<Estudiante> estudiantes = em.createQuery("FROM Estudiante e").getResultList();
-		System.out.println("En esta base de datos hay "+ estudiantes.size()+ " estudiantes");
-		em.getTransaction().commit();
-		em.close();
-		emf.close();
-
-	}
-
-
-	public static void insertar() throws SQLException, FileNotFoundException, IOException{
-		CarreraRepository carrera = new CarreraRepository();
-		EstudianteRepository estudiante = new EstudianteRepository();
-		EstudianteCarreraRepository estudiante_carrera = new EstudianteCarreraRepository();
-		
-		
-		File estudiantes =new File(ESTUDIANTES_FILE);
-		File carreras =new File(CARRERAS_FILE);
-		File estudiantes_carreras =new File(ESTUDIANTE_CARRERA_FILE);
-		
-		
-		// The line `String apellido,edad,nombre,genero,ciudad,libreta_universitaria,id,
-		// duracion,id_estudiante,id_carrera,inscripcion,antiguedad,graduacion;` is declaring multiple
-		// variables of type `String`. These variables are used to store the values read from the CSV file
-		// for each record. Each variable corresponds to a specific column in the CSV file.
-		String apellido,edad,nombre,genero,ciudad,libreta_universitaria,id, duracion,id_estudiante,id_carrera,inscripcion,antiguedad,graduacion;
-		
-		CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(estudiantes));
 
 		
 		for(CSVRecord row: parser) {
-			id=(row.get("DNI"));
-			nombre=(row.get("nombre"));
-			apellido=(row.get("apellido"));
-			edad=(row.get("edad"));
-			genero=(row.get("genero"));
-			ciudad=(row.get("ciudad"));
-			libreta_universitaria=(row.get("LU"));
-			Estudiante e = new Estudiante();
-			e =estudiante.insertarEstudiante(id, nombre,apellido, edad,genero,ciudad,libreta_universitaria);
-			em.persist(e);
+			id=Long.parseLong(row.get("id"));
+			id_estudiante=Long.parseLong(row.get("id_estudiante"));
+			id_carrera=Long.parseLong(row.get("id_carrera"));
+			inscripcion=Integer.parseInt(row.get("inscripcion"));
+			graduacion=Integer.parseInt(row.get("graduacion"));
+			antiguedad=Integer.parseInt(row.get("antiguedad"));
+			EstudianteCarrera e = new EstudianteCarrera(id, id_estudiante,id_carrera,antiguedad,graduacion,inscripcion);
+			EstudianteCarreraRepository.agragarEstudianteCarrera(e);
+			
 		}
-		
-		parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(carreras));
-
-		for(CSVRecord row: parser) {
-			id=(row.get("id_carrera"));
-			nombre=(row.get("carrera"));
-			duracion=(row.get("duracion"));
-			Carrera c= new Carrera();
-			c=carrera.insertar_carrera(id,nombre, duracion);
-			em.persist(c);
-		}
-		parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(estudiantes_carreras));
-		
-		for(CSVRecord row: parser) {
-			id=(row.get("id"));
-			id_estudiante=(row.get("id_estudiante"));
-			id_carrera=(row.get("id_carrera"));
-			inscripcion=(row.get("inscripcion"));
-			graduacion=(row.get("graduacion"));
-			antiguedad=(row.get("antiguedad"));
-			EstudianteCarrera e = new EstudianteCarrera();
-			e=estudiante_carrera.insertar(id, id_estudiante, id_carrera,inscripcion,graduacion,antiguedad);
-			em.persist(e);
-		}
-		
 	}
 
 }

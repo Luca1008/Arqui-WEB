@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import Entidades.Carrera;
+import Entidades.Estudiante;
 import Interfaces.InterfaceCarreraRepository;
 
 import javax.persistence.EntityManager;
@@ -27,6 +28,11 @@ public class CarreraRepository implements InterfaceCarreraRepository {
 	public CarreraRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
+
+    
+	public void agragarCarrera(Carrera estudiante) {
+		entityManager.persist(estudiante);
+	}
 
 	@Override
 	public List<Carrera> obtenerCarrerasConEstudiantesOrdenadas() {

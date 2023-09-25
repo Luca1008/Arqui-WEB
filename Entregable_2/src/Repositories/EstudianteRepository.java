@@ -16,7 +16,7 @@ import Interfaces.InterfaceEstudianteRepository;
 public class EstudianteRepository implements InterfaceEstudianteRepository {
 	EntityManager em;
 
-	private EstudianteRepository() {
+	public EstudianteRepository() {
 
 	}
 

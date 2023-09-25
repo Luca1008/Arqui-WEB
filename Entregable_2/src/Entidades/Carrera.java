@@ -13,6 +13,7 @@ public class Carrera implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
+	private int duracion;
 
     @OneToMany(mappedBy = "carrera", cascade = CascadeType.ALL)
     private List<EstudianteCarrera> estudianteCarreras = new ArrayList<>();
@@ -20,8 +21,9 @@ public class Carrera implements Serializable {
 	public Carrera() {
 	}
 
-	public Carrera(String nombre) {
+	public Carrera(String nombre, int duracion) {
 		this.nombre = nombre;
+		this.duracion = duracion;
 		this.estudianteCarreras = new ArrayList<>();
 	}
 
