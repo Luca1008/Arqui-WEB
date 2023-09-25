@@ -5,76 +5,54 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import Entidades.Carrera;
 import Entidades.Estudiante;
-import Interfaces.InterfaceEstudianteRepo;
+import Interfaces.InterfaceEstudianteRepository;
 
 @Repository
-public class EstudianteRepository implements InterfaceEstudianteRepo {
+public class EstudianteRepository implements InterfaceEstudianteRepository {
 	EntityManager em;
 
-	public EstudianteRepository() {
+	private EstudianteRepository() {
 
 	}
 
-	
-
-	public EstudianteRepository(EntityManager em) {
+	private EstudianteRepository(EntityManager em) {
 		this.em = em;
 	}
 
 
 
 	@Override
-	public List<Estudiante> listarEstudiantes() {
-		return em.createQuery("SELECT e FROM Estudiante e", Estudiante.class).getResultList();
+	public void altaEstudiante(Estudiante estudiante) {
+		em.persist(estudiante);
 	}
 
 	@Override
-	public List<Estudiante> listarEstudiantes(String genero) {
-		TypedQuery<Estudiante> query = em.createQuery(
-                "SELECT e FROM Estudiante e ORDER BY e.genero", Estudiante.class);
-        return query.getResultList();
+	public List<Estudiante> obtenerTodosEstudiantes() {
+		String jpql = "SELECT e FROM Estudiante e";
+        return em.createQuery(jpql, Estudiante.class)
+                .getResultList();
 	}
 
 	@Override
-	public Estudiante buscarPorLibreta(int numeroLibreta) {
-		return em.createQuery("SELECT e FROM Estudiante e WHERE e.numLibretaUniversitaria = :numeroLibreta", Estudiante.class)
-                .setParameter("numeroLibreta", numeroLibreta)
+	public Estudiante obtenerEstudiantePorLibreta(String numLibretaUniversitaria) {
+		String jpql = "SELECT e FROM Estudiante e WHERE e.numLibretaUniversitaria = :numLibreta";
+        return em.createQuery(jpql, Estudiante.class)
+                .setParameter("numLibreta", numLibretaUniversitaria)
                 .getSingleResult();
 	}
 
 	@Override
-	public Estudiante insertarEstudiante(String DNI, String nombre, String apellido, String edad, String genero,
-			String ciudad,
-			String LU) {
-
-		Estudiante nuevoEstudiante = new Estudiante();
-		nuevoEstudiante.setDNI(DNI);
-		nuevoEstudiante.setNombre(nombre);
-		nuevoEstudiante.setApellido(apellido);
-		nuevoEstudiante.setEdad(edad);
-		nuevoEstudiante.setGenero(genero);
-		nuevoEstudiante.setCiudad(ciudad);
-		nuevoEstudiante.setLibreta_universitaria(LU);
-
-		return nuevoEstudiante;
-
+	public List<Estudiante> obtenerEstudiantesPorGenero(String genero) {
+		String jpql = "SELECT e FROM Estudiante e WHERE e.genero = :genero";
+        return em.createQuery(jpql, Estudiante.class)
+                .setParameter("genero", genero)
+                .getResultList();
 	}
 
-	@Override
-	public List<Estudiante> estudiantesDe(Carrera carrera) {
-		TypedQuery<Estudiante> query = em.createQuery(
-                "SELECT e FROM Estudiante e " +
-                "JOIN e.estudianteCarreras ec " +
-                "WHERE ec.carrera.nombre = :nombreCarrera " +
-                "ORDER BY e.ciudadResidencia", Estudiante.class);
-
-        query.setParameter("nombreCarrera", carrera);
-
-        return query.getResultList();
-	}
 
 }

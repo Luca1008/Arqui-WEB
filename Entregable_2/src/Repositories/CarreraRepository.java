@@ -1,18 +1,22 @@
 package Repositories;
 
 
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import Entidades.Carrera;
+import Interfaces.InterfaceCarreraRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.springframework.stereotype.Repository;
-import Entidades.Carrera;
-import Interfaces.InterfaceCarreraRepo;
+import java.util.Comparator;
+import java.util.List;
 
 
 @Repository
-public class CarreraRepository implements InterfaceCarreraRepo {
+public class CarreraRepository implements InterfaceCarreraRepository {
 
 	private EntityManager entityManager;
 
@@ -25,26 +29,30 @@ public class CarreraRepository implements InterfaceCarreraRepo {
     }
 
 	@Override
-	public Carrera insertar_carrera(String id, String carrera, String duracion) {
-		Carrera nuevaCarrera = new Carrera();
-		nuevaCarrera.setId_carrera(id);
-		nuevaCarrera.setCarrera(carrera);
-		nuevaCarrera.setDuracion(duracion);
-		return nuevaCarrera;
-		
-		
-	}
+	public List<Carrera> obtenerCarrerasConEstudiantesOrdenadas() {
+	  String jpql = "SELECT c " +
+                      "FROM Carrera c " +
+                      "WHERE EXISTS (SELECT ec FROM EstudianteCarrera ec WHERE ec.carrera = c)";
 
-	@Override
-	public List<Carrera> carreraConInscriptos() {
-		TypedQuery<Carrera> query = entityManager.createQuery(
-                "SELECT c FROM Carrera c " +
-                "JOIN FETCH c.estudianteCarreras ec " +
-                "GROUP BY c " +
-                "ORDER BY COUNT(ec) DESC", Carrera.class);
+        TypedQuery<Carrera> query = entityManager.createQuery(jpql, Carrera.class);
+        List<Carrera> carreras = query.getResultList();
 
-        return query.getResultList();
-	} //ACA HACER LO DE TEST ESTUDIANTES PERO EN CADA TABLA
+        // Puedes ordenar las carreras por la cantidad de inscritos en memoria si es necesario
+        carreras.sort(Comparator.comparingInt(c -> obtenerCantidadInscritos(c)));
+
+        return carreras;
+    }
+
+    private int obtenerCantidadInscritos(Carrera carrera) {
+        String jpql = "SELECT COUNT(ec) FROM EstudianteCarrera ec WHERE ec.carrera = :carrera";
+        Long cantidad = entityManager.createQuery(jpql, Long.class)
+                .setParameter("carrera", carrera)
+                .getSingleResult();
+        return cantidad.intValue();
+    }
+
+
+	
 	
 }
 

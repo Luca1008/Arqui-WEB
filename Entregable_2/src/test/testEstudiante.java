@@ -20,7 +20,7 @@ import Entidades.Estudiante;
 import Entidades.EstudianteCarrera;
 import Repositories.CarreraRepository;
 import Repositories.EstudianteRepository;
-import Repositories.Estudiante_carreraRepository;
+import Repositories.EstudianteCarreraRepository;
 
 
 public class testEstudiante {
@@ -33,7 +33,48 @@ public class testEstudiante {
 
 
 	public static void main(String[] args) throws FileNotFoundException, SQLException, IOException {
-		
+
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Entregable2");
+		EntityManager em = emf.createEntityManager();
+	
+		try {
+			em.getTransaction().begin();
+	
+			// Llamar a los métodos para insertar datos
+			insertarEstudiantes();
+			insertarCarreras();
+			insertarEstudiantesCarreras();
+	
+			// Llamar a los métodos para realizar consultas
+			EstudianteRepository estudianteRepository = new EstudianteRepository();
+			CarreraRepository carreraRepository = new CarreraRepository();
+			EstudianteCarreraRepository estudianteCarreraRepository = new EstudianteCarreraRepository();
+	
+			// Consultas y pruebas de otros métodos aquí
+			// Ejemplo: List<Estudiante> estudiantes = estudianteRepository.obtenerTodosEstudiantes();
+	
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			e.printStackTrace();
+		} finally {
+			em.close();
+			emf.close();
+		}
+	}
+	
+		public static void insertarEstudiantes() throws SQLException, FileNotFoundException, IOException {
+			// Código para insertar estudiantes desde el archivo CSV
+		}
+	
+		public static void insertarCarreras() throws SQLException, FileNotFoundException, IOException {
+			// Código para insertar carreras desde el archivo CSV
+		}
+	
+		public static void insertarEstudiantesCarreras() throws SQLException, FileNotFoundException, IOException {
+			// Código para insertar relaciones Estudiante-Carrera desde el archivo CSV
+		}
+
 		em.getTransaction().begin();
 		
 		
@@ -54,7 +95,7 @@ public class testEstudiante {
 	public static void insertar() throws SQLException, FileNotFoundException, IOException{
 		CarreraRepository carrera = new CarreraRepository();
 		EstudianteRepository estudiante = new EstudianteRepository();
-		Estudiante_carreraRepository estudiante_carrera = new Estudiante_carreraRepository();
+		EstudianteCarreraRepository estudiante_carrera = new EstudianteCarreraRepository();
 		
 		
 		File estudiantes =new File(ESTUDIANTES_FILE);
