@@ -1,0 +1,103 @@
+{
+    // Use IntelliSense para saber los atributos posibles.
+    // Mantenga el puntero para ver las descripciones de los existentes atributos.
+    // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "DemoApplication",
+            "request": "launch",
+            "mainClass": "Integrador1/com.example.demo.DemoApplication",
+            "projectName": ""
+        },
+        {
+            "name": "Java",
+            "type": "java",
+            "request": "launch",
+            "stopOnEntry": true,
+            "jdkPath": "${env:JAVA_HOME}/bin",
+            "cwd": "${fileDirname}",
+            "startupClass": "${fileBasenameNoExtension}",
+            "classpath": [
+                ".",
+                "${fileDirname}"
+            ]
+        },
+        {
+            "name": "Java Console App",
+            "type": "java",
+            "request": "launch",
+            "stopOnEntry": true,
+            "jdkPath": "${env:JAVA_HOME}/bin",
+            "cwd": "${fileDirname}",
+            "startupClass": "${fileBasenameNoExtension}",
+            "classpath": [
+                ".",
+                "${fileDirname}"
+            ],
+            "externalConsole": true
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "main.Main",
+            "projectName": "Entregable2"
+        },
+        {
+            "type": "java",
+            "name": "BaseDeDatos",
+            "request": "launch",
+            "mainClass": "Practico/BaseDeDatos.BaseDeDatos",
+            "projectName": "Practico"
+        },
+        {
+            "type": "java",
+            "name": "Insert",
+            "request": "launch",
+            "mainClass": "Practico/BaseDeDatos.Insert",
+            "projectName": "Practico"
+        },
+        {
+            "type": "java",
+            "name": "Select",
+            "request": "launch",
+            "mainClass": "Practico/BaseDeDatos.Select",
+            "projectName": "Practico"
+        },
+        {
+            "type": "java",
+            "name": "BaseDeDatos(1)",
+            "request": "launch",
+            "mainClass": "TP1_1/BaseDeDatos.BaseDeDatos",
+            "projectName": "TP1_1"
+        },
+        {
+            "type": "java",
+            "name": "Select(1)",
+            "request": "launch",
+            "mainClass": "TP1_1/BaseDeDatos.Select",
+            "projectName": "TP1_1"
+        },
+        {
+            "type": "java",
+            "name": "Debug Spring Boot Application",
+            "request": "launch",
+            "mainClass": "com.example.demo.DemoApplication",
+            "projectName": "demo",
+            "args": "",
+            "vmArgs": "",
+            "classpath": [
+                "demo/target/classes",
+                "demo/target/lib/*"
+            ]
+        }
+    ]
+}
