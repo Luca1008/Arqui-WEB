@@ -1,5 +1,11 @@
 package com.example.demo.repository;
 
-public interface CarreraRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.example.demo.model.Carrera;
+
+public interface CarreraRepository extends JpaRepository<Carrera, Long> {
     
+    @Query
 }
