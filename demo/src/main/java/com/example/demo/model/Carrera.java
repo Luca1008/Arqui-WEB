@@ -2,18 +2,17 @@ package com.example.demo.model;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Carrera {
-    @Id
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "carrera_id")
 	private int carreraId;
@@ -24,17 +23,16 @@ public class Carrera {
 	private int duracion;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "carrera")
-	private Set<CarreraEstudiante> estudiantes;
+	private Set<EstudianteCarrera> estudiantes;
 
 	public Carrera() {
-	
 
 	}
 
 	public Carrera(String nombre, int duracion) {
 		this.nombre = nombre;
 		this.duracion = duracion;
-		this.estudiantes = new HashSet<CarreraEstudiante>();
+		this.estudiantes = new HashSet<EstudianteCarrera>();
 	}
 
 	public String getNombre() {
@@ -45,11 +43,11 @@ public class Carrera {
 		this.nombre = nombre;
 	}
 
-	public Set<CarreraEstudiante> getEstudiantes() {
+	public Set<EstudianteCarrera> getEstudiantes() {
 		return estudiantes;
 	}
 
-	public void setEstudiantes(Set<CarreraEstudiante> estudiantes) {
+	public void setEstudiantes(Set<EstudianteCarrera> estudiantes) {
 		this.estudiantes = estudiantes;
 	}
 
@@ -63,4 +61,3 @@ public class Carrera {
 	}
 
 }
-

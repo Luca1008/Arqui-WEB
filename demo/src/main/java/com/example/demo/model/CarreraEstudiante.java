@@ -1,127 +1,133 @@
 package com.example.demo.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.Calendar;
 
 @Entity
-public class CarreraEstudiante {
-    @Id 
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column (name = "estudiante_id")
-	private int estudianteId;
+@Table(name = "estudiante_carrera")
+public class EstudianteCarrera {
+
+	@EmbeddedId
+	private CarreraEstudianteId idEstudianteCarrera;
+
+	@ManyToOne(targetEntity = Estudiante.class)
+	@MapsId("estudianteId")
+	@JoinColumn(name = "estudiante_id")
+	private Estudiante estudiante;
+
+	@ManyToOne(targetEntity = Carrera.class)
+	@MapsId("carreraId")
+	@JoinColumn(name = "carrera_id")
+	private Carrera carrera;
 	@Column
-	private int dni;
+	private Timestamp inscripcion;
 	@Column
-	private String nombre;
+	private Timestamp egreso;
 	@Column
-	private String apellido;
+	private int antiguedad;
 	@Column
-	private int edad;
-	@Column
-	private String genero;
-	
-	@Column (name="ciudad")
-	private String ciudadResidencia;
-	
-	@Column
-	private int LU;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estudiante")
-	private Set<CarreraEstudiante> carreras;
-	
-	public void Estudiante(int dni, String nombre, String apellido, int edad, String genero, String ciudad, int Lu) {
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.edad = edad;
-		this.genero = genero;
-		this.dni = dni;
-		this.ciudadResidencia = ciudad;
-		this.LU = Lu;
-		this.carreras = new HashSet<CarreraEstudiante>();
+	private Boolean graduado;
+
+	public EstudianteCarrera() {
+
 	}
 
-	public void Estudiante() {
-	
+	public EstudianteCarrera(Estudiante e, Carrera c, Timestamp anio_inscripcion, Timestamp anio_egreso,
+			CarreraEstudianteId id) {
+		this.idEstudianteCarrera = id;
+		this.estudiante = e;
+		this.carrera = c;
+		this.inscripcion = anio_inscripcion;
+		this.egreso = anio_egreso;
+		this.antiguedad = this.getAntiguedad(anio_inscripcion);
+		this.graduado = this.verificarGraduado(anio_egreso);
 	}
 
-	public String getNombres() {
-		return nombre;
+	public boolean isGraduado() {
+		return graduado;
 	}
 
-	public void setNombres(String nombres) {
-		this.nombre = nombres;
+	public boolean verificarGraduado(Timestamp anio_egreso) {
+		return !(anio_egreso == null);
 	}
 
-	public String getApellido() {
-		return apellido;
+	public void setGraduado(boolean graduado) {
+		this.graduado = graduado;
 	}
 
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	public Estudiante getEstudiante() {
+		return estudiante;
 	}
 
-	public int getEdad() {
-		return edad;
+	public void setEstudiante(Estudiante estudiante) {
+		this.estudiante = estudiante;
 	}
 
-	public void setEdad(int edad) {
-		this.edad = edad;
+	public Carrera getCarrera() {
+		return carrera;
 	}
 
-	public String getGenero() {
-		return genero;
+	public void setCarrera(Carrera carrera) {
+		this.carrera = carrera;
 	}
 
-	public void setGenero(String genero) {
-		this.genero = genero;
+	public Timestamp getAnio_inscripcion() {
+		return this.inscripcion;
 	}
 
-	public int getDni() {
-		return dni;
+	public Timestamp getAnio_egreso() {
+		return this.egreso;
 	}
 
-	
-
-	public int getId_estudiante() {
-		return estudianteId;
+	public void setAnio_inscripcion(Timestamp anio_inscripcion) {
+		this.inscripcion = anio_inscripcion;
 	}
 
-	public String getCiudadResidencia() {
-		return ciudadResidencia;
+	public void setAnio_egreso(Timestamp anio_egreso) {
+		this.egreso = anio_egreso;
 	}
 
-	public void setCiudadResidencia(String ciudadResidencia) {
-		this.ciudadResidencia = ciudadResidencia;
+	public Integer getAntiguedad(Timestamp anio_inscripcion) {
+		Calendar fechaInscripcion = Calendar.getInstance();
+		fechaInscripcion.setTimeInMillis(this.inscripcion.getTime());
+		return Calendar.getInstance().get(Calendar.YEAR) - fechaInscripcion.get(Calendar.YEAR);
 	}
 
-	public int getNumeroLibreta() {
-		return LU;
+	public void setAntiguedad(int antiguedad) {
+		this.antiguedad = antiguedad;
 	}
 
-	public void setNumeroLibreta(int numeroLibreta) {
-		this.LU = numeroLibreta;
-	}
-	
-	public Set<CarreraEstudiante> getCarreras() {
-		return carreras;
-	}
-
-	public void setJugadores(Set<CarreraEstudiante> carreras) {
-		this.carreras = carreras;
+	public CarreraEstudianteId getIdEstudianteCarrera() {
+		return idEstudianteCarrera;
 	}
 
 	@Override
 	public String toString() {
-		return "Estudiante [id_estudiante=" + estudianteId + ", dni=" + dni + ", nombre=" + nombre + ", apellido="
-				+ apellido + ", edad=" + edad + ", genero=" + genero + ", ciudadResidencia=" + ciudadResidencia
-				+ ", LU=" + LU + ", carreras=" + carreras + "]";
+		return "EstudianteCarrera [idEstudianteCarrera=" + idEstudianteCarrera + ", fecha_inscripcion=" + inscripcion
+				+ ", fecha_egreso=" + egreso
+				+ ", antiguedad=" + antiguedad + "]";
 	}
+
+	public void setIdEstudianteCarrera(CarreraEstudianteId idComp) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void setFecha_inscripcion(Timestamp inscrip) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

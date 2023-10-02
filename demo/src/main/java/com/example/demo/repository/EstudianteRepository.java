@@ -1,11 +1,21 @@
 package com.example.demo.repository;
 
+import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.cdi.JpaRepositoryExtension;
+import dto.DtoEstudiante;
+import entities.Estudiante;
 
-import com.example.demo.model.Estudiante;
-
-public interface EstudianteRepository extends JpaRepository<Estudiante, Long> {
-    
+public interface EstudianteRepository {
+	
+	
+	void altaEstudiante(Estudiante e);
+	DtoEstudiante estudiantePorLibreta(int numeroLibreta);
+	List<DtoEstudiante> listaPorGenero(String genero);
+	List<DtoEstudiante> listaPorApellido();
+	
+	
+	
+	
+	
+	
 }
