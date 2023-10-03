@@ -2,15 +2,12 @@ package com.example.demo.model;
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+
+import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
+@Data
 public class Estudiante {
 
     @Id
@@ -29,13 +26,13 @@ public class Estudiante {
     private String genero;
 
     @Column(name = "ciudad")
-    private String ciudadResidencia;
+    private String ciudad;
 
     @Column
     private int LU;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "estudiante")
-    private Set<EstudianteCarrera> carreras;
+    private Set<CarreraEstudiante> carreras;
 
     public Estudiante(int dni, String nombre, String apellido, int edad, String genero, String ciudad, int Lu) {
         this.nombre = nombre;
@@ -43,87 +40,20 @@ public class Estudiante {
         this.edad = edad;
         this.genero = genero;
         this.dni = dni;
-        this.ciudadResidencia = ciudad;
+        this.ciudad = ciudad;
         this.LU = Lu;
-        this.carreras = new HashSet<EstudianteCarrera>();
+        this.carreras = new HashSet<CarreraEstudiante>();
     }
 
     public Estudiante() {
 
     }
 
-    public String getNombres() {
-        return nombre;
-    }
-
-    public void setNombres(String nombres) {
-        this.nombre = nombres;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public int getEdad() {
-        return edad;
-    }
-
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public int getDni() {
-        return dni;
-    }
-
-    public void setDni(int dni){
-        this.dni = dni;
-    }
-
-    public int getId_estudiante() {
-        return estudianteId;
-    }
-
-    public String getCiudadResidencia() {
-        return ciudadResidencia;
-    }
-
-    public void setCiudadResidencia(String ciudadResidencia) {
-        this.ciudadResidencia = ciudadResidencia;
-    }
-
-    public int getNumeroLibreta() {
-        return LU;
-    }
-
-    public void setNumeroLibreta(int numeroLibreta) {
-        this.LU = numeroLibreta;
-    }
-
-    public Set<EstudianteCarrera> getCarreras() {
-        return carreras;
-    }
-
-    public void setJugadores(Set<EstudianteCarrera> carreras) {
-        this.carreras = carreras;
-    }
-
+    
     @Override
     public String toString() {
         return "Estudiante [id_estudiante=" + estudianteId + ", dni=" + dni + ", nombre=" + nombre + ", apellido="
-                + apellido + ", edad=" + edad + ", genero=" + genero + ", ciudadResidencia=" + ciudadResidencia
+                + apellido + ", edad=" + edad + ", genero=" + genero + ", ciudad=" + ciudad
                 + ", LU=" + LU + ", carreras=" + carreras + "]";
     }
 

@@ -2,10 +2,12 @@ package com.example.demo.repository;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
+import com.example.demo.dtos.DtoEstudiante;
+import com.example.demo.model.Estudiante;
 
-import dto.DtoEstudiante;
-import entities.Estudiante;
+import jakarta.persistence.EntityManager;
+
+
 
 public class EstudianteRepositoryImpl implements EstudianteRepository {
 	private EntityManager em;
@@ -55,6 +57,8 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 		return resultados;
 
 	}
+
+
 
 	
 }

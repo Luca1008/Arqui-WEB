@@ -2,15 +2,14 @@ package com.example.demo.model;
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+
 
 @Entity
+@Data
 public class Carrera {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +22,7 @@ public class Carrera {
 	private int duracion;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "carrera")
-	private Set<EstudianteCarrera> estudiantes;
+	private Set<CarreraEstudiante> estudiantes;
 
 	public Carrera() {
 
@@ -32,29 +31,9 @@ public class Carrera {
 	public Carrera(String nombre, int duracion) {
 		this.nombre = nombre;
 		this.duracion = duracion;
-		this.estudiantes = new HashSet<EstudianteCarrera>();
+		this.estudiantes = new HashSet<CarreraEstudiante>();
 	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public Set<EstudianteCarrera> getEstudiantes() {
-		return estudiantes;
-	}
-
-	public void setEstudiantes(Set<EstudianteCarrera> estudiantes) {
-		this.estudiantes = estudiantes;
-	}
-
-	public int getId_carrera() {
-		return carreraId;
-	}
-
+	
 	@Override
 	public String toString() {
 		return "Carrera [id_carrera=" + carreraId + ", nombre=" + nombre + "]";

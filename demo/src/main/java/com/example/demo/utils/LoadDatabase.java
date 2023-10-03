@@ -5,81 +5,82 @@ import com.example.demo.repository.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.sql.Timestamp;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.ResourceUtils;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 
 @Configuration
-@Slf4j
-class LoadDatabase {
+public class LoadDatabase {
 
-    @Bean
-    CommandLineRunner initDatabase(@Qualifier("EstudianteRepository") EstudianteRepository EstudianteRepository) {
-        return args -> {
-            //cargar los diferentes elemnetos a la base de datos
-            File archivoCSV = ResourceUtils.getFile("src/main/java/com/example/demo/csv/estudiante.csv");
+    private final CarreraRepositoryImpl CarreraRepository;
+    private final EstudianteCarreraRepositoryImpl EstudianteCarreraRepository;
+    private final EstudianteRepositoryImpl EstudianteRepository;
 
-            try (FileReader reader = new FileReader(archivoCSV);
+    @Autowired
+    public LoadDatabase(CarreraRepositoryImpl CarreraRepository,
+            EstudianteCarreraRepositoryImpl EstudianteCarreraRepository,
+            EstudianteRepositoryImpl EstudianteRepository) {
+        this.CarreraRepository = CarreraRepository;
+        this.EstudianteCarreraRepository = EstudianteCarreraRepository;
+        this.EstudianteRepository = EstudianteRepository;
+    }
+
+    public void initDatabase() throws IOException {
+        // cargar los diferentes elemnetos a la base de datos
+        File archivoCSVEstudiante = ResourceUtils.getFile("src/main/java/com/example/demo/csv/estudiante.csv");
+        File archivoCSVCarrera = ResourceUtils.getFile("src/main/java/com/example/demo/csv/carrera.csv");
+        File archivoCSVEstudianteCarrera = ResourceUtils
+                .getFile("src/main/java/com/example/demo/csv/estudianteCarrera.csv");
+
+        try (FileReader reader = new FileReader(archivoCSVEstudiante);
                 CSVParser csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader)) {
 
-                for (CSVRecord csvRecord : csvParser) {
-                    Estudiante estudiante = new Estudiante();
-                    estudiante.setDni(Integer.parseInt(csvRecord.get("DNI")));
-                    estudiante.setNombre(csvRecord.get("nombre"));
-                    estudiante.setApellido(csvRecord.get("apellido"));
-                    estudiante.setEdad(Integer.parseInt(csvRecord.get("edad")));
-                    estudiante.setGenero(csvRecord.get("genero"));
-                    estudiante.setCiudad(csvRecord.get("ciudad"));
-                    estudiante.setNumeroLibreta(Integer.parseInt(csvRecord.get("numeroLibreta")));
-                    Log.info("Preloading" + EstudianteRepository.save(estudiante)); // Guarda el perro en la base de datos
-                }
+            for (CSVRecord csvRecord : csvParser) {
+                Estudiante estudiante = new Estudiante();
+                estudiante.setDni(Integer.parseInt(csvRecord.get("DNI")));
+                estudiante.setNombre(csvRecord.get("nombre"));
+                estudiante.setApellido(csvRecord.get("apellido"));
+                estudiante.setEdad(Integer.parseInt(csvRecord.get("edad")));
+                estudiante.setGenero(csvRecord.get("genero"));
+                estudiante.setCiudad(csvRecord.get("ciudad"));
+                estudiante.setLU(Integer.parseInt(csvRecord.get("numeroLibreta")));
+                EstudianteRepository.save(estudiante);
             }
-
-        };
-    }
-    CommandLineRunner initDatabase(@Qualifier("CarreraRepository") CarreraRepository CarreraRepository) {
-        return args -> {
-
-            //cargar los diferentes elemnetos a la base de datos
-            File archivoCSV = ResourceUtils.getFile("src/main/java/com/example/demo/csv/carrera.csv");
-
-            try (FileReader reader = new FileReader(archivoCSV);
+        }
+        try (FileReader reader = new FileReader(archivoCSVCarrera);
                 CSVParser csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader)) {
 
-                for (CSVRecord csvRecord : csvParser) {
-                    Carrera carrera = new Carrera();
-                    carrera.setNombre(csvRecord.get("nombre"));
-                    carrera.setDuracion(Integer.parseInt(csvRecord.get("duracion")));
-                    Log.info("Preloading" + CarreraRepository.save(carrera)); // Guarda el perro en la base de datos
-                }
+            for (CSVRecord csvRecord : csvParser) {
+                Carrera carrera = new Carrera();
+                carrera.setNombre(csvRecord.get("nombre"));
+                carrera.setDuracion(Integer.parseInt(csvRecord.get("duracion")));
+                CarreraRepository.save(carrera);
             }
-
-        };
-    }
-    CommandLineRunner initDatabase(@Qualifier("personRepository") CERepository repository) {
-        return args -> {
-            /* log.info("Preloading " + repository.save(new Person((long) 1234,"Seba", "Perez")));
-            log.info("Preloading " + repository.save(new Person((long) 2345, "Juan", "Dominguez"))); */
-
-            //cargar los diferentes elemnetos a la base de datos
-            File archivoCSV = ResourceUtils.getFile("src/main/java/com/example/demo/csv/estudiante.csv");
-
-            try (FileReader reader = new FileReader(archivoCSV);
+        }
+        try (FileReader reader = new FileReader(archivoCSVEstudianteCarrera);
                 CSVParser csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader)) {
 
-                for (CSVRecord csvRecord : csvParser) {
-                    Estudiante estudiante = new Estudiante();
-                    estudiante.setNombre(csvRecord.get("nombre"));
-                    estudiante.setRaza(csvRecord.get("raza"));
-                    estudiante.setEdad(Integer.parseInt(csvRecord.get("edad")));
-                    estudiante.setHabilidad(csvRecord.get("habilidad"));
-                    Log.info("Preloading" + EstudianteRepository.save(estudiante)); // Guarda el perro en la base de datos
-                }
+            for (CSVRecord csvRecord : csvParser) {
+                CarreraEstudiante CE = new CarreraEstudiante();
+                CE.setCarrera(Integer.parseInt(csvRecord.get("idCarrera")));
+                CE.setEstudiante(Integer.parseInt(csvRecord.get("idEstudiante")));
+                CE.setInscripcion(Timestamp.valueOf(csvRecord.get("fechaInscripcion")));
+                CE.setEgreso(Timestamp.valueOf(csvRecord.get("fechaEgreso")));
+                EstudianteCarreraRepository.save(CE);
             }
+        }
 
-        };
-    }
+    };
+
 }

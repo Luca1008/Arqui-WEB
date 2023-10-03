@@ -2,35 +2,29 @@ package com.example.demo.repository;
 
 import java.sql.Timestamp;
 import java.util.List;
-import javax.persistence.EntityManager;
-import dto.DtoEstudianteCarrera;
-import dto.DtoCarrera;
-import entities.Carrera;
-import entities.Estudiante;
-import entities.EstudianteCarrera;
-import entities.CarreraEstudianteId;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import com.example.demo.dtos.DtoCarrera;
+import com.example.demo.dtos.DtoEstudianteCarrera;
+import com.example.demo.model.CarreraEstudiante;
+
+
+import jakarta.persistence.EntityManager;
+
+@Repository("EstudianteCarreraRepositoryImpl")
 public class EstudianteCarreraRepositoryImpl implements EstudianteCarreraRepository {
-	private EntityManager em;
-
-	public EstudianteCarreraRepositoryImpl(EntityManager em) {
-		this.em = em;
-	}
 
 	@Override
-	public void matricularEstudiante(int idEst, int idCarr, Timestamp fechaInsc, Timestamp fechaEgreso) {
-		Estudiante e = em.find(Estudiante.class, idEst);
-		Carrera c = em.find(Carrera.class, idCarr);
-		CarreraEstudianteId claveComp = new CarreraEstudianteId();
-		EstudianteCarrera estCarr = new EstudianteCarrera(e, c, fechaInsc, fechaEgreso, claveComp);
-
+	public void matricularEstudiante(CarreraEstudiante e) {
 		this.em.getTransaction().begin();
-		em.persist(estCarr);
+		em.persist(e);
 		this.em.getTransaction().commit();
 
 	}
 
-	@Override
+	@Query("SELECT new dto.DtoCarrera(c.nombre , c.duracion) FROM Carrera c JOIN  c.estudiantes e GROUP BY c ORDER BY COUNT(e) DESC")
 	public List<DtoCarrera> carrerasConInscriptos() {
 		@SuppressWarnings("unchecked")
 		List<DtoCarrera> carrerasConInscriptosPorCantInsc = em.createQuery(

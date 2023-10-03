@@ -1,12 +1,9 @@
 package com.example.demo.repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import com.example.demo.model.Carrera;
 
-
-import entities.Carrera;
-import entities.Estudiante;
-
-public interface CarreraRepository {
+public interface CarreraRepository extends JpaRepository<Carrera, Long>{
 	
 	void insertarCarrera(Carrera c);
 

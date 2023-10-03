@@ -1,6 +1,9 @@
 package com.example.demo.repository;
-import javax.persistence.EntityManager;
-import entities.Carrera;
+
+import com.example.demo.model.Carrera;
+
+import jakarta.persistence.EntityManager;
+import com.example.demo.model.Carrera;
 
 public class CarreraRepositoryImpl implements CarreraRepository {
 	private EntityManager em;
@@ -10,7 +13,7 @@ public class CarreraRepositoryImpl implements CarreraRepository {
 	}
 
 	@Override
-	public void insertarCarrera(Carrera c) {
+	public void insertarCarrera (Carrera c) {
 		this.em.getTransaction().begin();
 		if (!em.contains(c)) {
 			em.persist(c);
