@@ -2,18 +2,12 @@ package com.example.demo.utils;
 
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
-import lombok.extern.slf4j.Slf4j;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Timestamp;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ResourceUtils;
 import org.apache.commons.csv.CSVFormat;
@@ -23,14 +17,15 @@ import org.apache.commons.csv.CSVRecord;
 @Configuration
 public class LoadDatabase {
 
-    private final CarreraRepositoryImpl CarreraRepository;
-    private final EstudianteCarreraRepositoryImpl EstudianteCarreraRepository;
-    private final EstudianteRepositoryImpl EstudianteRepository;
+    private final CarreraRepository CarreraRepository;
+    private final EstudianteCarreraRepository EstudianteCarreraRepository;
+    private final EstudianteRepository EstudianteRepository;
 
     @Autowired
-    public LoadDatabase(CarreraRepositoryImpl CarreraRepository,
-            EstudianteCarreraRepositoryImpl EstudianteCarreraRepository,
-            EstudianteRepositoryImpl EstudianteRepository) {
+    public LoadDatabase(CarreraRepository CarreraRepository,
+            EstudianteCarreraRepository EstudianteCarreraRepository,
+            EstudianteRepository EstudianteRepository) {
+
         this.CarreraRepository = CarreraRepository;
         this.EstudianteCarreraRepository = EstudianteCarreraRepository;
         this.EstudianteRepository = EstudianteRepository;
@@ -38,8 +33,8 @@ public class LoadDatabase {
 
     public void initDatabase() throws IOException {
         // cargar los diferentes elemnetos a la base de datos
-        File archivoCSVEstudiante = ResourceUtils.getFile("src/main/java/com/example/demo/csv/estudiante.csv");
-        File archivoCSVCarrera = ResourceUtils.getFile("src/main/java/com/example/demo/csv/carrera.csv");
+        File archivoCSVEstudiante = ResourceUtils.getFile("src/main/java/com/example/demo/csv/estudiantes.csv");
+        File archivoCSVCarrera = ResourceUtils.getFile("src/main/java/com/example/demo/csv/carreras.csv");
         File archivoCSVEstudianteCarrera = ResourceUtils
                 .getFile("src/main/java/com/example/demo/csv/estudianteCarrera.csv");
 
@@ -54,7 +49,7 @@ public class LoadDatabase {
                 estudiante.setEdad(Integer.parseInt(csvRecord.get("edad")));
                 estudiante.setGenero(csvRecord.get("genero"));
                 estudiante.setCiudad(csvRecord.get("ciudad"));
-                estudiante.setLU(Integer.parseInt(csvRecord.get("numeroLibreta")));
+                estudiante.setLU(Integer.parseInt(csvRecord.get("LU")));
                 EstudianteRepository.save(estudiante);
             }
         }
@@ -63,7 +58,7 @@ public class LoadDatabase {
 
             for (CSVRecord csvRecord : csvParser) {
                 Carrera carrera = new Carrera();
-                carrera.setNombre(csvRecord.get("nombre"));
+                carrera.setCarrera(csvRecord.get("carrera"));
                 carrera.setDuracion(Integer.parseInt(csvRecord.get("duracion")));
                 CarreraRepository.save(carrera);
             }
@@ -73,10 +68,11 @@ public class LoadDatabase {
 
             for (CSVRecord csvRecord : csvParser) {
                 CarreraEstudiante CE = new CarreraEstudiante();
-                CE.setCarrera(Integer.parseInt(csvRecord.get("idCarrera")));
-                CE.setEstudiante(Integer.parseInt(csvRecord.get("idEstudiante")));
-                CE.setInscripcion(Timestamp.valueOf(csvRecord.get("fechaInscripcion")));
-                CE.setEgreso(Timestamp.valueOf(csvRecord.get("fechaEgreso")));
+                CE.setEstudiante(Integer.parseInt(csvRecord.get("id_estudiante")));
+                CE.setCarrera(Integer.parseInt(csvRecord.get("id_carrera")));
+                CE.setInscripcion(Timestamp.valueOf(csvRecord.get("inscripcion")));
+                CE.setGraduacion(Timestamp.valueOf(csvRecord.get("graduacion")));
+                CE.setAntiguedad(Integer.parseInt(csvRecord.get("antiguedad")));
                 EstudianteCarreraRepository.save(CE);
             }
         }

@@ -3,11 +3,7 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Calendar;
-
-
 
 @Entity
 @Data
@@ -18,55 +14,37 @@ public class CarreraEstudiante {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
 	@ManyToOne(targetEntity = Estudiante.class)
-	@MapsId("estudianteId")
-	@JoinColumn(name = "estudiante_id")
+	@MapsId("id_estudiante")
+	@JoinColumn(name = "id_estudiante")
 	private int estudiante;
 
 	@ManyToOne(targetEntity = Carrera.class)
-	@MapsId("carreraId")
-	@JoinColumn(name = "carrera_id")
+	@MapsId("id_carrera")
+	@JoinColumn(name = "id_carrera")
 	private int carrera;
 	@Column
 	private Timestamp inscripcion;
 	@Column
-	private Timestamp egreso;
+	private Timestamp graduacion;
 	@Column
 	private int antiguedad;
-	@Column
-	private Boolean graduado;
 
 	public CarreraEstudiante() {
 
 	}
 
-	public CarreraEstudiante(int e, int c, Timestamp anio_inscripcion, Timestamp anio_egreso) {
-		this.estudiante = e;
-		this.carrera = c;
-		this.inscripcion = anio_inscripcion;
-		this.egreso = anio_egreso;
-		this.antiguedad = this.getAntiguedad(anio_inscripcion);
-		this.graduado = this.verificarGraduado(anio_egreso);
+	public CarreraEstudiante(int estudiante, int carrera, Timestamp inscripcion, Timestamp graduacion, int antiguedad) {
+		this.estudiante = estudiante;
+		this.carrera = carrera;
+		this.inscripcion = inscripcion;
+		this.graduacion = graduacion;
+		this.antiguedad = antiguedad;
 	}
 
-	public boolean isGraduado() {
-		return graduado;
-	}
-
-	public boolean verificarGraduado(Timestamp anio_egreso) {
-		return !(anio_egreso == null);
-	}
-
-	
-
-	public Integer getAntiguedad(Timestamp anio_inscripcion) {
-		Calendar fechaInscripcion = Calendar.getInstance();
-		fechaInscripcion.setTimeInMillis(this.inscripcion.getTime());
-		return Calendar.getInstance().get(Calendar.YEAR) - fechaInscripcion.get(Calendar.YEAR);
-	}
 	@Override
 	public String toString() {
 		return "EstudianteCarrera [idEstudianteCarrera=" + ", fecha_inscripcion=" + inscripcion
-				+ ", fecha_egreso=" + egreso
+				+ ", fecha_egreso="
 				+ ", antiguedad=" + antiguedad + "]";
 	}
 

@@ -1,10 +1,5 @@
 package com.example.demo.dtos;
 
-import java.util.List;
-import java.util.ArrayList;
-
-import com.example.demo.model.Carrera;
-
 public class DtoCarrera {
 	private String nombre;
 	private int duracion;

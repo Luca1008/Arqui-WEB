@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.example.demo.repository.EstudianteCarreraRepositoryImpl;
 import com.example.demo.utils.LoadDatabase;
 
 import jakarta.annotation.PostConstruct;
@@ -25,6 +24,4 @@ public class DemoApplication {
 	public void init() throws IOException {
 		LoadDatabase.initDatabase();
 	}
-
-
 }

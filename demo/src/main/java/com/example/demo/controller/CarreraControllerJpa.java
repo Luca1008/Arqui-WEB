@@ -1,23 +1,69 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.Carrera;
 import com.example.demo.repository.CarreraRepository;
 
 @RestController
-@RequestMapping("persons")
-@Api(value = "CarreraControllerJpa", description = "REST API Person description")
+@RequestMapping("carrera")
 public class CarreraControllerJpa {
 
-    @Qualifier("CarreraRepository")
+    @Qualifier("carreraRepository")
     @Autowired
     private final CarreraRepository repository;
     
+    public CarreraControllerJpa(@Qualifier("carreraRepository") CarreraRepository repository) {
+        this.repository = repository;
+    }
+
+    @GetMapping("/carreras/conEstudiantesOrdenado/")
+    public List<Carrera> findCarrerasConInscriptos(){return repository.carrerasConInscriptos();}
 }
+    //GET - Obtener todos los registros de la tabla carrera
+//     @RequestMapping("/")
+//     public Iterable<Carrera> getCarreras() {
+//         return repository.findAll();
+//     }
+    
+//     //GET - Obtener un registro de la tabla carrera
+//     @RequestMapping("/{id}")
+    
+//     public Carrera getCarrera(@PathVariable int id) {
+//         return repository.findById((long) id).get();
+//     }
+    
+//     //POST - Crear un registro de la tabla carrera
+
+//     @RequestMapping("/new")
+//     public Carrera newCarrera(@RequestBody Carrera c) {
+//         return repository.save(c);
+//     }
+    
+//     //PUT - Actualizar un registro de la tabla carrera
+
+//     @RequestMapping("/update")
+//     public Carrera updateCarrera(@RequestBody Carrera c) {
+//         return repository.save(c);
+//     }
+    
+//     //DELETE - Eliminar un registro de la tabla carrera
+
+//     @RequestMapping("/delete/{id}")
+//     public void deleteCarrera(@PathVariable int id) {
+//         repository.deleteById((long) id);
+//     }
+
+// }
 
 
-public class PersonControllerJpa {
+/* public class PersonControllerJpa {
 
     @Qualifier("CarreraRepository")
     @Autowired
@@ -83,5 +129,5 @@ public class PersonControllerJpa {
     @DeleteMapping("/{id}")
     void deletePerson(@PathVariable Long id) {
         repository.deleteById(id);
-    }
-}
+    } 
+}*/

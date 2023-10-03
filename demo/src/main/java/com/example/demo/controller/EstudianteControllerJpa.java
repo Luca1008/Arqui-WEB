@@ -1,15 +1,20 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.model.Estudiante;
 import com.example.demo.repository.EstudianteRepository;
 
 @RestController
+@RequestMapping("estudiante")
 public class EstudianteControllerJpa {
     
     @Qualifier("estudianteRepository")
@@ -20,10 +25,21 @@ public class EstudianteControllerJpa {
         this.repository = repository;
     }
 
-    @PostMapping("/estudiante")
+    @PostMapping("/")
     public Estudiante newEstudiante(@RequestBody Estudiante e) {return repository.save(e);}
 
-    @GetMapping("/estudiantes/porApellido")
-    public List<Estudiante> getEstudiantesPorApellido(@RequestBody Estudiante e){}
+    @GetMapping("/estudiantes/{sort}")
+    public List<Estudiante> findEstudiantesOrdenados(@PathVariable String sort){return repository.findEstudiantesOrdenados(sort);}
 
-}
+    @GetMapping("/estudiantes/{LU}")
+    public Estudiante findEstudiantePorNumLibreta(@PathVariable int LU){return repository.estudiantePorLibreta(LU);}
+    
+    @GetMapping("/estudiantes/genero/{genero}")
+    public List<Estudiante> findEstudiantesByGenero(@PathVariable String genero){return repository.findPorGenero(genero);}
+
+    @GetMapping("/estudiantes/{id}")
+    public Estudiante findEstudiante(@PathVariable Long id){return repository.findById(id).get();}
+    
+    @GetMapping("/estudiantes")
+    public List<Estudiante> findAllEstudiantes(){return repository.findAll();}
+    }

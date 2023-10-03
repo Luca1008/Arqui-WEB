@@ -13,7 +13,7 @@ public class Estudiante {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "estudiante_id")
-    private int estudianteId;
+    private Long estudianteId;
     @Column
     private int dni;
     @Column
@@ -44,7 +44,6 @@ public class Estudiante {
         this.LU = Lu;
         this.carreras = new HashSet<CarreraEstudiante>();
     }
-
     public Estudiante() {
 
     }
