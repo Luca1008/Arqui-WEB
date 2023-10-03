@@ -43,8 +43,8 @@
 // 	public List<DtoEstudianteCarrera> estudiantesPorCarreraFiltroCiudad(int idCarrera, String ciudad) {
 // 		@SuppressWarnings("unchecked")
 // 		String jpql = "SELECT new dto.DtoEstudianteCarrera (e.nombre, e.apellido, e.ciudadResidencia, c.nombre) FROM Estudiante e "
-// 				+ "JOIN EstudianteCarrera ec ON ec.estudiante = e.estudianteId "
-// 				+ "JOIN Carrera c ON c.carreraId = ec.carrera " + "WHERE e.ciudadResidencia = ?1 AND c.carreraId = ?2";
+// 				+ "JOIN EstudianteCarrera ec ON ec.estudiante = e.id_estudiante "
+// 				+ "JOIN Carrera c ON c.id_carrera = ec.carrera " + "WHERE e.ciudadResidencia = ?1 AND c.id_carrera = ?2";
 // 		List<DtoEstudianteCarrera> dto = em.createQuery(jpql, DtoEstudianteCarrera.class).setParameter(1, ciudad)
 // 				.setParameter(2, idCarrera).getResultList();
 

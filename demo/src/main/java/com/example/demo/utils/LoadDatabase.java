@@ -68,8 +68,8 @@ public class LoadDatabase {
 
             for (CSVRecord csvRecord : csvParser) {
                 CarreraEstudiante CE = new CarreraEstudiante();
-                CE.setEstudiante(Integer.parseInt(csvRecord.get("id_estudiante")));
-                CE.setCarrera(Integer.parseInt(csvRecord.get("id_carrera")));
+                CE.setEstudiante(EstudianteRepository.getEstudianteById(Long.valueOf(csvRecord.get("id_estudiante"))));
+                CE.setCarrera(CarreraRepository.getCarreraById(Long.valueOf(csvRecord.get("id_carrera"))));
                 CE.setInscripcion(Timestamp.valueOf(csvRecord.get("inscripcion")));
                 CE.setGraduacion(Timestamp.valueOf(csvRecord.get("graduacion")));
                 CE.setAntiguedad(Integer.parseInt(csvRecord.get("antiguedad")));

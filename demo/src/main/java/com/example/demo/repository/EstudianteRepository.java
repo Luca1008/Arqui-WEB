@@ -18,4 +18,7 @@ public interface EstudianteRepository extends JpaRepository<Estudiante, Long> {
 	@Query("SELECT e FROM Estudiante e WHERE e.genero = :genero")
 	List<Estudiante> findPorGenero(String genero);
 
+	@Query("SELECT e FROM Estudiante e WHERE id_estudiante = :id")
+	Estudiante getEstudianteById(Long id);
+
 }

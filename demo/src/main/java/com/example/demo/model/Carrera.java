@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -8,8 +11,11 @@ import lombok.Data;
 public class Carrera {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_carrera")
-	private int id_carrera;
+	private Long id_carrera;
+
+	//Relacion con model.CarreraEstudiante
+	@OneToMany(mappedBy = "carrera", targetEntity = CarreraEstudiante.class)
+    private Set<CarreraEstudiante> carreraEstudiante = new HashSet<>();
 	@Column
 	private String carrera;
 
@@ -20,7 +26,7 @@ public class Carrera {
 
 	}
 
-	public Carrera(int id_carrera, String carrera, int duracion) {
+	public Carrera(Long id_carrera, String carrera, int duracion) {
 		this.id_carrera = id_carrera;
 		this.carrera = carrera;
 		this.duracion = duracion;

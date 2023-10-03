@@ -16,11 +16,11 @@ public interface EstudianteCarreraRepository extends JpaRepository<CarreraEstudi
 	List<Object[]> getInforme();
 
 	//GET - recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia
-	@Query("SELECT e FROM Estudiante e JOIN EstudianteCarrera ec ON ec.estudiante = e.estudianteId JOIN Carrera c ON c.carreraId = ec.carrera  WHERE c.carreraId = :idCarrera AND e.ciudadResidencia = :ciudad")
+	@Query("SELECT e FROM Estudiante e JOIN EstudianteCarrera ec ON ec.estudiante = e.id_estudiante JOIN Carrera c ON c.id_carrera = ec.carrera  WHERE c.id_carrera = :idCarrera AND e.ciudadResidencia = :ciudad")
     List<Estudiante> estudiantesPorCarreraFiltroCiudad(int idCarrera, String ciudad);
 
-	//GET - generar un reporte de las carreras, que para cada carrera incluya información de los inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y presentar los años de manera cronológica
-	@Query("SELECT new dto.DtoCarrera (c.carreraId, c.nombre, COUNT(e.estudianteId)) FROM Carrera c JOIN CarreraEstudiante ce ON ce.carrera = c.carreraId JOIN Estudiante e ON ce.estudiante = e.estudianteId GROUP BY c.carreraId ORDER BY c.carreraId ASC")
-    List<DtoCarrera> carrerasPorAño();
+	// //GET - generar un reporte de las carreras, que para cada carrera incluya información de los inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y presentar los años de manera cronológica
+	// @Query("SELECT c FROM Carrera c JOIN CarreraEstudiante ce ON ce.carrera = c.id_carrera JOIN Estudiante e ON ce.estudiante = e.id_estudiante GROUP BY c.id_carrera ORDER BY c.id_carrera ASC")
+    // List<DtoCarrera> carrerasPorAño();
 
 }
