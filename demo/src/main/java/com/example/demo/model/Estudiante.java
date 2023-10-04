@@ -10,14 +10,10 @@ import lombok.Data;
 @Table(name = "estudiante")
 public class Estudiante {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_estudiante;
 
     @OneToMany(mappedBy = "estudiante")
     private List<EstudianteCarrera> estudianteCarreras;
-
-    @Column
-    private int dni;
 
     @Column
     private String nombre;
@@ -37,12 +33,12 @@ public class Estudiante {
     @Column
     private int LU;
 
-    public Estudiante(int dni, String nombre, String apellido, int edad, String genero, String ciudad, int Lu) {
+    public Estudiante(Long id_estudiante, String nombre, String apellido, int edad, String genero, String ciudad, int Lu) {
+        this.id_estudiante = id_estudiante;
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
         this.genero = genero;
-        this.dni = dni;
         this.ciudad = ciudad;
         this.LU = Lu;
     }

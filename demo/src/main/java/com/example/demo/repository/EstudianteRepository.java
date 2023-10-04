@@ -26,7 +26,7 @@ public interface EstudianteRepository extends JpaRepository<Estudiante, Long> {
 	Estudiante getEstudianteByLibrEstudiante(int numero);
 
 	@Query("SELECT e FROM Estudiante e ORDER BY "
-		+ "CASE WHEN :columna = 'dni' THEN e.dni "
+		+ "CASE WHEN :columna = 'id_estudiante' THEN e.id_estudiante "
 		+ "WHEN :columna = 'nombre' THEN e.nombre "
 		+ "WHEN :columna = 'apellido' THEN e.apellido "
 		+ "WHEN :columna = 'edad' THEN e.edad "

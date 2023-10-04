@@ -43,7 +43,7 @@ public class LoadDatabase {
 
             for (CSVRecord csvRecord : csvParser) {
                 Estudiante estudiante = new Estudiante();
-                estudiante.setDni(Integer.parseInt(csvRecord.get("DNI")));
+                estudiante.setId_estudiante(Long.valueOf(csvRecord.get("id_estudiante")));
                 estudiante.setNombre(csvRecord.get("nombre"));
                 estudiante.setApellido(csvRecord.get("apellido"));
                 estudiante.setEdad(Integer.parseInt(csvRecord.get("edad")));
