@@ -3,7 +3,8 @@ package com.example.demo.dtos;
 import java.util.List;
 import java.util.ArrayList;
 
-import com.example.demo.model.CarreraEstudiante;
+
+import com.example.demo.model.EstudianteCarrera;
 
 public class DtoEstudiante {
 	private String apellido;
@@ -12,7 +13,7 @@ public class DtoEstudiante {
 	private String ciudad;
 	private String genero;
 	private int libreta;
-	private List<CarreraEstudiante> carreras;
+	private List<EstudianteCarrera> carreras;
 
 	public DtoEstudiante(String apellido, String nombre, int edad, String ciudad, String genero, int libreta) {
 		super();
@@ -22,7 +23,7 @@ public class DtoEstudiante {
 		this.ciudad = ciudad;
 		this.genero = genero;
 		this.libreta = libreta;
-		this.carreras = new ArrayList<CarreraEstudiante>();
+		this.carreras = new ArrayList<EstudianteCarrera>();
 	}
 
 	public String getApellido() {
@@ -41,11 +42,11 @@ public class DtoEstudiante {
 		this.nombre = nombre;
 	}
 
-	public List<CarreraEstudiante> getCarreras() {
+	public List<EstudianteCarrera> getCarreras() {
 		return carreras;
 	}
 
-	public void setCarreras(List<CarreraEstudiante> carreras) {
+	public void setCarreras(List<EstudianteCarrera> carreras) {
 		this.carreras = carreras;
 	}
 

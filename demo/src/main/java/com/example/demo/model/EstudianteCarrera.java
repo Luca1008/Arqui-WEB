@@ -3,19 +3,17 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.sql.Timestamp;
 
 @Entity
 @Data
 @Table(name = "estudiante_carrera")
-public class CarreraEstudiante {
-
+public class EstudianteCarrera {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "estudiante_id")
+	@JoinColumn(name = "id_estudiante")
 	private Estudiante estudiante;
 
 	@ManyToOne
@@ -23,19 +21,19 @@ public class CarreraEstudiante {
 	private Carrera carrera;
 
 	@Column
-	private Timestamp inscripcion;
+	private int inscripcion;
 
 	@Column
-	private Timestamp graduacion;
+	private int graduacion;
 
 	@Column
 	private int antiguedad;
 
-	public CarreraEstudiante() {
+	public EstudianteCarrera() {
 
 	}
 
-	public CarreraEstudiante(Estudiante estudiante, Carrera carrera, Timestamp inscripcion, Timestamp graduacion, int antiguedad) {
+	public EstudianteCarrera(Estudiante estudiante, Carrera carrera, int inscripcion, int graduacion, int antiguedad) {
 		this.estudiante = estudiante;
 		this.carrera = carrera;
 		this.inscripcion = inscripcion;

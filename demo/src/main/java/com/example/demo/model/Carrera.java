@@ -1,21 +1,23 @@
 package com.example.demo.model;
 
-import java.util.HashSet;
-import java.util.Set;
+
+import java.util.List;
+
 
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "carrera")
 public class Carrera {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_carrera;
 
-	//Relacion con model.CarreraEstudiante
-	@OneToMany(mappedBy = "carrera", targetEntity = CarreraEstudiante.class)
-    private Set<CarreraEstudiante> carreraEstudiante = new HashSet<>();
+	@OneToMany(mappedBy = "carrera")
+    private List<EstudianteCarrera> estudianteCarreras;
+	
 	@Column
 	private String carrera;
 

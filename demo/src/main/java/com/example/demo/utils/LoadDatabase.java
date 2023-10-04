@@ -5,7 +5,7 @@ import com.example.demo.repository.*;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Timestamp;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -67,11 +67,11 @@ public class LoadDatabase {
                 CSVParser csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader)) {
 
             for (CSVRecord csvRecord : csvParser) {
-                CarreraEstudiante CE = new CarreraEstudiante();
+                EstudianteCarrera CE = new EstudianteCarrera();
                 CE.setEstudiante(EstudianteRepository.getEstudianteById(Long.valueOf(csvRecord.get("id_estudiante"))));
                 CE.setCarrera(CarreraRepository.getCarreraById(Long.valueOf(csvRecord.get("id_carrera"))));
-                CE.setInscripcion(Timestamp.valueOf(csvRecord.get("inscripcion")));
-                CE.setGraduacion(Timestamp.valueOf(csvRecord.get("graduacion")));
+                CE.setInscripcion(Integer.parseInt(csvRecord.get("inscripcion")));
+                CE.setGraduacion(Integer.parseInt(csvRecord.get("graduacion")));
                 CE.setAntiguedad(Integer.parseInt(csvRecord.get("antiguedad")));
                 EstudianteCarreraRepository.save(CE);
             }
