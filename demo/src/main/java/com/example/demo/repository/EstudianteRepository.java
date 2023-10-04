@@ -30,7 +30,7 @@ public interface EstudianteRepository extends JpaRepository<Estudiante, Long> {
 		+ "WHEN :columna = 'nombre' THEN e.nombre "
 		+ "WHEN :columna = 'apellido' THEN e.apellido "
 		+ "WHEN :columna = 'edad' THEN e.edad "
-		+ "WHEN :columna = 'genero' THEN CAST(e.genero AS String) "
+		+ "WHEN :columna = 'genero' THEN CAST(e.genero AS string) "
 		+ "WHEN :columna = 'ciudad' THEN e.ciudad "
 		+ "WHEN :columna = 'LU' THEN e.LU "
 		+ "WHEN :columna = 'id' THEN e.id_estudiante "

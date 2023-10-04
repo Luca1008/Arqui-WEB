@@ -21,7 +21,7 @@ public class EstudianteCarreraRepositoryImpl implements EstudianteCarreraReposit
 	public void matricularEstudiante(int idEst, int idCarr, Timestamp fechaInsc, Timestamp fechaEgreso) {
 		Estudiante e = em.find(Estudiante.class, idEst);
 		Carrera c = em.find(Carrera.class, idCarr);
-		CarreraEstudianteId claveComp = new CarreraEstudianteId();
+		CarreraEstudianteId claveComp = new CarreraEstudianteId(idEst,idCarr);
 		EstudianteCarrera estCarr = new EstudianteCarrera(e, c, fechaInsc, fechaEgreso, claveComp);
 
 		this.em.getTransaction().begin();
