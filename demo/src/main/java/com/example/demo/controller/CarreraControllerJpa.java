@@ -23,6 +23,6 @@ public class CarreraControllerJpa {
         this.repository = repository;
     }
 
-    // @GetMapping("/carreras/conEstudiantesOrdenado/")
+    // @GetMapping("/conEstudiantesOrdenado/")
     // public List<Carrera> findCarrerasConInscriptos(){return repository.carrerasConInscriptos();}
 }

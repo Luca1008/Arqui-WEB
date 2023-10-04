@@ -30,24 +30,24 @@ public class EstudianteControllerJpa {
         return repository.save(e);
     }
 
-    @GetMapping("/{sort}/")
+    @GetMapping("/ordenar/{sort}")
     public List<Estudiante> findEstudiantesOrdenados(@PathVariable String sort) {
         return repository.findEstudiantesOrdenados(sort);
     }
 
-    // @GetMapping("/estudiantes/{LU}")
-    // public Estudiante findEstudiantePorNumLibreta(@PathVariable int LU) {
-    //     return repository.estudiantePorLibreta(LU);
-    // }
+    @GetMapping("/libreta/{lu}")
+    public Estudiante findEstudiantePorNumLibreta(@PathVariable int lu) {
+        return repository.getEstudianteByLibrEstudiante(lu);
+    }
 
-    // @GetMapping("/estudiantes/genero/{genero}")
-    // public List<Estudiante> findEstudiantesByGenero(@PathVariable String genero) {
-    //     return repository.findPorGenero(genero);
-    // }
+    @GetMapping("/genero/{genero}")
+    public List<Estudiante> findEstudiantesByGenero(@PathVariable String genero) {
+        return repository.findPorGenero(genero);
+    }
 
     @GetMapping("/{id}")
     public Estudiante findEstudiante(@PathVariable Long id) {
-        return repository.findById(id).get();
+        return repository.getEstudianteById(id);
     }
 
     @GetMapping("/")
