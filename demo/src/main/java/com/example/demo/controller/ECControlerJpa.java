@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Estudiante;
 import com.example.demo.model.EstudianteCarrera;
-import com.example.demo.repository.EstudianteCarreraRepository;
+import com.example.demo.servicios.EstudianteCarreraServicio;
 
 @RestController
 @RequestMapping("EstudianteCarrera")
@@ -21,20 +21,20 @@ public class ECControlerJpa {
 
     @Qualifier("estudianteCarreraRepository")
     @Autowired
-    private final EstudianteCarreraRepository repository;
+    private final EstudianteCarreraServicio servicio;
 
-    public ECControlerJpa(@Qualifier("estudianteCarreraRepository") EstudianteCarreraRepository repository) {
-        this.repository = repository;
+    public ECControlerJpa(@Qualifier("estudianteCarreraServicio") EstudianteCarreraServicio servicio) {
+        this.servicio = servicio;
     }
 
     @PostMapping("/")
-    public EstudianteCarrera newEstudiante(@RequestBody EstudianteCarrera c) {
-        return repository.save(c);
+    public EstudianteCarrera newEstudiante(@RequestBody EstudianteCarrera c) throws Exception {
+        return servicio.save(c);
     }
 
     @GetMapping("/")
-    public List<EstudianteCarrera> findAll() {
-        return repository.findAll();
+    public List<EstudianteCarrera> findAll() throws Exception {
+        return servicio.findAll();
     }
 
 }

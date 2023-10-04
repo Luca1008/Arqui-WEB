@@ -11,7 +11,8 @@ import com.example.demo.model.Estudiante;
 
 
 
-public interface EstudianteCarreraRepository extends JpaRepository<EstudianteCarrera, Long> {	
+public interface EstudianteCarreraRepository extends JpaRepository<EstudianteCarrera, Long> {
+
 	// List<Object[]> getInforme();
 
 	// //GET - recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia
