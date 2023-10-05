@@ -1,5 +1,8 @@
 package com.example.demo.dtos;
 
+import lombok.Getter;
+
+@Getter
 public class DtoCarrera {
 	private String nombre;
 	private int duracion;
@@ -8,22 +11,4 @@ public class DtoCarrera {
 		this.nombre = nombre;
 		this.duracion = duracion;
 	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public int getDuracion() {
-		return duracion;
-	}
-
-	@Override
-	public String toString() {
-		return "DtoCarrera [nombre=" + nombre + ", duracion=" + duracion + "]";
-	}
-
 }

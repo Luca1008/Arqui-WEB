@@ -12,9 +12,12 @@ import jakarta.transaction.Transactional;
 
 @Service("CarreraServicio")
 public class CarreraServicio {
+
     @Autowired
     private CarreraRepository carreraRepository;
 
+
+    //Agregar una carrera
     @Transactional
     public Carrera save(Carrera Carrera) throws Exception {
         try {

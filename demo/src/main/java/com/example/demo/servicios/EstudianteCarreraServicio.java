@@ -16,6 +16,8 @@ public class EstudianteCarreraServicio {
     @Autowired
     private EstudianteCarreraRepository estudianteCarreraRepository;
 
+
+    //Matricular estudiante a una carrera
     @Transactional
     public EstudianteCarrera save(EstudianteCarrera estudiante) throws Exception {
         try {
@@ -25,6 +27,8 @@ public class EstudianteCarreraServicio {
         }
     }
 
+
+    //Recuperar todas las matriculaciones
     @Transactional
     public List<EstudianteCarrera> findAll() throws Exception { 
         try {

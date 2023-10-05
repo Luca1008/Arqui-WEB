@@ -15,16 +15,16 @@ public class Estudiante {
     @OneToMany(mappedBy = "estudiante")
     private List<EstudianteCarrera> estudianteCarreras;
 
-    @Column
+    @Column(columnDefinition = "VARCHAR(255)")
     private String nombre;
     
-    @Column
+    @Column(columnDefinition = "VARCHAR(255)")
     private String apellido;
 
     @Column
     private int edad;
 
-    @Column(name = "genero")
+    @Column(columnDefinition = "VARCHAR(255)")
     private String genero;
 
     @Column

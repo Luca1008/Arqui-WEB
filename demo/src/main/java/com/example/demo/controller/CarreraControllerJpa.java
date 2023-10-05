@@ -19,11 +19,11 @@ import com.example.demo.servicios.CarreraServicio;
 @RequestMapping("carreras")
 public class CarreraControllerJpa {
 
-    @Qualifier("carreraServicio")
+    @Qualifier("CarreraServicio")
     @Autowired
     private final CarreraServicio Servicio;
 
-    public CarreraControllerJpa(@Qualifier("carreraServicio") CarreraServicio Servicio) {
+    public CarreraControllerJpa(@Qualifier("CarreraServicio") CarreraServicio Servicio) {
         this.Servicio = Servicio;
     }
 

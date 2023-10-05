@@ -9,6 +9,8 @@ import com.example.demo.model.Carrera;
 import com.example.demo.model.EstudianteCarrera;
 
 public interface CarreraRepository extends JpaRepository<Carrera, Long> {
+
+
     // @Query("SELECT c.carrera, COUNT(ec.id_estudiante) AS Cantidad_Inscritos " +
     //         "FROM Carrera c " +
     //         "JOIN EstudianteCarrera ec ON c.id_carrera = ec.id_carrera " +
@@ -16,6 +18,8 @@ public interface CarreraRepository extends JpaRepository<Carrera, Long> {
     //         "ORDER BY Cantidad_Inscritos DESC")
     // List<Carrera> carrerasConInscriptos();
 
+
+    //Recuperar por id
     @Query("SELECT c FROM Carrera c WHERE id_carrera = :id")
     Carrera getCarreraById(Long id);
 }

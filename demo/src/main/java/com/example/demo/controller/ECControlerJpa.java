@@ -19,11 +19,11 @@ import com.example.demo.servicios.EstudianteCarreraServicio;
 @RequestMapping("EstudianteCarrera")
 public class ECControlerJpa {
 
-    @Qualifier("estudianteCarreraRepository")
+    @Qualifier("EstudianteCarreraServicio")
     @Autowired
     private final EstudianteCarreraServicio servicio;
 
-    public ECControlerJpa(@Qualifier("estudianteCarreraServicio") EstudianteCarreraServicio servicio) {
+    public ECControlerJpa(@Qualifier("EstudianteCarreraServicio") EstudianteCarreraServicio servicio) {
         this.servicio = servicio;
     }
 
