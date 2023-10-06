@@ -5,10 +5,10 @@ import lombok.Getter;
 @Getter
 public class DtoCarrera {
 	private String nombre;
-	private int duracion;
+	private int Cant;
 
-	public DtoCarrera(String nombre, int duracion) {
-		this.nombre = nombre;
-		this.duracion = duracion;
+	public DtoCarrera(Object resultado, Object resultado2) {
+		this.nombre = (String) resultado;
+		this.Cant = (int) resultado2;
 	}
 }

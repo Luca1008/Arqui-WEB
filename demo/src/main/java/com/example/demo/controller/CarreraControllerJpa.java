@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dtos.DtoCarrera;
 import com.example.demo.model.Carrera;
 import com.example.demo.model.Estudiante;
 import com.example.demo.repository.CarreraRepository;
@@ -32,6 +33,6 @@ public class CarreraControllerJpa {
         return Servicio.save(e);
     }
 
-    // @GetMapping("/conEstudiantesOrdenado/")
-    // public List<Carrera> findCarrerasConInscriptos(){return repository.carrerasConInscriptos();}
+    @GetMapping("/conEstudiantesOrdenado/")
+    public List<DtoCarrera> findCarrerasConInscriptos() throws Exception{return (List<DtoCarrera>) Servicio.findAllCarrerasCantInscriptos();}
 }

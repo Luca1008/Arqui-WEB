@@ -34,7 +34,7 @@ public interface EstudianteRepository extends JpaRepository<Estudiante, Long> {
            + "CASE WHEN :columna = 'genero' THEN e.genero END ASC, "
            + "CASE WHEN :columna = 'ciudad' THEN e.ciudad END ASC, "
            + "CASE WHEN :columna = 'LU' THEN e.LU END ASC")
-	public List<Estudiante> findEstudiantesOrdenados(String columna);
+	List<Estudiante> findEstudiantesOrdenados(String columna);
 
 
 }

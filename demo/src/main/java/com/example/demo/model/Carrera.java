@@ -16,7 +16,7 @@ public class Carrera {
 	private Long id_carrera;
 
 	@OneToMany(mappedBy = "carrera")
-    private List<EstudianteCarrera> estudianteCarreras;
+    private List<EstudianteCarrera> estudianteCarrera;
 	
 	@Column
 	private String carrera;
