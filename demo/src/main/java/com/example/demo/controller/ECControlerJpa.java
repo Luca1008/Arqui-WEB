@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dtos.DtoEstudiante;
 import com.example.demo.model.Estudiante;
 import com.example.demo.model.EstudianteCarrera;
 import com.example.demo.servicios.EstudianteCarreraServicio;
@@ -35,6 +36,11 @@ public class ECControlerJpa {
     @GetMapping("/")
     public List<EstudianteCarrera> findAll() throws Exception {
         return servicio.findAll();
+    }
+
+    @GetMapping("/estudiantePorCarreraFiltrado/{carrera}/{ciudad}/")
+    public List<DtoEstudiante> findByCarreraFilterCiudad(@PathVariable String carrera, @PathVariable String ciudad) throws Exception {
+        return servicio.findByCarreraFilterCiudad(carrera, ciudad);
     }
 
 }
