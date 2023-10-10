@@ -10,6 +10,9 @@ import com.example.demo.dtos.DtoCarrera;
 public interface CarreraRepository extends JpaRepository<Carrera, Long> {
 
 
+    @Query("SELECT c FROM Carrera c ORDER BY c.carrera ASC")
+    public List<Carrera> findAllOrderByName();
+
     @Query("SELECT c.carrera, COUNT(ec) FROM Carrera c LEFT JOIN c.estudianteCarrera ec GROUP BY c.carrera ORDER BY COUNT(ec) DESC")
     public List<Object[]> findAllCarrerasCantInscriptos();
 

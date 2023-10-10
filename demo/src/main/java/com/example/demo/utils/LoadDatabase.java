@@ -74,7 +74,6 @@ public class LoadDatabase {
                 int l=Integer.parseInt(csvRecord.get("graduacion"));
                 int k=Integer.parseInt(csvRecord.get("antiguedad"));
                 EstudianteCarreraId as = new EstudianteCarreraId(i,o);
-                CE.setIdEstudianteCarrera(as);
                 CE.setEstudiante(EstudianteRepository.getEstudianteById(i));
                 CE.setCarrera(CarreraRepository.getCarreraById(o));
                 CE.setInscripcion(p);

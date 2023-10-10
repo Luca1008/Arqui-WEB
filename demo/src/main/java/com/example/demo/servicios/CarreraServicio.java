@@ -45,7 +45,7 @@ public class CarreraServicio {
 
     @Transactional
     public List<DtoCarreraMod> findAllIngresantesAndEgresadosOrd() throws Exception {
-        var carreras = carreraRepository.findAll();
+        var carreras = carreraRepository.findAllOrderByName();
         List<DtoCarreraMod> resultado = new ArrayList<>();
         try {
             for (Carrera carrera : carreras) {

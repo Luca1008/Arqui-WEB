@@ -8,14 +8,16 @@ import lombok.Data;
 @Data
 @Table(name = "estudiante_carrera")
 public class EstudianteCarrera {
-	@EmbeddedId 
-	private EstudianteCarreraId idEstudianteCarrera;
 
-	@ManyToOne
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_estudiante")
 	private Estudiante estudiante;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_carrera")
 	private Carrera carrera;
 
@@ -32,8 +34,7 @@ public class EstudianteCarrera {
 
 	}
 
-	public EstudianteCarrera(EstudianteCarreraId id, Estudiante estudiante, Carrera carrera, int inscripcion, int graduacion, int antiguedad) {
-		this.idEstudianteCarrera = id;
+	public EstudianteCarrera(Estudiante estudiante, Carrera carrera, int inscripcion, int graduacion, int antiguedad) {
 		this.estudiante = estudiante;
 		this.carrera = carrera;
 		this.inscripcion = inscripcion;
