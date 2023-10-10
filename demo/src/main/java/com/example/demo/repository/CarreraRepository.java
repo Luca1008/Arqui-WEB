@@ -17,17 +17,19 @@ public interface CarreraRepository extends JpaRepository<Carrera, Long> {
     @Query("SELECT c FROM Carrera c WHERE id_carrera = :id")
     Carrera getCarreraById(Long id);
 
-    @Query("SELECT e FROM Estudiante e\r\n" + //
+    @Query("SELECT e, ec.inscripcion, ec.graduacion FROM Estudiante e\r\n" + //
             "JOIN e.estudianteCarreras ec\r\n" + //
             "JOIN ec.carrera c\r\n" + //
             "WHERE c.id_carrera = :id_carrera\r\n" + //
+            "AND ec.inscripcion > 0\r\n" + //
             "ORDER BY ec.inscripcion ASC")
-    public List<Estudiante> findEstudiantesByInscripcion(Long id_carrera);
+    public List<Object[]> findEstudiantesByInscripcion(Long id_carrera);
 
-    @Query("SELECT e FROM Estudiante e\r\n" + //
+    @Query("SELECT e, ec.inscripcion, ec.graduacion  FROM Estudiante e\r\n" + //
             "JOIN e.estudianteCarreras ec\r\n" + //
             "JOIN ec.carrera c\r\n" + //
             "WHERE c.id_carrera = :id_carrera\r\n" + //
+            "AND ec.graduacion > 0\r\n" + //
             "ORDER BY ec.graduacion ASC")
-    public List<Estudiante> findEstudiantesByEgreso(Long id_carrera);
+    public List<Object[]> findEstudiantesByEgreso(Long id_carrera);
 }

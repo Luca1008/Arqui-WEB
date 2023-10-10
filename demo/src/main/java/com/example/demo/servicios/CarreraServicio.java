@@ -7,6 +7,8 @@ import com.example.demo.repository.CarreraRepository;
 import com.example.demo.dtos.DtoCarrera;
 import com.example.demo.dtos.DtoCarreraMod;
 import com.example.demo.dtos.DtoEstudiante;
+import com.example.demo.dtos.DtoEstudianteMod;
+import com.example.demo.model.Estudiante;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -47,12 +49,42 @@ public class CarreraServicio {
         List<DtoCarreraMod> resultado = new ArrayList<>();
         try {
             for (Carrera carrera : carreras) {
-                List<DtoEstudiante> estudiantesPorInsc = new ArrayList<>();
-                List<DtoEstudiante> estudiantesPorEgreso = new ArrayList<>();
+                List<DtoEstudianteMod> estudiantesPorInsc = new ArrayList<>();
+                List<DtoEstudianteMod> estudiantesPorEgreso = new ArrayList<>();
                 var inscriptos = carreraRepository.findEstudiantesByInscripcion(carrera.getId_carrera());
                 var egresados = carreraRepository.findEstudiantesByEgreso(carrera.getId_carrera());
-                estudiantesPorInsc = inscriptos.stream().map(Estudiante -> new DtoEstudiante(Estudiante.getId_estudiante(),Estudiante.getNombre(),Estudiante.getApellido(),Estudiante.getEdad(),Estudiante.getCiudad(),Estudiante.getGenero(),Estudiante.getLU())).collect(Collectors.toList());
-                estudiantesPorEgreso = egresados.stream().map(Estudiante -> new DtoEstudiante(Estudiante.getId_estudiante(),Estudiante.getNombre(),Estudiante.getApellido(),Estudiante.getEdad(),Estudiante.getCiudad(),Estudiante.getGenero(),Estudiante.getLU())).collect(Collectors.toList());
+                
+                
+                estudiantesPorInsc = inscriptos.stream().map(result -> {
+                                                                        Estudiante Estudiante = (Estudiante) result[0];
+                                                                        Integer inscripcion = (Integer) result[1];
+                                                                        Integer graduacion = (Integer) result[2];
+                                                                        return new DtoEstudianteMod(
+                                                                            Estudiante.getId_estudiante(),
+                                                                            Estudiante.getNombre(),
+                                                                            Estudiante.getApellido(),
+                                                                            Estudiante.getEdad(),
+                                                                            Estudiante.getCiudad(),
+                                                                            Estudiante.getGenero(),
+                                                                            Estudiante.getLU(),
+                                                                            inscripcion,
+                                                                            graduacion);})
+                                                                            .collect(Collectors.toList());
+                estudiantesPorEgreso = egresados.stream().map(result -> {
+                                                                        Estudiante Estudiante = (Estudiante) result[0];
+                                                                        Integer inscripcion = (Integer) result[1];
+                                                                        Integer graduacion = (Integer) result[2];
+                                                                        return new DtoEstudianteMod(
+                                                                            Estudiante.getId_estudiante(),
+                                                                            Estudiante.getNombre(),
+                                                                            Estudiante.getApellido(),
+                                                                            Estudiante.getEdad(),
+                                                                            Estudiante.getCiudad(),
+                                                                            Estudiante.getGenero(),
+                                                                            Estudiante.getLU(),
+                                                                            inscripcion,
+                                                                            graduacion);})
+                                                                            .collect(Collectors.toList());
 
                 resultado.add(new DtoCarreraMod(carrera.getCarrera(), estudiantesPorInsc, estudiantesPorEgreso));
             }
