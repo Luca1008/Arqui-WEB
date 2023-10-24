@@ -39,6 +39,7 @@ public class EstudianteCarreraServicio {
         }
     }
 
+    //recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
     @Transactional
     public List<DtoEstudiante> findByCarreraFilterCiudad(String carrera, String ciudad) throws Exception {
         var resultado = estudianteCarreraRepository.estudiantesPorCarreraFiltroCiudad(carrera,ciudad);

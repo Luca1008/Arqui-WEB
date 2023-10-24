@@ -28,6 +28,7 @@ public class ECControlerJpa {
         this.servicio = servicio;
     }
 
+    //matricular un estudiante en una carrera
     @PostMapping("/")
     public EstudianteCarrera newEstudiante(@RequestBody EstudianteCarrera c) throws Exception {
         return servicio.save(c);
@@ -38,6 +39,7 @@ public class ECControlerJpa {
         return servicio.findAll();
     }
 
+    // recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
     @GetMapping("/estudiantePorCarreraFiltrado/{carrera}/{ciudad}/")
     public List<DtoEstudiante> findByCarreraFilterCiudad(@PathVariable String carrera, @PathVariable String ciudad) throws Exception {
         return servicio.findByCarreraFilterCiudad(carrera, ciudad);

@@ -25,7 +25,8 @@ public interface EstudianteRepository extends JpaRepository<Estudiante, Long> {
 	Estudiante getEstudianteByLibrEstudiante(int numero);
 
 
-	//Recuperar indicando el metodo de ordenamiento 
+	//Recuperar indicando el metodo de ordenamiento
+	    //recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple 
 	@Query("SELECT e FROM Estudiante e ORDER BY "
            + "CASE WHEN :columna = 'id_estudiante' THEN e.id_estudiante END ASC, "
            + "CASE WHEN :columna = 'nombre' THEN e.nombre END ASC, "

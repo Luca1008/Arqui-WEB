@@ -32,6 +32,7 @@ public class CarreraServicio {
         }
     }
 
+     //recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
     @Transactional
     public List<DtoCarrera> findAllCarrerasCantInscriptos() throws Exception {
         var resultados = carreraRepository.findAllCarrerasCantInscriptos();
@@ -43,6 +44,10 @@ public class CarreraServicio {
         }
     }
 
+
+    //generar un reporte de las carreras, que para cada carrera incluya información de los
+    //inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y
+    //presentar los años de manera cronológica
     @Transactional
     public List<DtoCarreraMod> findAllIngresantesAndEgresadosOrd() throws Exception {
         var carreras = carreraRepository.findAllOrderByName();

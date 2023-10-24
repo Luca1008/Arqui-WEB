@@ -27,6 +27,7 @@ public class EstudianteControllerJpa {
         this.servicio = servicio;
     }
 
+    //dar de alta un estudiante
     @PostMapping("/")
     public Estudiante newEstudiante(@RequestBody Estudiante e) throws Exception {
         return servicio.save(e);
@@ -36,16 +37,19 @@ public class EstudianteControllerJpa {
         return servicio.findAll();
     }
 
+    //recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple
     @GetMapping("/ordenar/{sort}")
     public List<DtoEstudiante> findEstudiantesOrdenados(@PathVariable String sort) throws Exception {
         return servicio.findEstudiantesOrdenados(sort);
     }
 
+    //recuperar un estudiante, en base a su número de libreta universitaria
     @GetMapping("/libreta/{lu}")
     public DtoEstudiante findEstudiantePorNumLibreta(@PathVariable int lu) throws Exception {
         return servicio.findEstudianteByLibrEstudiante(lu);
     }
 
+    //recuperar todos los estudiantes, en base a su género
     @GetMapping("/genero/{genero}")
     public List<DtoEstudiante> findEstudiantesByGenero(@PathVariable String genero) throws Exception {
         return servicio.findByGenero(genero);

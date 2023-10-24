@@ -10,15 +10,22 @@ import com.example.demo.dtos.DtoCarrera;
 public interface CarreraRepository extends JpaRepository<Carrera, Long> {
 
 
-    @Query("SELECT c FROM Carrera c ORDER BY c.carrera ASC")
-    public List<Carrera> findAllOrderByName();
+ 
 
+     //recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
     @Query("SELECT c.carrera, COUNT(ec) FROM Carrera c LEFT JOIN c.estudianteCarrera ec GROUP BY c.carrera ORDER BY COUNT(ec) DESC")
     public List<Object[]> findAllCarrerasCantInscriptos();
 
     //Recuperar por id
     @Query("SELECT c FROM Carrera c WHERE id_carrera = :id")
     Carrera getCarreraById(Long id);
+
+
+           //generar un reporte de las carreras, que para cada carrera incluya información de los
+    //inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y
+    //presentar los años de manera cronológica
+    @Query("SELECT c FROM Carrera c ORDER BY c.carrera ASC")
+    public List<Carrera> findAllOrderByName();
 
     @Query("SELECT e, ec.inscripcion, ec.graduacion FROM Estudiante e\r\n" + //
             "JOIN e.estudianteCarreras ec\r\n" + //
@@ -35,4 +42,5 @@ public interface CarreraRepository extends JpaRepository<Carrera, Long> {
             "AND ec.graduacion > 0\r\n" + //
             "ORDER BY ec.graduacion ASC")
     public List<Object[]> findEstudiantesByEgreso(Long id_carrera);
+    //fin de generar reporte
 }
