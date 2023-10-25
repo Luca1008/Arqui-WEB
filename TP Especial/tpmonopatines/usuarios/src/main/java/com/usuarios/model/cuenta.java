@@ -11,20 +11,19 @@ public class cuenta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String numeroIdentificatorio;
-    private String fechaAlta;
+    private int dinero;
+    private Date fechaAlta;
 
     // Relación muchos a muchos con Usuarios
     @ManyToMany
-    private Set<usuario> usuarios;
+    private List<usuario> usuarios;
 
     public cuenta() {
     }
 
-    public cuenta(String numeroIdentificatorio, String fechaAlta) {
-        this.numeroIdentificatorio = numeroIdentificatorio;
+    public cuenta(int dinero, Date fechaAlta, List<usuario> usuarios) {
+        this.dinero = dinero;
         this.fechaAlta = fechaAlta;
+        this.usuarios = usuarios;
     }
-
-    
 }
