@@ -3,7 +3,6 @@ package com.usuarios.controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.usuarios.model.usuario;
-import com.usuarios.repository.usuarioRepository;
 import com.usuarios.servicios.usuarioService;
 
 import java.util.List;
@@ -20,14 +19,24 @@ public class usuarioController {
     // Endpoint para crear un usuario
     @PostMapping("/")
     public usuario crearUsuario(@RequestBody usuario usuario) {
-        return usuarioService.save(usuario);
+        return usuarioServicio.save(usuario);
     }
 
     // Endpoint para obtener todos los usuarios
     @GetMapping("/")
-    public List<usuario> obtenerUsuarios() {
-        return usuarioService.findAll();
+    public List<usuario> obtenerUsuarios() throws Exception {
+        return usuarioServicio.findAll();
     }
 
-    // Puedes agregar más endpoints según las necesidades de tu aplicación.
+    // Endpoint para actualizar un usuario
+    @PutMapping("/{id}/")
+    public usuario actualizarUsuario(@PathVariable Long id, @RequestBody usuario usuarioActualizado) throws Exception {
+        return usuarioServicio.update(id, usuarioActualizado);
+    }
+
+    // Endpoint para eliminar usuario
+    @DeleteMapping("/{id}/")
+    public void borrarUsuario(@PathVariable Long id){
+        usuarioServicio.deleteById(id);
+    }
 }

@@ -3,6 +3,7 @@ package main.mantenimiento.servicios;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.transaction.Transactional;
 import main.mantenimiento.model.mantenimiento;
 import main.mantenimiento.repository.mantenimientoRepository;
 
@@ -13,16 +14,28 @@ public class mantenimientoService {
         this.mantenimientoRepository = mantenimientoRepository;
     }
 
+    @Transactional
+    public List<mantenimiento> findAll() {
+        return mantenimientoRepository.findAll();
+    }
+
+    @Transactional
+    public Optional<mantenimiento> findById(Long id) {
+        return mantenimientoRepository.findById(id);
+    }
+
+    @Transactional
     public mantenimiento save(mantenimiento mantenimiento) {
         return mantenimientoRepository.save(mantenimiento);
     }
 
-    public List<mantenimiento> obtenerTodosLosMantenimientos() {
-        return mantenimientoRepository.findAll();
+    @Transactional
+    public mantenimiento update(Long id, mantenimiento mantenimiento) {
+        return null;
     }
 
-    public Optional<mantenimiento> obtenerMantenimientoPorId(Long id) {
-        return mantenimientoRepository.findById(id);
+    @Transactional
+    public void deleteById(Long id) {
+        mantenimientoRepository.deleteById(id);
     }
-
 }

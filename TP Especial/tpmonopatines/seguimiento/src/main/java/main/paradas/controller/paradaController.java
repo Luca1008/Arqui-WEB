@@ -1,7 +1,6 @@
 package main.paradas.controller;
 
 import org.springframework.web.bind.annotation.*;
-import main.paradas.model.parada;
 import main.paradas.servicios.paradaService;
 
 

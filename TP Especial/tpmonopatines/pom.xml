@@ -22,7 +22,7 @@
 		<module>administrador/pom.xml</module>
 		<module>mantenimiento</module>
 		<module>usuarios</module>
-		<module>viajes</module>
+		<module>seguimiento</module>
 	</modules>
 	<dependencies>
 		<dependency>

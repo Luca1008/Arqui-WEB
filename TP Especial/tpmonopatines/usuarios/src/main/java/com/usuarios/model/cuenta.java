@@ -12,8 +12,10 @@ public class cuenta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private int dinero;
     private Date fechaAlta;
+    private Boolean activada;
 
     // Relación muchos a muchos con Usuarios
     @ManyToMany

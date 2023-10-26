@@ -1,5 +1,6 @@
 package main.administrador.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +17,28 @@ public class administradorController {
         this.administradorService = administradorService;
     }
 
+    @GetMapping
+    public List<administrador> findAll() {
+        return administradorService.findAll();
+    }
+    
+    @GetMapping("/{id}")
+    public Optional<administrador> findById(@PathVariable Long id) {
+        return administradorService.findById(id);
+    }
+
     @PostMapping
-    public administrador crearadministrador(@RequestBody administrador administrador) {
+    public administrador create(@RequestBody administrador administrador) {
         return administradorService.save(administrador);
     }
 
-    @GetMapping("/{administradorId}")
-    public Optional<administrador> obteneradministradorPorId(@PathVariable Long administradorId) {
-        return administradorService.obteneradministradorPorId(administradorId);
+    @PutMapping
+    public administrador update(@PathVariable Long id, @RequestBody administrador administrador) {
+        return administradorService.update(id, administrador);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        administradorService.deleteById(id);
     }
 }

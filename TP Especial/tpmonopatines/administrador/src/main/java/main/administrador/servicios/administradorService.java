@@ -3,6 +3,7 @@ package main.administrador.servicios;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.transaction.Transactional;
 import main.administrador.model.administrador;
 import main.administrador.repository.administradorRepository;
 
@@ -13,16 +14,29 @@ public class administradorService {
         this.administradorRepository = administradorRepository;
     }
 
+    @Transactional
+    public List<administrador> findAll() {
+        return administradorRepository.findAll();
+    }
+
+    @Transactional
+    public Optional<administrador> findById(Long id) {
+        return administradorRepository.findById(id);
+    }
+
+    @Transactional
     public administrador save(administrador administrador) {
         return administradorRepository.save(administrador);
     }
 
-    public List<administrador> obtenerTodosLosadministradors() {
-        return administradorRepository.findAll();
+    @Transactional
+    public administrador update(Long id, administrador administrador) {
+        return null;
     }
 
-    public Optional<administrador> obteneradministradorPorId(Long id) {
-        return administradorRepository.findById(id);
+    @Transactional
+    public void deleteById(Long id) {
+        administradorRepository.deleteById(id);
     }
 
 }

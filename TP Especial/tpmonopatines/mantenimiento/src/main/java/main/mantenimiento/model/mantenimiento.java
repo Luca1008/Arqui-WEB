@@ -1,8 +1,5 @@
 package main.mantenimiento.model;
 
-import java.sql.Date;
-import java.util.Set;
-
 import ch.qos.logback.core.util.Duration;
 import jakarta.persistence.*;
 import lombok.Data;
