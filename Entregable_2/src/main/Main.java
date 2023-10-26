@@ -13,9 +13,9 @@ import java.util.List;
 import factory.FactoryEntityManager;
 import entities.Estudiante;
 import entities.Carrera;
-import repositories.CarreraRepositoryImpl;
-import repositories.EstudianteCarreraRepositoryImpl;
-import repositories.EstudianteRepositoryImpl;
+import Repositories.CarreraRepositoryImpl;
+import Repositories.EstudianteCarreraRepositoryImpl;
+import Repositories.EstudianteRepositoryImpl;
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package repositories;
+package Repositories;
 
 import java.sql.Timestamp;
 import java.util.List;

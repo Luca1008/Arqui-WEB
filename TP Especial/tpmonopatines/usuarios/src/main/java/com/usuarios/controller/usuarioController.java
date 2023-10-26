@@ -9,22 +9,22 @@ import java.util.List;
 @RestController
 @RequestMapping("/usuarios")
 public class usuarioController {
-    private final usuarioRepository usuarioRepository;
+    private final usuarioService usuarioServicio;
 
-    public usuarioController(usuarioRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
+    public usuarioController(usuarioService usuarioServicio) {
+        this.usuarioServicio = usuarioServicio;
     }
 
     // Endpoint para crear un usuario
     @PostMapping("/")
     public usuario crearUsuario(@RequestBody usuario usuario) {
-        return usuarioRepository.save(usuario);
+        return usuarioService.save(usuario);
     }
 
     // Endpoint para obtener todos los usuarios
     @GetMapping("/")
     public List<usuario> obtenerUsuarios() {
-        return usuarioRepository.findAll();
+        return usuarioService.findAll();
     }
 
     // Puedes agregar más endpoints según las necesidades de tu aplicación.

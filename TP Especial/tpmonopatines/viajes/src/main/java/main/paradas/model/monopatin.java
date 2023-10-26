@@ -1,17 +1,16 @@
 package main.paradas.model;
-
 @Data
 @Entity
-public class parada {
+public class monopatin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     
-    public parada() {
+    public monopatin() {
     }
 
-    public parada(String nombre, String apellido, int celular, String email) {
+    public mmonopatin(String nombre, String apellido, int celular, String email) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.celular = celular;

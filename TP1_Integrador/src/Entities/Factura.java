@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Factura {
 	private int idFactura;
 	private int idCliente;
-	public Factura(intt idFactura, int idCliente) {
+	public Factura(int idFactura, int idCliente) {
 		super();
 		this.idFactura = idFactura;
 		this.idCliente = idCliente;
