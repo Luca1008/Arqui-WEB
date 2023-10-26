@@ -1,9 +1,10 @@
-package com.paradas.controller;
+package main.paradas.controller;
 
 import org.springframework.web.bind.annotation.*;
 
-import com.paradas.model.monopatin;
-import com.paradas.repository.monopatinRepository;
+import main.paradas.model.monopatin;
+import main.paradas.servicios.monopatinService;
+
 import java.util.List;
 
 @RestController

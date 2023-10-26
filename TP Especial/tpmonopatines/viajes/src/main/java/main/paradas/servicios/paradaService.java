@@ -1,7 +1,7 @@
-package com.paradas.servicios;
+package main.paradas.servicios;
 
-import com.paradas.model.parada;
-import com.paradas.repository.paradaRepository;
+import main.paradas.model.parada;
+import main.paradas.repository.paradaRepository;
 
 import java.util.List;
 import java.util.Optional;

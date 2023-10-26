@@ -1,14 +1,16 @@
 package main.administrador.controller;
 
+import java.util.Optional;
+
 import org.springframework.web.bind.annotation.*;
 import main.administrador.model.administrador;
-import main.administrador.servicios.administradorServicio;
+import main.administrador.servicios.administradorService;
 
 
 @RestController
 @RequestMapping("/administrador")
 public class administradorController {
-    private final administradorServicio administradorService;
+    private final administradorService administradorService;
 
     public administradorController(administradorService administradorService) {
         this.administradorService = administradorService;
@@ -20,7 +22,7 @@ public class administradorController {
     }
 
     @GetMapping("/{administradorId}")
-    public administrador obteneradministradorPorId(@PathVariable Long administradorId) {
+    public Optional<administrador> obteneradministradorPorId(@PathVariable Long administradorId) {
         return administradorService.obteneradministradorPorId(administradorId);
     }
 }

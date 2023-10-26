@@ -14,12 +14,12 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>tpmonopatines</name>
 	<description>Demo project for Spring Boot</description>
-	<packaging>pom</packaging>
 	<properties>
 		<java.version>20.0.2</java.version>
 	</properties>
+	<packaging>pom</packaging>
 	<modules>
-		<module>administrador</module>
+		<module>administrador/pom.xml</module>
 		<module>mantenimiento</module>
 		<module>usuarios</module>
 		<module>viajes</module>

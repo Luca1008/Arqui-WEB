@@ -1,5 +1,6 @@
 package main.paradas.model;
-
+import jakarta.persistence.*;
+import lombok.*;
 @Data
 @Entity
 public class parada {
@@ -11,10 +12,4 @@ public class parada {
     public parada() {
     }
 
-    public parada(String nombre, String apellido, int celular, String email) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.celular = celular;
-        this.email = email;
-    }
 }

@@ -1,11 +1,10 @@
 package com.usuarios.model;
 
-import java.util.Set;
-
-import org.hibernate.mapping.List;
+import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
 
 @Data
 @Entity
@@ -17,6 +16,7 @@ public class usuario {
     private String apellido;
     private int celular;
     private String email;
+
     @ManyToMany
     private List<cuenta> cuentas;
     

@@ -1,4 +1,4 @@
-package main.mantenimiento.model;
+package main.administrador.model;
 
 import jakarta.persistence.*;
 import lombok.Data;

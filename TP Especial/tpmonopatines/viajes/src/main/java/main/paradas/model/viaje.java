@@ -1,4 +1,7 @@
 package main.paradas.model;
+import jakarta.persistence.*;
+import lombok.*;
+
 @Data
 @Entity
 public class viaje {
@@ -10,10 +13,4 @@ public class viaje {
     public viaje() {
     }
 
-    public viaje(String nombre, String apellido, int celular, String email) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.celular = celular;
-        this.email = email;
-    }
 }

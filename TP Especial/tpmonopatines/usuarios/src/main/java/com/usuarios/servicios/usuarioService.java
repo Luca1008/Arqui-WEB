@@ -25,5 +25,13 @@ public class usuarioService {
         return usuarioRepository.findById(id);
     }
 
+    public static usuario save(usuario usuario) {
+        return null;
+    }
+
+    public static List<usuario> findAll() {
+        return null;
+    }
+
     // Puedes agregar más métodos para realizar operaciones de negocio relacionadas con los usuarios.
 }

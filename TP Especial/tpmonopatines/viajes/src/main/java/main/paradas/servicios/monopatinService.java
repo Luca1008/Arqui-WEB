@@ -1,7 +1,7 @@
-package com.paradas.servicios;
+package main.paradas.servicios;
 
-import com.paradas.model.monopatin;
-import com.paradas.repository.monopatinRepository;
+import main.paradas.model.monopatin;
+import main.paradas.repository.monopatinRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +23,14 @@ public class monopatinService {
 
     public Optional<monopatin> obtenermonopatinPorId(Long id) {
         return monopatinRepository.findById(id);
+    }
+
+    public List<monopatin> findAll() {
+        return null;
+    }
+
+    public monopatin save(monopatin monopatin) {
+        return null;
     }
 
     // Puedes agregar más métodos para realizar operaciones de negocio relacionadas con los monopatines.

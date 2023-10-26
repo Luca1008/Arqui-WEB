@@ -1,7 +1,7 @@
-package com.paradas.servicios;
+package main.paradas.servicios;
 
-import com.paradas.model.viaje;
-import com.paradas.repository.viajeRepository;
+import main.paradas.model.viaje;
+import main.paradas.repository.viajeRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +23,14 @@ public class viajeService {
 
     public Optional<viaje> obtenerViajePorId(Long id) {
         return viajeRepository.findById(id);
+    }
+
+    public viaje save(viaje viaje) {
+        return null;
+    }
+
+    public List<viaje> findAll() {
+        return null;
     }
 
     // Puedes agregar más métodos para realizar operaciones de negocio relacionadas con los monopatines.

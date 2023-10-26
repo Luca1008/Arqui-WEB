@@ -1,9 +1,9 @@
-package com.paradas.controller;
+package main.paradas.controller;
 
 import org.springframework.web.bind.annotation.*;
 
-import com.paradas.model.viaje;
-import com.paradas.repository.viajeRepository;
+import main.paradas.model.viaje;
+import main.paradas.servicios.viajeService;
 import java.util.List;
 
 @RestController

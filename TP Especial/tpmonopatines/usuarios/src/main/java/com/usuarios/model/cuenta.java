@@ -1,6 +1,7 @@
 package com.usuarios.model;
 
-import java.util.Set;
+import java.sql.Date;
+import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -21,9 +22,8 @@ public class cuenta {
     public cuenta() {
     }
 
-    public cuenta(int dinero, Date fechaAlta, List<usuario> usuarios) {
+    public cuenta(int dinero, Date fechaAlta) {
         this.dinero = dinero;
         this.fechaAlta = fechaAlta;
-        this.usuarios = usuarios;
     }
 }

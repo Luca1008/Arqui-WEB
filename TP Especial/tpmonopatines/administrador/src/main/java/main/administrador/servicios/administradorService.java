@@ -1,10 +1,10 @@
-package com.administrador.servicios;
+package main.administrador.servicios;
 
 import java.util.List;
 import java.util.Optional;
 
-import com.administrador.model.administrador;
-import com.administrador.repository.administradorRepository;
+import main.administrador.model.administrador;
+import main.administrador.repository.administradorRepository;
 
 public class administradorService {
     private final administradorRepository administradorRepository;

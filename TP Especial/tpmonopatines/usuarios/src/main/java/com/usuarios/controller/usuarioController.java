@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.usuarios.model.usuario;
 import com.usuarios.repository.usuarioRepository;
+import com.usuarios.servicios.usuarioService;
+
 import java.util.List;
 
 @RestController
