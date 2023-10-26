@@ -17,7 +17,7 @@ public class paradaService {
         return paradaRepository.save(parada);
     }
 
-    public List<parada> obtenerTodasLasparadas() {
+    public List<parada> obtenerTodasLasParadas() {
         return paradaRepository.findAll();
     }
 

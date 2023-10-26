@@ -13,11 +13,11 @@ public class monopatinService {
         this.monopatinRepository = monopatinRepository;
     }
 
-    public monopatin crearmonopatin(monopatin monopatin) {
+    public monopatin crearMonopatin(monopatin monopatin) {
         return monopatinRepository.save(monopatin);
     }
 
-    public List<monopatin> obtenerTodosLosmonopatines() {
+    public List<monopatin> obtenerTodosLosMonopatines() {
         return monopatinRepository.findAll();
     }
 
