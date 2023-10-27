@@ -32,9 +32,10 @@ public class viajeController {
         return viajeService.findAll();
     }
 
-    // public double calcularTotalFacturadoEnRangoDeMeses(int year,int mesInicio,int mesFin){
-    //     return viajeService.calcularTotalFacturadoEnRangoDeMeses(year,mesInicio,mesFin);
-    // }
+    @GetMapping("/CalcularTotal/{year}/{mesInicio}/{mesFin}")
+    public int calcularTotalFacturadoEnRangoDeMeses(@PathVariable int year, @PathVariable int mesInicio, @PathVariable int mesFin) throws Exception{
+        return viajeService.calcularTotalFacturadoEnRangoDeMeses(year,mesInicio,mesFin);
+    }
     
     //para el punto 3 f 
     // public void ajustarPrecio(LocalDate fechaActual, int nuevoPrecio){

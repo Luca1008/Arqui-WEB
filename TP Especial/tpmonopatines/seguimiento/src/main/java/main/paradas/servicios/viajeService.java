@@ -32,14 +32,18 @@ public class viajeService {
         return viajeRepository.findById(id);
     }
 
-    // @Transactional
-    // public double calcularTotalFacturadoEnRangoDeMeses(int year, int mesInicio, int mesFin) {
-    //     return viajeRepository.calcularTotalFacturadoEnRangoDeMeses(year, mesInicio, mesFin);
-    // }
+    @Transactional
+    public int calcularTotalFacturadoEnRangoDeMeses(int year, int mesInicio, int mesFin) throws Exception {
+        try {
+            return viajeRepository.calcularTotalFacturadoEnRangoDeMeses(year, mesInicio, mesFin);
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
+    }
 
     // para el f 2 funciones
     // @Transactional
     // public void ajustarPrecio(LocalDate fechaActual, int nuevoPrecio) {
-    //     viajeRepository.ajustarPrecio(fechaActual, nuevoPrecio);
+    // viajeRepository.ajustarPrecio(fechaActual, nuevoPrecio);
     // }
 }

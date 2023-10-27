@@ -13,10 +13,10 @@ import main.paradas.model.viaje;
 public interface viajeRepository extends JpaRepository<viaje, Long>{
 
 //     //Consultar el total facturado en un rango de meses de cierto año (d)
-//     @Query("SELECT SUM(v.precio) FROM viaje v " +
-//            "WHERE YEAR(v.fecha_inicio) = :year " +
-//            "AND MONTH(v.fecha_inicio) BETWEEN :mesInicio AND :mesFin")
-//     Double calcularTotalFacturadoEnRangoDeMeses(@Param("year") int year, @Param("mesInicio") int mesInicio, @Param("mesFin") int mesFin);
+    @Query("SELECT SUM(v.precio) FROM viaje v " +
+           "WHERE YEAR(v.fecha_inicio) = :year " +
+           "AND MONTH(v.fecha_inicio) BETWEEN :mesInicio AND :mesFin")
+    int calcularTotalFacturadoEnRangoDeMeses(int year,int mesInicio,int mesFin);
 
 
 //     //quiero hacer un ajuste de precios, y que a partir de cierta fecha el sistema habilite los nuevos precios.
