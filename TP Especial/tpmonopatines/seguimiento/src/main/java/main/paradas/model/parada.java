@@ -1,6 +1,9 @@
 package main.paradas.model;
 import jakarta.persistence.*;
 import lombok.*;
+
+
+
 @Data
 @Entity
 public class parada {

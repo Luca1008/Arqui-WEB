@@ -19,13 +19,14 @@ public class viaje {
     private Time pausa;
     private int precio;
     //private LocalDate fechaHabilitacionNuevosPrecios; PARA EL PUNTO 3.F
-    @ManyToOne
-    private monopatin id_monopatin; 
+    @JoinColumn(name = "id_monopatin", referencedColumnName = "id_monopatin")
+    @OneToOne
+    private monopatin monopatin;
 
     public viaje() {
     }
 
-    public viaje(Date fecha_inicio, Time hora_inicio, Date fecha_fin,Time hora_fin, int km_recorridos, Time pausa,int precio, monopatin id_monopatin){
+    public viaje(Date fecha_inicio, Time hora_inicio, Date fecha_fin,Time hora_fin, int km_recorridos, Time pausa,int precio){
         this.fecha_inicio=fecha_inicio;
         this.fecha_fin=fecha_fin;
         this.hora_fin=hora_fin;
@@ -33,7 +34,6 @@ public class viaje {
         this.km_recorridos=km_recorridos;
         this.pausa=pausa;
         this.precio=precio;
-        this.id_monopatin=id_monopatin;
     }
 
 }

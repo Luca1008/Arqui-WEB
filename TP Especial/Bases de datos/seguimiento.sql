@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2023 at 01:15 AM
+-- Generation Time: Oct 27, 2023 at 10:15 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `monopatin` (
   `id_monopatin` int(11) NOT NULL,
   `tiempo_uso` time NOT NULL,
-  `km_recorridos` int(11) NOT NULL,
+  `km_recorridos` double NOT NULL,
   `monopatin_mantenimiento` tinyint(1) NOT NULL DEFAULT 0,
   `nro_parada` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -59,7 +59,7 @@ CREATE TABLE `viaje` (
   `hora_inicio` time NOT NULL,
   `fecha_fin` date NOT NULL,
   `hora_fin` time NOT NULL,
-  `km_recorridos` int(11) NOT NULL,
+  `km_recorridos` double NOT NULL,
   `pausa` time NOT NULL,
   `precio` int(11) NOT NULL,
   `id_monopatin` int(11) NOT NULL
@@ -74,7 +74,7 @@ CREATE TABLE `viaje` (
 --
 ALTER TABLE `monopatin`
   ADD PRIMARY KEY (`id_monopatin`),
-  ADD KEY `nro_parada` (`nro_parada`);
+  ADD KEY `monopatin_ibfk_1` (`nro_parada`);
 
 --
 -- Indexes for table `parada`
@@ -87,7 +87,29 @@ ALTER TABLE `parada`
 --
 ALTER TABLE `viaje`
   ADD PRIMARY KEY (`nro_viaje`),
-  ADD KEY `id_monopatin` (`id_monopatin`);
+  ADD KEY `viaje_ibfk_1` (`id_monopatin`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `monopatin`
+--
+ALTER TABLE `monopatin`
+  MODIFY `id_monopatin` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `parada`
+--
+ALTER TABLE `parada`
+  MODIFY `nro_parada` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `viaje`
+--
+ALTER TABLE `viaje`
+  MODIFY `nro_viaje` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

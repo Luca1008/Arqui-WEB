@@ -7,37 +7,39 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import jakarta.transaction.Transactional;
+
+@Service("viajeService")
 public class viajeService {
-    private final viajeRepository viajeRepository;
+    @Autowired
+    private viajeRepository viajeRepository;
 
-    public viajeService(viajeRepository viajeRepository) {
-        this.viajeRepository = viajeRepository;
-    }
-
-    public viaje crearViaje(viaje viaje) {
+    @Transactional
+    public viaje save(viaje viaje) {
         return viajeRepository.save(viaje);
     }
 
-    public List<viaje> obtenerTodosLosViajes() {
+    @Transactional
+    public List<viaje> findAll() {
         return viajeRepository.findAll();
     }
 
+    @Transactional
     public Optional<viaje> obtenerViajePorId(Long id) {
         return viajeRepository.findById(id);
     }
 
-    public viaje save(viaje viaje) {
-        return null;
-    }
+    // @Transactional
+    // public double calcularTotalFacturadoEnRangoDeMeses(int year, int mesInicio, int mesFin) {
+    //     return viajeRepository.calcularTotalFacturadoEnRangoDeMeses(year, mesInicio, mesFin);
+    // }
 
-    public List<viaje> findAll() {
-        return null;
-    }
-    public double calcularTotalFacturadoEnRangoDeMeses(int year, int mesInicio, int mesFin){
-        return viajeRepository.calcularTotalFacturadoEnRangoDeMeses(year, mesInicio, mesFin);
-    }
-    //para el f 2 funciones
-    public void ajustarPrecio(LocalDate fechaActual, int nuevoPrecio){
-        viajeRepository.ajustarPrecio(fechaActual, nuevoPrecio);
-    }
+    // para el f 2 funciones
+    // @Transactional
+    // public void ajustarPrecio(LocalDate fechaActual, int nuevoPrecio) {
+    //     viajeRepository.ajustarPrecio(fechaActual, nuevoPrecio);
+    // }
 }

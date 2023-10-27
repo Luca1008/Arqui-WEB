@@ -13,8 +13,8 @@ import main.administrador.servicios.administradorService;
 @RequestMapping("administrador")
 public class administradorController {
     @Qualifier("administradorService")
-    @Autowired
 
+    @Autowired
     private final administradorService administradorService;
 
     public administradorController(@Qualifier("administradorService") administradorService administradorService) {

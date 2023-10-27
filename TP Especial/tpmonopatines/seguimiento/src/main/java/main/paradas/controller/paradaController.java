@@ -3,6 +3,8 @@ package main.paradas.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import main.paradas.model.parada;
@@ -12,7 +14,10 @@ import main.paradas.servicios.paradaService;
 @RestController
 @RequestMapping("/parada")
 public class paradaController {
-    private final paradaService paradaService;
+    @Qualifier("paradaService")
+
+    @Autowired
+    private paradaService paradaService;
 
     public paradaController(paradaService paradaService) {
         this.paradaService = paradaService;

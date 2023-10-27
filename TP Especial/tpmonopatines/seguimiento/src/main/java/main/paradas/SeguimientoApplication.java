@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ParadasApplication {
+public class SeguimientoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ParadasApplication.class, args);
+		SpringApplication.run(SeguimientoApplication.class, args);
 	}
 
 }

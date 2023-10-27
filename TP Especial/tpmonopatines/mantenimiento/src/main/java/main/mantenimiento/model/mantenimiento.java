@@ -1,5 +1,7 @@
 package main.mantenimiento.model;
 
+import java.sql.Time;
+
 import ch.qos.logback.core.util.Duration;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -10,13 +12,13 @@ public class mantenimiento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long nro_atencion;
-    private Duration tiempo_uso;
+    private Time tiempo_uso;
     private Double km_recorridos;
 
     public mantenimiento() {
     }
 
-    public mantenimiento(Duration tiempo_uso, Double km_recorridos) {
+    public mantenimiento(Time tiempo_uso, Double km_recorridos) {
         this.tiempo_uso = tiempo_uso;
         this.km_recorridos = km_recorridos;
     }

@@ -3,6 +3,8 @@ package main.mantenimiento.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import main.mantenimiento.model.mantenimiento;
@@ -10,15 +12,18 @@ import main.mantenimiento.servicios.mantenimientoService;
 
 
 @RestController
-@RequestMapping("/mantenimiento")
+@RequestMapping("mantenimiento")
 public class mantenimientoController {
+    @Qualifier("mantenimientoService")
+
+    @Autowired
     private final mantenimientoService mantenimientoService;
 
     public mantenimientoController(mantenimientoService mantenimientoService) {
         this.mantenimientoService = mantenimientoService;
     }
     
-    @GetMapping
+    @GetMapping("/")
     public List<mantenimiento> findAll() {
         return mantenimientoService.findAll();
     }
@@ -27,7 +32,8 @@ public class mantenimientoController {
     public Optional<mantenimiento> findById(@PathVariable Long id) {
         return mantenimientoService.findById(id);
     }
-    @PostMapping
+
+    @PostMapping("/")
     public mantenimiento create(@RequestBody mantenimiento mantenimiento) {
         return mantenimientoService.save(mantenimiento);
     }
