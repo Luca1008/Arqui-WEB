@@ -2,6 +2,7 @@ package main.paradas.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.sql.Date;
 
 
@@ -18,6 +19,7 @@ public class viaje {
     private int km_recorridos;
     private Time pausa;
     private int precio;
+    //private LocalDate fechaHabilitacionNuevosPrecios; PARA EL PUNTO 3.F
     @ManyToOne
     private monopatin id_monopatin; 
 

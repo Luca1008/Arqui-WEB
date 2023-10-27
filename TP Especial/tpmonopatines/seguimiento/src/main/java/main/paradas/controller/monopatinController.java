@@ -37,4 +37,11 @@ public class monopatinController {
         return monopatinServicio.buscarMonopatinesConMasDeXViajesEnAnio(year,numViajes);
     }
 
+    public int monopatinesEnOperacionOEnMantenimiento(short enMantenimiento){
+        return monopatinServicio.monopatinesEnOperacionOEnMantenimiento(enMantenimiento);
+    }
+    public List<monopatin> monopatinesCercanos(int latitud, int longuitud, int maxDistancia){
+        return monopatinServicio.monopatinesCercanos(latitud,longuitud,maxDistancia);
+    }
+
 }

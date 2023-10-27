@@ -39,5 +39,10 @@ public class monopatinService {
     public List<monopatin> buscarMonopatinesConMasDeXViajesEnAnio(int year, int numViajes){
         return monopatinRepository.buscarMonopatinesConMasDeXViajesEnAnio(year,numViajes);
     }
-    // Puedes agregar más métodos para realizar operaciones de negocio relacionadas con los monopatines.
+    public int monopatinesEnOperacionOEnMantenimiento(short enMantenimiento){
+        return monopatinRepository.monopatinesEnOperacionOEnMantenimiento(enMantenimiento);
+    }
+    public List<monopatin> monopatinesCercanos(int latitud,int longuitud, int maxDistancia){
+        return monopatinRepository.monopatinesCercanos(latitud, longuitud, maxDistancia);
+    }
 }

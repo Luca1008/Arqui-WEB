@@ -3,6 +3,7 @@ package main.paradas.servicios;
 import main.paradas.model.viaje;
 import main.paradas.repository.viajeRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,8 @@ public class viajeService {
     public double calcularTotalFacturadoEnRangoDeMeses(int year, int mesInicio, int mesFin){
         return viajeRepository.calcularTotalFacturadoEnRangoDeMeses(year, mesInicio, mesFin);
     }
-
-    // Puedes agregar más métodos para realizar operaciones de negocio relacionadas con los monopatines.
+    //para el f 2 funciones
+    public void ajustarPrecio(LocalDate fechaActual, int nuevoPrecio){
+        viajeRepository.ajustarPrecio(fechaActual, nuevoPrecio);
+    }
 }

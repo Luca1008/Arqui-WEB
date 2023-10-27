@@ -12,6 +12,8 @@ public class monopatin {
     private Time tiempo_uso;
     private int km_recorridos; 
     private short monopatin_mantenimiento;
+    //private double latitud; PARA EL PUNTO 3 F
+    //private double longitud;
     @OneToMany
     private parada nro_parada;
 
