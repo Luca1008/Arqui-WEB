@@ -32,6 +32,12 @@ public class monopatinService {
     public monopatin save(monopatin monopatin) {
         return null;
     }
+    public List<monopatin> generarReporteKm(boolean tiempoDePausa) {
+        return monopatinRepository.reporteKm(tiempoDePausa);
+    }
 
+    public List<monopatin> buscarMonopatinesConMasDeXViajesEnAnio(int year, int numViajes){
+        return monopatinRepository.buscarMonopatinesConMasDeXViajesEnAnio(year,numViajes);
+    }
     // Puedes agregar más métodos para realizar operaciones de negocio relacionadas con los monopatines.
 }

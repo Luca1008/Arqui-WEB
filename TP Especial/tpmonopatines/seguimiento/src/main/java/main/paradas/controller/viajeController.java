@@ -1,5 +1,6 @@
 package main.paradas.controller;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import main.paradas.model.viaje;
@@ -25,6 +26,10 @@ public class viajeController {
     @GetMapping("/")
     public List<viaje> obtenerviajes() {
         return viajeServicio.findAll();
+    }
+
+    public double calcularTotalFacturadoEnRangoDeMeses(int year,int mesInicio,int mesFin){
+        return viajeServicio.calcularTotalFacturadoEnRangoDeMeses(year,mesInicio,mesFin);
     }
 
 }

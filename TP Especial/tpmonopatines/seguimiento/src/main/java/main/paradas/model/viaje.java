@@ -17,6 +17,7 @@ public class viaje {
     private Time hora_fin;
     private int km_recorridos;
     private Time pausa;
+    private int precio;
     @ManyToOne
     private monopatin id_monopatin; 
 
@@ -24,13 +25,14 @@ public class viaje {
 
     public viaje() {
     }
-    public viaje(Date fecha_inicio, Time hora_inicio, Date fecha_fin,Time hora_fin, int km_recorridos, Time pausa, monopatin id_monopatin){
+    public viaje(Date fecha_inicio, Time hora_inicio, Date fecha_fin,Time hora_fin, int km_recorridos, Time pausa,int precio, monopatin id_monopatin){
         this.fecha_inicio=fecha_inicio;
         this.fecha_fin=fecha_fin;
         this.hora_fin=hora_fin;
         this.hora_inicio=hora_inicio;
         this.km_recorridos=km_recorridos;
         this.pausa=pausa;
+        this.precio=precio;
         this.id_monopatin=id_monopatin;
     }
 

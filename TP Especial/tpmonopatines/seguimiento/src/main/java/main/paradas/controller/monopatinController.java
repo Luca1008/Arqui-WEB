@@ -1,5 +1,6 @@
 package main.paradas.controller;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import main.paradas.model.monopatin;
@@ -26,6 +27,14 @@ public class monopatinController {
     @GetMapping("/")
     public List<monopatin> obtenerMonopatines() {
         return monopatinServicio.findAll();
+    }
+
+    @GetMapping("/")
+    public List<monopatin> generarReporteKm(boolean tiempoDePausa) {
+        return monopatinServicio.generarReporteKm(tiempoDePausa);
+    }
+    public List<monopatin> buscarMonopatinesConMasDeXViajesEnAnio(int year, int numViajes){
+        return monopatinServicio.buscarMonopatinesConMasDeXViajesEnAnio(year,numViajes);
     }
 
 }

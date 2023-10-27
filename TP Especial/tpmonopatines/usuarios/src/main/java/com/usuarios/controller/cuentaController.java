@@ -40,6 +40,11 @@ public class cuentaController {
     public void eliminarCuentaPorId(@PathVariable Long cuentaId) throws Exception{
         cuentaService.eliminarCuentaPorId(cuentaId);
     }
+
+    @PutMapping("/{cuentaId}") //chequear si es lo mismo que esta arriba
+    public void anularCuenta(@PathVariable Long cuentaId) throws Exception{
+        cuentaService.anularCuenta(cuentaId);
+    }
     
 
 }

@@ -50,4 +50,9 @@ public class cuentaService {
     public void eliminarCuentaPorId(Long cuentaId) {
         cuentaRepository.deleteById(cuentaId);
     }
+
+     @Transactional
+    public void anularCuenta(long cuentaId){
+        cuentaRepository.anularCuenta(cuentaId);
+    }
 }

@@ -32,6 +32,9 @@ public class viajeService {
     public List<viaje> findAll() {
         return null;
     }
+    public double calcularTotalFacturadoEnRangoDeMeses(int year, int mesInicio, int mesFin){
+        return viajeRepository.calcularTotalFacturadoEnRangoDeMeses(year, mesInicio, mesFin);
+    }
 
     // Puedes agregar más métodos para realizar operaciones de negocio relacionadas con los monopatines.
 }
