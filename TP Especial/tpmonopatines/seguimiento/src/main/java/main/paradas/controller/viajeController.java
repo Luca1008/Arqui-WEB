@@ -1,6 +1,5 @@
 package main.paradas.controller;
 
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import main.paradas.model.viaje;

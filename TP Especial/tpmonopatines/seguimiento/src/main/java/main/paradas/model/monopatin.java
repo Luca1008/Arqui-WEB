@@ -11,7 +11,7 @@ public class monopatin {
     private Long id;
     private Time tiempo_uso;
     private int km_recorridos; 
-    private short monopatin_mantenimiento;
+    private Boolean monopatin_mantenimiento;
     //private double latitud; PARA EL PUNTO 3 F
     //private double longitud;
     @OneToMany
@@ -25,7 +25,7 @@ public class monopatin {
 
 
 
-    public monopatin(Time tiempo_uso, int km_recorridos, short monopatin_mantenimiento, parada nro_parada) {
+    public monopatin(Time tiempo_uso, int km_recorridos, Boolean monopatin_mantenimiento, parada nro_parada) {
         this.tiempo_uso = tiempo_uso;
         this.km_recorridos = km_recorridos;
         this.monopatin_mantenimiento = monopatin_mantenimiento;

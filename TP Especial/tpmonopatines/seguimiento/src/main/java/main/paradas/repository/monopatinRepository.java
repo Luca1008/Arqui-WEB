@@ -1,7 +1,6 @@
 package main.paradas.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -24,7 +23,7 @@ public interface monopatinRepository extends JpaRepository<monopatin, Long>{
     //consultar la cantidad de monopatines actualmente en operación, vs la cantidad de monopatines actualmente en mantenimiento
     //(e)
     @Query("SELECT COUNT(m) FROM monopatin m WHERE m.monopatin_mantenimiento = :mantenimiento")
-    int monopatinesEnOperacionOEnMantenimiento(@Param ("mantenimiento") short enMantenimiento);
+    int monopatinesEnOperacionOEnMantenimiento(@Param ("mantenimiento") Boolean enMantenimiento);
 
     //listado de los monopatines cercanos a mi zona, para poder encontrar un monopatín cerca de mi ubicación (f)
     //(g) 

@@ -3,16 +3,18 @@ package main.administrador.servicios;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import jakarta.transaction.Transactional;
 import main.administrador.model.administrador;
 import main.administrador.repository.administradorRepository;
 
+@Service("administradorService")
 public class administradorService {
-    private final administradorRepository administradorRepository;
 
-    public administradorService(administradorRepository administradorRepository) {
-        this.administradorRepository = administradorRepository;
-    }
+    @Autowired
+    private administradorRepository administradorRepository;
 
     @Transactional
     public List<administrador> findAll() {

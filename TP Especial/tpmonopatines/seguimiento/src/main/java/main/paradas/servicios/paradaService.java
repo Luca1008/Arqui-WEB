@@ -13,17 +13,19 @@ public class paradaService {
         this.paradaRepository = paradaRepository;
     }
 
-    public parada crearParada(parada parada) {
+    public parada save(parada parada) {
         return paradaRepository.save(parada);
     }
 
-    public List<parada> obtenerTodasLasParadas() {
+    public List<parada> findAll() {
         return paradaRepository.findAll();
     }
 
-    public Optional<parada> obtenerParadaPorId(Long id) {
+    public Optional<parada> findById(Long id) {
         return paradaRepository.findById(id);
     }
 
-    // Puedes agregar más métodos para realizar operaciones de negocio relacionadas con los monopatines.
+    public void deleteById(Long id) {
+        paradaRepository.deleteById(id);
+    }
 }

@@ -2,7 +2,6 @@ package main.paradas.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.sql.Time;
-import java.time.LocalDate;
 import java.sql.Date;
 
 
@@ -23,10 +22,9 @@ public class viaje {
     @ManyToOne
     private monopatin id_monopatin; 
 
-
-
     public viaje() {
     }
+
     public viaje(Date fecha_inicio, Time hora_inicio, Date fecha_fin,Time hora_fin, int km_recorridos, Time pausa,int precio, monopatin id_monopatin){
         this.fecha_inicio=fecha_inicio;
         this.fecha_fin=fecha_fin;

@@ -1,12 +1,12 @@
 package main.paradas.controller;
 
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import main.paradas.model.monopatin;
 import main.paradas.servicios.monopatinService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/monopatin")
@@ -17,27 +17,42 @@ public class monopatinController {
         this.monopatinServicio = monopatinServicio;
     }
 
-    // Endpoint para crear un monopatin
     @PostMapping("/")
-    public monopatin crearMonopatin(@RequestBody monopatin monopatin) {
+    public monopatin save(@RequestBody monopatin monopatin) {
         return monopatinServicio.save(monopatin);
     }
 
-    // Endpoint para obtener todos los monopatines
     @GetMapping("/")
-    public List<monopatin> obtenerMonopatines() {
+    public List<monopatin> findAll() {
         return monopatinServicio.findAll();
     }
+    
+    @GetMapping("/{id}")
+    public Optional<monopatin> findById(@PathVariable Long id) {
+        return monopatinServicio.findById(id);
+    }
+    
+    @PutMapping("/{id}")
+    public monopatin updateMonopatin(@PathVariable Long id, @RequestBody monopatin monopatin) {
+        return monopatinServicio.save(monopatin);
+    }
+    
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id) {
+        monopatinServicio.deleteById(id);
+    }
 
+    
     @GetMapping("/")
     public List<monopatin> generarReporteKm(boolean tiempoDePausa) {
         return monopatinServicio.generarReporteKm(tiempoDePausa);
     }
+
     public List<monopatin> buscarMonopatinesConMasDeXViajesEnAnio(int year, int numViajes){
         return monopatinServicio.buscarMonopatinesConMasDeXViajesEnAnio(year,numViajes);
     }
 
-    public int monopatinesEnOperacionOEnMantenimiento(short enMantenimiento){
+    public int monopatinesEnOperacionOEnMantenimiento(Boolean enMantenimiento){
         return monopatinServicio.monopatinesEnOperacionOEnMantenimiento(enMantenimiento);
     }
     public List<monopatin> monopatinesCercanos(int latitud, int longuitud, int maxDistancia){
