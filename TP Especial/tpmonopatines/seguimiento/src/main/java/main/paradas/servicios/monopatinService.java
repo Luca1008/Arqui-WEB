@@ -41,15 +41,15 @@ public class monopatinService {
         monopatinRepository.deleteById(id);
     }
 
-    // @Transactional
-    // public List<monopatin> generarReporteKm(boolean tiempoDePausa) {
-    //     return monopatinRepository.reporteKm(tiempoDePausa);
-    // }
+     @Transactional
+     public List<monopatin> generarReporteKm(boolean tiempoDePausa) {
+         return monopatinRepository.reporteKm(tiempoDePausa);
+     }
 
-    // @Transactional
-    // public List<monopatin> buscarMonopatinesConMasDeXViajesEnAnio(int year, int numViajes) {
-    //     return monopatinRepository.buscarMonopatinesConMasDeXViajesEnAnio(year, numViajes);
-    // }
+     @Transactional
+     public List<monopatin> buscarMonopatinesConMasDeXViajesEnAnio(int year, int numViajes) {
+         return monopatinRepository.buscarMonopatinesConMasDeXViajesEnAnio(year, numViajes);
+     }
 
     // @Transactional
     // public int monopatinesEnOperacionOEnMantenimiento(Boolean enMantenimiento) {

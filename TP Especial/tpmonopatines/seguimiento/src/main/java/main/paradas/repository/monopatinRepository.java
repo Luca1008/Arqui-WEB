@@ -12,12 +12,17 @@ import main.paradas.model.monopatin;
 public interface monopatinRepository extends JpaRepository<monopatin, Long>{
      
     // //Reporte por km con y sin pausa (a)
-    // @Query("SELECT m FROM monopatin m WHERE :incluirTiempoDePausa = true OR m.tiempoDePausa = 0")
-    // List<monopatin> reporteKm(@Param("incluirTiempoDePausa") boolean tiempoDePausa);
+    @Query("SELECT m.id_monopatin, SUM(CASE WHEN :tiempoPausa = true THEN (v.km_recorridos + v.pausa) ELSE v.km_recorridos END) FROM monopatin m JOIN viajes v GROUP BY m.id_monopatin")    
+    List<monopatin> reporteKm(@Param("tiempoPausa") boolean tiempoDePausa);
 
-	// //Los monopatines con más de X viajes en un cierto año (c)
-    // @Query("SELECT m FROM monopatin m JOIN FETCH m.viaje v WHERE YEAR(v.fecha_inicio) = :year GROUP BY m HAVING COUNT(v) > :numViajes")
-    // List<monopatin> buscarMonopatinesConMasDeXViajesEnAnio(@Param("year") int year, @Param("numViajes") int numViajes);
+
+
+
+
+
+	 //Los monopatines con más de X viajes en un cierto año (c)
+     @Query("SELECT m FROM monopatin m JOIN FETCH viaje v WHERE YEAR(v.fecha_inicio) = :year GROUP BY m HAVING COUNT(v) > :numViajes")
+     List<monopatin> buscarMonopatinesConMasDeXViajesEnAnio(@Param("year") int year, @Param("numViajes") int numViajes);
 
     // //consultar la cantidad de monopatines actualmente en operación, vs la cantidad de monopatines actualmente en mantenimiento
     // //(e)

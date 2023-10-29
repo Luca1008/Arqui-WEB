@@ -48,14 +48,14 @@ public class monopatinController {
     }
 
     
-    // @GetMapping("/")
-    // public List<monopatin> generarReporteKm(boolean tiempoDePausa) {
-    //     return monopatinServicio.generarReporteKm(tiempoDePausa);
-    // }
-
-    // public List<monopatin> buscarMonopatinesConMasDeXViajesEnAnio(int year, int numViajes){
-    //     return monopatinServicio.buscarMonopatinesConMasDeXViajesEnAnio(year,numViajes);
-    // }
+     @GetMapping("/reporteKM/{true}")
+     public List<monopatin> generarReporteKm(boolean tiempoDePausa) {
+         return monopatinServicio.generarReporteKm(tiempoDePausa);
+     }
+    @GetMapping("/buscar/{year}/{numViajes}")
+     public List<monopatin> buscarMonopatinesConMasDeXViajesEnAnio(int year, int numViajes){
+         return monopatinServicio.buscarMonopatinesConMasDeXViajesEnAnio(year,numViajes);
+     }
 
     // public int monopatinesEnOperacionOEnMantenimiento(Boolean enMantenimiento){
     //     return monopatinServicio.monopatinesEnOperacionOEnMantenimiento(enMantenimiento);

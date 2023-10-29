@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "usuarioApplication",
+            "request": "launch",
+            "mainClass": "com.usuarios.usuarioApplication",
+            "projectName": "usuarios"
+        },
+        {
+            "type": "java",
+            "name": "SeguimientoApplication",
+            "request": "launch",
+            "mainClass": "main.paradas.SeguimientoApplication",
+            "projectName": "paradas"
+        },
+        {
+            "type": "java",
+            "name": "AdministradorApplication",
+            "request": "launch",
+            "mainClass": "main.administrador.AdministradorApplication",
+            "projectName": "administrador"
+        },
+        {
+            "type": "java",
             "name": "DemoApplication",
             "request": "launch",
             "mainClass": "Integrador1/com.example.demo.DemoApplication",

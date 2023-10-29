@@ -32,7 +32,7 @@ public class viajeController {
         return viajeService.findAll();
     }
 
-    @GetMapping("/CalcularTotal/{year}/{mesInicio}/{mesFin}")
+    @GetMapping("/CalcularTotal/{year}/{mesInicio}/{mesFin}") 
     public int calcularTotalFacturadoEnRangoDeMeses(@PathVariable int year, @PathVariable int mesInicio, @PathVariable int mesFin) throws Exception{
         return viajeService.calcularTotalFacturadoEnRangoDeMeses(year,mesInicio,mesFin);
     }
