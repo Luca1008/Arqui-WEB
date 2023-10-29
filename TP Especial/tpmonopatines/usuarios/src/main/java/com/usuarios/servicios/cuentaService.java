@@ -13,12 +13,9 @@ import jakarta.transaction.Transactional;
 
 @Service("cuentaService")
 public class cuentaService {
-    @Autowired
-    private final cuentaRepository cuentaRepository;
 
-    public cuentaService(cuentaRepository cuentaRepository) {
-        this.cuentaRepository = cuentaRepository;
-    }
+    @Autowired
+    private cuentaRepository cuentaRepository;
 
     @Transactional
     public cuenta save(cuenta cuenta) {
@@ -52,7 +49,8 @@ public class cuentaService {
     }
 
      @Transactional
-    public void anularCuenta(long cuentaId){
+    public Optional<cuenta> anularCuenta(long cuentaId){
         cuentaRepository.anularCuenta(cuentaId);
+        return cuentaRepository.findById(cuentaId);
     }
 }

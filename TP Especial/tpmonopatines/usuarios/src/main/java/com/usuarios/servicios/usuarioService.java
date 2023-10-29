@@ -13,12 +13,9 @@ import org.springframework.stereotype.Service;
 
 @Service("usuarioService")
 public class usuarioService {
-    @Autowired
-    private final usuarioRepository usuarioRepository;
 
-    public usuarioService(usuarioRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
-    }
+    @Autowired
+    private usuarioRepository usuarioRepository;
 
     @Transactional
     public Optional<usuario> obtenerUsuarioPorId(Long id) {

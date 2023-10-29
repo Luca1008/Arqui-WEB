@@ -3,6 +3,9 @@ package com.usuarios.model;
 import java.sql.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -11,14 +14,15 @@ import lombok.Data;
 public class cuenta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long nro_cuenta;
 
     private int dinero;
     private Date fechaAlta;
     private Boolean activada;
 
     // Relación muchos a muchos con Usuarios
-    @ManyToMany
+    @JsonIgnore
+    @ManyToMany (mappedBy = "cuentas")
     private List<usuario> usuarios;
 
     public cuenta() {

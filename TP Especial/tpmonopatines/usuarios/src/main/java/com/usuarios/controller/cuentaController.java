@@ -1,19 +1,25 @@
 package com.usuarios.controller;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import com.usuarios.model.cuenta;
 import com.usuarios.servicios.cuentaService;
 
 
 @RestController
-@RequestMapping("/cuentas")
+@RequestMapping("cuentas")
 public class cuentaController {
+    @Qualifier("cuentaService")
+
+    @Autowired
     private final cuentaService cuentaService;
     
 
-    public cuentaController(cuentaService cuentaService) {
+    public cuentaController(@Qualifier("cuentaService") cuentaService cuentaService) {
         this.cuentaService = cuentaService;
     }
 
@@ -21,12 +27,12 @@ public class cuentaController {
     public cuenta obtenerCuentaPorId(@PathVariable Long cuentaId) throws Exception {
         return cuentaService.obtenerCuentaPorId(cuentaId);
     }
-    @GetMapping
+    @GetMapping("/")
     public List<cuenta> obtenerTodosLoscuentas() throws Exception {
         return cuentaService.obtenerTodosLoscuentas();
     }
     
-    @PostMapping
+    @PostMapping("/")
     public cuenta crearCuenta(@RequestBody cuenta cuenta) throws Exception{
         return cuentaService.save(cuenta);
     }
@@ -41,9 +47,9 @@ public class cuentaController {
         cuentaService.eliminarCuentaPorId(cuentaId);
     }
 
-    @PutMapping("anular/{cuentaId}") //chequear si es lo mismo que esta arriba
-    public void anularCuenta(@PathVariable Long cuentaId) throws Exception{
-        cuentaService.anularCuenta(cuentaId);
+    @GetMapping("anular/{cuentaId}") //chequear si es lo mismo que esta arriba
+    public Optional<cuenta> anularCuenta(@PathVariable Long cuentaId) throws Exception{
+        return cuentaService.anularCuenta(cuentaId);
     }
     
 

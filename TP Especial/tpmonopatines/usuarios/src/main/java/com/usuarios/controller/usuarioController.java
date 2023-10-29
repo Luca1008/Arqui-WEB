@@ -1,5 +1,7 @@
 package com.usuarios.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import com.usuarios.model.usuario;
@@ -8,35 +10,33 @@ import com.usuarios.servicios.usuarioService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("usuarios")
 public class usuarioController {
-    private final usuarioService usuarioServicio;
+    @Qualifier("usuarioService")
+    private final usuarioService usuarioService;
 
-    public usuarioController(usuarioService usuarioServicio) {
-        this.usuarioServicio = usuarioServicio;
+    @Autowired
+    public usuarioController(@Qualifier("usuarioService") usuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
 
-    // Endpoint para crear un usuario
     @PostMapping("/")
     public usuario crearUsuario(@RequestBody usuario usuario) {
-        return usuarioServicio.save(usuario);
+        return usuarioService.save(usuario);
     }
 
-    // Endpoint para obtener todos los usuarios
     @GetMapping("/")
     public List<usuario> obtenerUsuarios() throws Exception {
-        return usuarioServicio.findAll();
+        return usuarioService.findAll();
     }
 
-    // Endpoint para actualizar un usuario
     @PutMapping("/{id}/")
     public usuario actualizarUsuario(@PathVariable Long id, @RequestBody usuario usuarioActualizado) throws Exception {
-        return usuarioServicio.update(id, usuarioActualizado);
+        return usuarioService.update(id, usuarioActualizado);
     }
 
-    // Endpoint para eliminar usuario
     @DeleteMapping("/{id}/")
-    public void borrarUsuario(@PathVariable Long id){
-        usuarioServicio.deleteById(id);
+    public void borrarUsuario(@PathVariable Long id) {
+        usuarioService.deleteById(id);
     }
 }
