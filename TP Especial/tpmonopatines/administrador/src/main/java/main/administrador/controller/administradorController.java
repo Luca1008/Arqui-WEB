@@ -18,7 +18,6 @@ public class administradorController {
 
     @Autowired
     private final administradorService administradorService;
-    private RestTemplate restTemplate;
 
     public administradorController(@Qualifier("administradorService") administradorService administradorService) {
         this.administradorService = administradorService;
@@ -50,13 +49,7 @@ public class administradorController {
     }
 
     @GetMapping("/anular/{id}")
-    public Boolean anularCuentaAdministrador(@PathVariable Long id){
-        ResponseEntity<Boolean> response = restTemplate.getForEntity("Localhost:8080/cuentas/anular/{id}", Boolean.class, id);
-        if (response.getStatusCode().is2xxSuccessful()) {
-            return response.getBody();
-        }
-        else {
-            return false;
-        }
+    public String anular(@PathVariable Long id) throws Exception {
+        return administradorService.hacerLlamadaAlOtroServicio(id);
     }
 }

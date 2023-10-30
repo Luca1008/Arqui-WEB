@@ -47,7 +47,7 @@ public class cuentaController {
         cuentaService.eliminarCuentaPorId(cuentaId);
     }
 
-    @GetMapping("anular/{cuentaId}") //chequear si es lo mismo que esta arriba
+    @GetMapping("/anular/{cuentaId}") //chequear si es lo mismo que esta arriba
     public Boolean anularCuenta(@PathVariable Long cuentaId) throws Exception{
         return cuentaService.anularCuenta(cuentaId);
     }
