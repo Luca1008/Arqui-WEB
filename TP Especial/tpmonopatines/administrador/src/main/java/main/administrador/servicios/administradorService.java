@@ -10,11 +10,13 @@ import jakarta.transaction.Transactional;
 import main.administrador.model.administrador;
 import main.administrador.repository.administradorRepository;
 
+
 @Service("administradorService")
 public class administradorService {
 
     @Autowired
     private administradorRepository administradorRepository;
+
 
     @Transactional
     public List<administrador> findAll() {

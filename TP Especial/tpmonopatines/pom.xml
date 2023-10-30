@@ -19,7 +19,7 @@
 	</properties>
 	<packaging>pom</packaging>
 	<modules>
-		<module>administrador/pom.xml</module>
+		<module>administrador</module>
 		<module>mantenimiento</module>
 		<module>usuarios</module>
 		<module>seguimiento</module>

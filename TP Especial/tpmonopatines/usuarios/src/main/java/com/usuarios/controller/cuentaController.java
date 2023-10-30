@@ -48,7 +48,7 @@ public class cuentaController {
     }
 
     @GetMapping("anular/{cuentaId}") //chequear si es lo mismo que esta arriba
-    public Optional<cuenta> anularCuenta(@PathVariable Long cuentaId) throws Exception{
+    public Boolean anularCuenta(@PathVariable Long cuentaId) throws Exception{
         return cuentaService.anularCuenta(cuentaId);
     }
     

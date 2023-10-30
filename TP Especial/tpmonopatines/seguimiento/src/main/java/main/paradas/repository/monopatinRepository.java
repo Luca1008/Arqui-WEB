@@ -10,24 +10,25 @@ import org.springframework.data.repository.query.Param;
 import main.paradas.model.monopatin;
 
 public interface monopatinRepository extends JpaRepository<monopatin, Long>{
-     
-    // //Reporte por km con y sin pausa (a)
-    @Query("SELECT m.id_monopatin, SUM(CASE WHEN :tiempoPausa = true THEN (v.km_recorridos + v.pausa) ELSE v.km_recorridos END) FROM monopatin m JOIN viajes v GROUP BY m.id_monopatin")    
-    List<monopatin> reporteKm(@Param("tiempoPausa") boolean tiempoDePausa);
 
+    @Query("SELECT m.id_monopatin,m.km_recorridos FROM monopatin m")
+    List<Object[]> reporteKm();
 
+    @Query("SELECT m.id_monopatin,m.km_recorridos,SEC_TO_TIME(SUM(TIME_TO_SEC(v.pausa))) AS pausa FROM monopatin m JOIN viaje v ON v.monopatin.id_monopatin = m.id_monopatin GROUP BY m.id_monopatin,m.km_recorridos")
+    List<Object[]> generarReporteKmPausa();
+    
 
+	//Los monopatines con más de X viajes en un cierto año (c)
+    @Query("SELECT m FROM monopatin m JOIN viaje v ON m.id_monopatin = v.monopatin.id_monopatin WHERE YEAR(v.fecha_inicio) = :year GROUP BY m.id_monopatin HAVING COUNT(v.nro_viaje) > :numViajes")
+    List<monopatin> buscarMonopatinesConMasDeXViajesEnAnio(@Param("year") int year, @Param("numViajes") int numViajes);
 
+    
+    //consultar la cantidad de monopatines actualmente en operación, vs la cantidad de monopatines actualmente en mantenimiento
+    @Query("SELECT m.monopatin_mantenimiento, COUNT(*) AS cantidad FROM monopatin m GROUP BY m.monopatin_mantenimiento")
+    List<Object[]> monopatinesEnOperacionOEnMantenimiento();
+    
+    
 
-
-	 //Los monopatines con más de X viajes en un cierto año (c)
-     @Query("SELECT m FROM monopatin m JOIN FETCH viaje v WHERE YEAR(v.fecha_inicio) = :year GROUP BY m HAVING COUNT(v) > :numViajes")
-     List<monopatin> buscarMonopatinesConMasDeXViajesEnAnio(@Param("year") int year, @Param("numViajes") int numViajes);
-
-    // //consultar la cantidad de monopatines actualmente en operación, vs la cantidad de monopatines actualmente en mantenimiento
-    // //(e)
-    // @Query("SELECT COUNT(m) FROM monopatin m WHERE m.monopatin_mantenimiento = :mantenimiento")
-    // int monopatinesEnOperacionOEnMantenimiento(@Param ("mantenimiento") Boolean enMantenimiento);
 
     // //listado de los monopatines cercanos a mi zona, para poder encontrar un monopatín cerca de mi ubicación (f)
     // //(g) 

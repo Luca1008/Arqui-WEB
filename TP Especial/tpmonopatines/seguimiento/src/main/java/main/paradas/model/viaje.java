@@ -1,4 +1,5 @@
 package main.paradas.model;
+
 import jakarta.persistence.*;
 import lombok.*;
 import java.sql.Time;

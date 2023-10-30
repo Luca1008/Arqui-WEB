@@ -49,8 +49,14 @@ public class cuentaService {
     }
 
      @Transactional
-    public Optional<cuenta> anularCuenta(long cuentaId){
-        cuentaRepository.anularCuenta(cuentaId);
-        return cuentaRepository.findById(cuentaId);
+    public Boolean anularCuenta(long cuentaId){
+        if(!cuentaRepository.existsById(cuentaId)){
+            return false;
+        }
+        else {
+            cuentaRepository.anularCuenta(cuentaId);
+            return true;
+        }
+        
     }
 }
