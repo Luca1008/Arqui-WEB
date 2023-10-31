@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import main.administrador.model.administrador;
@@ -24,18 +26,35 @@ public class administradorController {
     }
 
     @GetMapping("/")
-    public List<administrador> findAll() {
-        return administradorService.findAll();
+    public ResponseEntity<List<administrador>> findAll() {
+        List<administrador> resultado = administradorService.findAll();
+        if (!resultado.isEmpty()) {
+            return ResponseEntity.ok(resultado);
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/{id}")
-    public Optional<administrador> findById(@PathVariable Long id) {
-        return administradorService.findById(id);
+    public ResponseEntity<Optional<administrador>> findById(@PathVariable Long id) {
+        Optional<administrador> resultado = administradorService.findById(id);
+        if (!resultado.isEmpty()) {
+            return ResponseEntity.ok(resultado);
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/")
-    public administrador create(@RequestBody administrador administrador) {
-        return administradorService.save(administrador);
+    public ResponseEntity<?> save(@RequestBody administrador administrador) {
+        administrador resultado = administradorService.save(administrador);
+        if (resultado != null) {
+            return ResponseEntity.ok(resultado);
+        } else {
+            return ResponseEntity.badRequest().body("Hay un error de sintaxis en el body");
+        }
     }
 
     @PutMapping("/{id}")
@@ -44,12 +63,22 @@ public class administradorController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        administradorService.deleteById(id);
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        Boolean resultado = administradorService.deleteById(id);
+        if (resultado) {
+            return ResponseEntity.status(HttpStatus.OK).body("Administrador borrado con exito");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El administrador a borrar no existe");
+        }
     }
 
-    @GetMapping("/anular/{id}")
-    public String anular(@PathVariable Long id) throws Exception {
-        return administradorService.hacerLlamadaAlOtroServicio(id);
+    @GetMapping("/cuenta/{id}/anular")
+    public ResponseEntity<String> anular(@PathVariable Long id) throws Exception {
+        String resultado = administradorService.hacerLlamadaAlOtroServicio(id);
+        if (resultado.equals("true")) {
+            return ResponseEntity.status(HttpStatus.OK).body("Cuenta anulada con exito");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("La cuenta a anular no existe");
+        }
     }
 }

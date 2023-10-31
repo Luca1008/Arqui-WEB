@@ -46,8 +46,15 @@ public class administradorService {
     }
 
     @Transactional
-    public void deleteById(Long id) {
-        administradorRepository.deleteById(id);
+    public boolean deleteById(Long id) {
+        Optional<administrador> admin = administradorRepository.findById(id);
+        if (admin.isPresent()) {
+            administradorRepository.deleteById(id);
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public String hacerLlamadaAlOtroServicio(Long id) throws Exception {
@@ -61,4 +68,25 @@ public class administradorService {
             throw new Exception("No anduvo");
         }
     }
+
+    public String reporteDeMonopatinesKMconPausa () throws Exception{
+        String url = "http://localhost:8083/monopatin/reporteKM/tiempoPausa/";
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        if(response.getStatusCode().is2xxSuccessful()){
+            return response.getBody();
+        } else {
+            throw new Exception("No anduvo");
+        }
+    }
+        public String reporteDeMonopatinesKM () throws Exception {
+        String url = "http://localhost:8083/monopatin/reporteKM/";
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        if(response.getStatusCode().is2xxSuccessful()){
+            return response.getBody();
+        } else {
+            throw new Exception("No anduvo");
+        }
+    } 
+
+    
 }
