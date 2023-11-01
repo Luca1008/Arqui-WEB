@@ -57,7 +57,7 @@ public class administradorService {
         }
     }
 
-    public String hacerLlamadaAlOtroServicio(Long id) throws Exception {
+    public String anularCuenta(Long id) throws Exception {
         
         String url = "http://localhost:8084/cuentas/anular/" + id;
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -69,24 +69,35 @@ public class administradorService {
         }
     }
 
-    public String reporteDeMonopatinesKMconPausa () throws Exception{
-        String url = "http://localhost:8083/monopatin/reporteKM/tiempoPausa/";
+    public String monopatinesConXviajesEnXaño(int viajes, int año) throws Exception {
+        String url = "http:localhost:80";
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-        if(response.getStatusCode().is2xxSuccessful()){
+        if (response.getStatusCode().is2xxSuccessful()) {
             return response.getBody();
-        } else {
-            throw new Exception("No anduvo");
+        }else{
+            throw new Exception ("no anduvo");
         }
     }
-        public String reporteDeMonopatinesKM () throws Exception {
-        String url = "http://localhost:8083/monopatin/reporteKM/";
+
+    public String facturadoEntreMesesdeXaño(int mes1, int mes2, int año) throws Exception {
+        String url = "http:localhost:80";
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-        if(response.getStatusCode().is2xxSuccessful()){
+        if (response.getStatusCode().is2xxSuccessful()) {
             return response.getBody();
-        } else {
-            throw new Exception("No anduvo");
+        }else{
+            throw new Exception ("no anduvo");
         }
-    } 
+    }
+
+    public String  monopatinesEnFuncionamientoVsMantenimiento() throws Exception {
+        String url = "http:localhost:80";
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        if (response.getStatusCode().is2xxSuccessful()) {
+            return response.getBody();
+        }else{
+            throw new Exception ("no anduvo");
+        }
+    }
 
     
 }

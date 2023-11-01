@@ -6,12 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import main.administrador.model.administrador;
 import main.administrador.servicios.administradorService;
-import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("administrador")
@@ -74,7 +72,7 @@ public class administradorController {
 
     @GetMapping("/cuenta/{id}/anular")
     public ResponseEntity<String> anular(@PathVariable Long id) throws Exception {
-        String resultado = administradorService.hacerLlamadaAlOtroServicio(id);
+        String resultado = administradorService.anularCuenta(id);
         if (resultado.equals("true")) {
             return ResponseEntity.status(HttpStatus.OK).body("Cuenta anulada con exito");
         } else {

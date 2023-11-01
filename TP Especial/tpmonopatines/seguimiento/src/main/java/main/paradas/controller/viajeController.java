@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import main.paradas.model.viaje;
 import main.paradas.servicios.viajeService;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController

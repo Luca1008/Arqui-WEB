@@ -1,8 +1,6 @@
 package main.paradas.model;
 
 import java.sql.Time;
-import java.util.List;
-
 import jakarta.persistence.*;
 import lombok.*; 
 
