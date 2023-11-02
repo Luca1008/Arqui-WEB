@@ -2,9 +2,11 @@ package main.administrador.repository;
 
 import main.administrador.model.administrador;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.*;
 
 public interface administradorRepository extends JpaRepository<administrador, Long> {
-    // Aquí puedes poner tus consultas personalizadas a la base de datos
+
+    // @Query("")
+    // void setTarifasEnXfecha(int year, int mes, int day, int tarifa);
     
 }

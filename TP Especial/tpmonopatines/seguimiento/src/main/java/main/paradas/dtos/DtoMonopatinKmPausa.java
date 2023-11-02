@@ -2,9 +2,9 @@ package main.paradas.dtos;
 
 import java.sql.Time;
 
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 public class DtoMonopatinKmPausa {
     private Long id_monopatin;
     private Double km_recorridos;

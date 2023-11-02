@@ -1,8 +1,8 @@
 package main.paradas.dtos;
 
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 public class DtoMonopatinEnMatenimiento {
     private Boolean EnMantenimiento;
     private Long Cantidad;

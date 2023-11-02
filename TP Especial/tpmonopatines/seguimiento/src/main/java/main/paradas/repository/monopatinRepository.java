@@ -18,7 +18,7 @@ public interface monopatinRepository extends JpaRepository<monopatin, Long>{
     List<Object[]> generarReporteKmPausa();
     
 
-	//Los monopatines con más de X viajes en un cierto año (c)
+	//Los monopatines con más de x viajes en un cierto año (c)
     @Query("SELECT m FROM monopatin m JOIN viaje v ON m.id_monopatin = v.monopatin.id_monopatin WHERE YEAR(v.fecha_inicio) = :year GROUP BY m.id_monopatin HAVING COUNT(v.nro_viaje) > :numViajes")
     List<monopatin> buscarMonopatinesConMasDeXViajesEnAnio(@Param("year") int year, @Param("numViajes") int numViajes);
 
@@ -27,13 +27,9 @@ public interface monopatinRepository extends JpaRepository<monopatin, Long>{
     @Query("SELECT m.monopatin_mantenimiento, COUNT(*) AS cantidad FROM monopatin m GROUP BY m.monopatin_mantenimiento")
     List<Object[]> monopatinesEnOperacionOEnMantenimiento();
     
-    
-
-
     // //listado de los monopatines cercanos a mi zona, para poder encontrar un monopatín cerca de mi ubicación (f)
-    // //(g) 
-    // @Query("SELECT m FROM monopatin m " +
-    //        "WHERE FUNCTION('ACOS', FUNCTION('SIN', :userLatitud) * FUNCTION('SIN', m.latitud) + " +
-    //        "FUNCTION('COS', :userLatitud) * FUNCTION('COS', m.latitud) * FUNCTION('COS', :userLongitud - m.longitud)) * 6371 <= :maxDistance")
-    // List<monopatin> monopatinesCercanos (@Param("userLatitud") double userLatitud, @Param("userLongitud") double userLongitud, @Param("maxDistance") double maxDistance);
+   
+    @Query("SELECT m.id_monopatin, m.x, m.y, SQRT((m.x - :x) * (m.x - :x) + (m.y - :y) * (m.y - :y)) AS distancia FROM monopatin m WHERE SQRT((m.x - :x) * (m.x - :x) + (m.y - :y) * (m.y - :y)) <= :maxDistance ORDER BY distancia")
+    List<Object[]> getMonopatinCercanos(@Param("x") int x, @Param("y") int y, @Param("maxDistance") int maxDistance);
+
 }

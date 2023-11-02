@@ -2,6 +2,8 @@ package com.usuarios.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,6 +24,7 @@ public class usuario {
         joinColumns = @JoinColumn(name = "id_usuario"), 
         inverseJoinColumns = @JoinColumn(name = "nro_cuenta")
     )
+    @JsonIgnore
     @ManyToMany
     private List<cuenta> cuentas;
     

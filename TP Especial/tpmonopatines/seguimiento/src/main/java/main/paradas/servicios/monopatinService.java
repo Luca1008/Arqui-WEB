@@ -1,5 +1,7 @@
 package main.paradas.servicios;
 
+import main.paradas.dtos.DtoMonopatin;
+import main.paradas.dtos.DtoMonopatinDistancia;
 import main.paradas.dtos.DtoMonopatinEnMatenimiento;
 import main.paradas.dtos.DtoMonopatinKm;
 import main.paradas.dtos.DtoMonopatinKmPausa;
@@ -21,28 +23,43 @@ public class monopatinService {
     private monopatinRepository monopatinRepository;
 
     @Transactional
-    public monopatin save(monopatin monopatin) {
-        return monopatinRepository.save(monopatin);
+    public DtoMonopatin save(monopatin monopatin) {
+        var resultado =  monopatinRepository.save(monopatin);
+        return new DtoMonopatin(resultado.getId_monopatin(), resultado.getTiempo_uso(), resultado.getKm_recorridos(), resultado.getMonopatin_mantenimiento(), resultado.getX(), resultado.getY(),resultado.getParada());
     }
 
     @Transactional
-    public List<monopatin> findAll() {
-        return monopatinRepository.findAll();
+    public List<DtoMonopatin> findAll() throws Exception {
+        var resultados = monopatinRepository.findAll();
+        try {
+            return resultados.stream().map(resultado -> new DtoMonopatin(resultado.getId_monopatin(), resultado.getTiempo_uso(), resultado.getKm_recorridos(), resultado.getMonopatin_mantenimiento(), resultado.getX(), resultado.getY(),resultado.getParada())).collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 
     @Transactional
-    public Optional<monopatin> findById(Long id) {
-        return monopatinRepository.findById(id);
+    public DtoMonopatin findById(Long id) {
+        Optional<monopatin> res = monopatinRepository.findById(id);
+        if (res.isPresent()) {
+            monopatin resultado = res.get();
+            return new DtoMonopatin(resultado.getId_monopatin(), resultado.getTiempo_uso(), resultado.getKm_recorridos(), resultado.getMonopatin_mantenimiento(), resultado.getX(), resultado.getY(),resultado.getParada());
+        } else {
+            return null;
+        }
     }
 
-    @Transactional
-    public monopatin updateMonopatin(Long id, monopatin monopatin) {
-        return monopatinRepository.save(monopatin);
-    }
 
     @Transactional
-    public void deleteById(Long id) {
-        monopatinRepository.deleteById(id);
+    public boolean deleteById(Long id) {
+       Optional<monopatin> admin = monopatinRepository.findById(id);
+        if (admin.isPresent()) {
+            monopatinRepository.deleteById(id);
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     @Transactional
@@ -70,22 +87,29 @@ public class monopatinService {
 	public List<DtoMonopatinEnMatenimiento> monopatinesEnOperacionOEnMantenimiento() throws Exception {
         var resultados = monopatinRepository.monopatinesEnOperacionOEnMantenimiento();
         try {
-            return resultados.stream().map(resultado -> new DtoMonopatinEnMatenimiento(resultado[0], resultado[1]))
-                    .collect(Collectors.toList());
+            return resultados.stream().map(resultado -> new DtoMonopatinEnMatenimiento(resultado[0], resultado[1])).collect(Collectors.toList());
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
 	}
 
     @Transactional
-    public List<monopatin> buscarMonopatinesConMasDeXViajesEnAnio(int year, int numViajes) {
-        return monopatinRepository.buscarMonopatinesConMasDeXViajesEnAnio(year, numViajes);
+    public List<DtoMonopatin> buscarMonopatinesConMasDeXViajesEnAnio(int year, int numViajes) throws Exception {
+        var resultados = monopatinRepository.buscarMonopatinesConMasDeXViajesEnAnio(year, numViajes);
+        try {
+            return resultados.stream().map(resultado -> new DtoMonopatin(resultado.getId_monopatin(), resultado.getTiempo_uso(), resultado.getKm_recorridos(), resultado.getMonopatin_mantenimiento(), resultado.getX(), resultado.getY(),resultado.getParada())).collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 
-    // @Transactional
-    // public List<monopatin> monopatinesCercanos(int latitud, int longuitud, int
-    // maxDistancia) {
-    // return monopatinRepository.monopatinesCercanos(latitud, longuitud,
-    // maxDistancia);
-    // }
+    @Transactional
+    public List<DtoMonopatinDistancia> getMonopatinCercanos(int userLatitud, int userLongitud, int maxDistance) throws Exception {
+        var resultados = monopatinRepository.getMonopatinCercanos(userLatitud, userLongitud, maxDistance);
+        try {
+            return resultados.stream().map(resultado -> new DtoMonopatinDistancia(resultado[0], resultado[1], resultado[2], resultado[3])).collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
 }

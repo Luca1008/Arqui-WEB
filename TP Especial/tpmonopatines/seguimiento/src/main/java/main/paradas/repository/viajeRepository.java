@@ -15,17 +15,4 @@ public interface viajeRepository extends JpaRepository<viaje, Long>{
     int calcularTotalFacturadoEnRangoDeMeses(int year,int mesInicio,int mesFin);
 
 
-//     //quiero hacer un ajuste de precios, y que a partir de cierta fecha el sistema habilite los nuevos precios.
-//     //(f)
-//     @Query("SELECT v FROM viaje v " +
-//            "WHERE v.fechaHabilitacionNuevosPrecios <= :fechaEspecifica " +
-//            "AND v.precio <> :nuevoPrecio")
-//     List<viaje> findViajesConNuevosPreciosHabilitados(@Param("fechaEspecifica") LocalDate fechaEspecifica);
-
-
-//     //para el punto 3 f
-//     @Modifying
-//     @Query("UPDATE viaje v SET v.precio = :nuevoPrecio, WHERE v.fechaHabilitacionNuevosPrecios <= :fechaActual")
-//     void ajustarPrecio(@Param("fechaActual") LocalDate fechaActual, @Param("nuevoPrecio") int nuevoPrecio);
-
 }

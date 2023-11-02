@@ -2,6 +2,7 @@ package main.mantenimiento.servicios;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import jakarta.transaction.Transactional;
+import main.mantenimiento.Dtos.DtoMantenimiento;
 import main.mantenimiento.model.mantenimiento;
 import main.mantenimiento.repository.mantenimientoRepository;
 
@@ -23,32 +25,47 @@ public class mantenimientoService {
     }
 
     @Transactional
-    public List<mantenimiento> findAll() {
-        return mantenimientoRepository.findAll();
+    public List<DtoMantenimiento> findAll() throws Exception {
+        var resultados =  mantenimientoRepository.findAll();
+        try {
+            return resultados.stream().map(resultado -> new DtoMantenimiento(resultado.getNro_atencion(),resultado.getTiempo_uso(),resultado.getKm_recorridos())).collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 
     @Transactional
-    public Optional<mantenimiento> findById(Long id) {
-        return mantenimientoRepository.findById(id);
+    public DtoMantenimiento findById(Long id) {
+        Optional<mantenimiento> res = mantenimientoRepository.findById(id);
+        if (res.isPresent()) {
+            mantenimiento resultado = res.get();
+            return new DtoMantenimiento(resultado.getNro_atencion(),resultado.getTiempo_uso(),resultado.getKm_recorridos());
+        } else {
+            return null;
+        }
+
     }
 
     @Transactional
-    public mantenimiento save(mantenimiento mantenimiento) {
-        return mantenimientoRepository.save(mantenimiento);
+    public DtoMantenimiento save(mantenimiento mantenimiento) {
+        mantenimiento resultado = mantenimientoRepository.save(mantenimiento);
+        return new DtoMantenimiento(resultado.getNro_atencion(),resultado.getTiempo_uso(),resultado.getKm_recorridos());
     }
 
     @Transactional
-    public mantenimiento update(Long id, mantenimiento mantenimiento) {
-        return null;
-    }
-
-    @Transactional
-    public void deleteById(Long id) {
-        mantenimientoRepository.deleteById(id);
+    public boolean deleteById(Long id) {
+        Optional<mantenimiento> admin = mantenimientoRepository.findById(id);
+        if (admin.isPresent()) {
+            mantenimientoRepository.deleteById(id);
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public String reporteDeMonopatinesKMconPausa () throws Exception{
-        String url = "http://localhost:8083/monopatin/reporteKM/tiempoPausa/";
+        String url = "http://localhost:8083/monopatin/reporteKM/tiempoPausa";
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         if(response.getStatusCode().is2xxSuccessful()){
             return response.getBody();
@@ -57,7 +74,7 @@ public class mantenimientoService {
         }
     }
         public String reporteDeMonopatinesKM () throws Exception {
-        String url = "http://localhost:8083/monopatin/reporteKM/";
+        String url = "http://localhost:8083/monopatin/reporteKM";
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         if(response.getStatusCode().is2xxSuccessful()){
             return response.getBody();

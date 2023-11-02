@@ -1,12 +1,14 @@
 package main.mantenimiento.controller;
 
 import java.util.List;
-import java.util.Optional;
+import org.springframework.http.HttpStatus;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 
+import main.mantenimiento.Dtos.DtoMantenimiento;
 import main.mantenimiento.model.mantenimiento;
 import main.mantenimiento.servicios.mantenimientoService;
 
@@ -24,29 +26,65 @@ public class mantenimientoController {
     }
     
     @GetMapping("/")
-    public List<mantenimiento> findAll() {
-        return mantenimientoService.findAll();
+   public ResponseEntity<List<DtoMantenimiento>> findAll() throws Exception {
+        List<DtoMantenimiento> resultado =  mantenimientoService.findAll();
+        if (!resultado.isEmpty()) {
+            return ResponseEntity.ok(resultado);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
     
     @GetMapping("/{id}")
-    public Optional<mantenimiento> findById(@PathVariable Long id) {
-        return mantenimientoService.findById(id);
+    public ResponseEntity<DtoMantenimiento>  findById(@PathVariable Long id) {
+        DtoMantenimiento resultado = mantenimientoService.findById(id);
+        if (resultado != null) {
+            return ResponseEntity.ok(resultado);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/")
-    public mantenimiento create(@RequestBody mantenimiento mantenimiento) {
-        return mantenimientoService.save(mantenimiento);
+    public ResponseEntity<?> save(@RequestBody mantenimiento mantenimiento) {
+        DtoMantenimiento resultado = mantenimientoService.save(mantenimiento);
+        if (resultado != null) {
+            return ResponseEntity.ok(resultado);
+        } else {
+            return ResponseEntity.badRequest().body("Hay un error de sintaxis en el body");
+        }
     }
-    
-    
-    @PutMapping("/{id}")
-    public mantenimiento update(@PathVariable Long id, @RequestBody mantenimiento mantenimiento) {
-        return mantenimientoService.update(id, mantenimiento);
-    }
-    
+        
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        mantenimientoService.deleteById(id);
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        Boolean resultado = mantenimientoService.deleteById(id);
+        if (resultado) {
+            return ResponseEntity.status(HttpStatus.OK).body("Administrador borrado con exito");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El administrador a borrar no existe");
+        }
+    }
+
+    @GetMapping("/monopatinesKM/")
+    public ResponseEntity<String> reporteMonopatinesKm() throws Exception{
+        String resultado = mantenimientoService.reporteDeMonopatinesKM();
+        if (!resultado.isEmpty()) {
+            return ResponseEntity.ok(resultado);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No hay reporte");
+        }
+    }
+
+    @GetMapping("/monopatinesKM/pausa")
+    public ResponseEntity<String> reporteMonopatinesKmconPausa() throws Exception{
+        String resultado = mantenimientoService.reporteDeMonopatinesKMconPausa();
+        if (!resultado.isEmpty()) {
+            return ResponseEntity.ok(resultado);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No hay reporte");
+        }
     }
 
 }

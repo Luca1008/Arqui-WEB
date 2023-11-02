@@ -2,10 +2,12 @@ package com.usuarios.servicios;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.usuarios.Dtos.DtoCuenta;
 import com.usuarios.model.cuenta;
 import com.usuarios.repository.cuentaRepository;
 
@@ -18,37 +20,38 @@ public class cuentaService {
     private cuentaRepository cuentaRepository;
 
     @Transactional
-    public cuenta save(cuenta cuenta) {
-        return cuentaRepository.save(cuenta);
+    public DtoCuenta save(cuenta cuenta) throws Exception {
+        cuenta resultado = cuentaRepository.save(cuenta);
+        return new DtoCuenta(resultado.getNro_cuenta(), resultado.getDinero(), resultado.getFechaAlta(), resultado.getActivada(), resultado.getUsuarios());
     }
 
     @Transactional
-    public List<cuenta> obtenerTodosLoscuentas() {
-        return cuentaRepository.findAll();
-    }
-
-    @Transactional
-    public cuenta obtenerCuentaPorId(Long cuentaId) throws Exception {
+    public List<DtoCuenta> findAll() throws Exception {
+        var resultados =  cuentaRepository.findAll();
         try {
-            Optional<cuenta> resultado = cuentaRepository.findById(cuentaId);
-            cuenta cuenta = resultado.get();
-            return cuenta;
+            return resultados.stream().map(resultado -> new DtoCuenta(resultado.getNro_cuenta(), resultado.getDinero(), resultado.getFechaAlta(), resultado.getActivada(), resultado.getUsuarios())).collect(Collectors.toList());
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
 
     @Transactional
-    public cuenta modificarCuentaPorId(Long cuentaId) {
-        return null;
+    public DtoCuenta findById(Long id) throws Exception {
+        try {
+            Optional<cuenta> res = cuentaRepository.findById(id);
+            if (res.isPresent()) {
+                cuenta resultado = res.get();
+                return new DtoCuenta(resultado.getNro_cuenta(), resultado.getDinero(), resultado.getFechaAlta(), resultado.getActivada(), resultado.getUsuarios());
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
+
 
     @Transactional
-    public void eliminarCuentaPorId(Long cuentaId) {
-        cuentaRepository.deleteById(cuentaId);
-    }
-
-     @Transactional
     public Boolean anularCuenta(long cuentaId){
         if(!cuentaRepository.existsById(cuentaId)){
             return false;
@@ -57,6 +60,18 @@ public class cuentaService {
             cuentaRepository.anularCuenta(cuentaId);
             return true;
         }
-        
     }
+
+    @Transactional
+    public Boolean deleteById(Long cuentaId) {
+        Optional<cuenta> admin = cuentaRepository.findById(cuentaId);
+        if (admin.isPresent()) {
+            cuentaRepository.deleteById(cuentaId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 }

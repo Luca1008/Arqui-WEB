@@ -4,7 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.usuarios.Dtos.DtoCuenta;
 import com.usuarios.model.cuenta;
 import com.usuarios.servicios.cuentaService;
 
@@ -23,33 +27,52 @@ public class cuentaController {
     }
 
     @GetMapping("/{cuentaId}")
-    public cuenta obtenerCuentaPorId(@PathVariable Long cuentaId) throws Exception {
-        return cuentaService.obtenerCuentaPorId(cuentaId);
+    public ResponseEntity<DtoCuenta> findById(@PathVariable Long cuentaId) throws Exception {
+        DtoCuenta resultado = cuentaService.findById(cuentaId);
+        if (resultado != null) {
+            return ResponseEntity.ok(resultado);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
     @GetMapping("/")
-    public List<cuenta> obtenerTodosLoscuentas() throws Exception {
-        return cuentaService.obtenerTodosLoscuentas();
+    public ResponseEntity<List<DtoCuenta>> findAll() throws Exception {
+        List<DtoCuenta> resultado = cuentaService.findAll();
+        if (!resultado.isEmpty()) {
+            return ResponseEntity.ok(resultado);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
     
     @PostMapping("/")
-    public cuenta crearCuenta(@RequestBody cuenta cuenta) throws Exception{
-        return cuentaService.save(cuenta);
+    public ResponseEntity<?> save(@RequestBody cuenta cuenta) throws Exception{
+        DtoCuenta resultado = cuentaService.save(cuenta);
+        if (resultado != null) {
+            return ResponseEntity.ok(resultado);
+        } else {
+            return ResponseEntity.badRequest().body("Hay un error de sintaxis en el body");
+        }
     }
 
-    @PutMapping("/{cuentaId}")
-    public cuenta modificarCuenta(@PathVariable Long cuentaId, @RequestBody cuenta cuenta) throws Exception{
-        return cuentaService.modificarCuentaPorId(cuentaId);
-    }
 
     @DeleteMapping("/{cuentaId}")
-    public void eliminarCuentaPorId(@PathVariable Long cuentaId) throws Exception{
-        cuentaService.eliminarCuentaPorId(cuentaId);
+    public ResponseEntity<String> deleteById(@PathVariable Long cuentaId) throws Exception{
+        Boolean resultado = cuentaService.deleteById(cuentaId);
+        if (resultado) {
+            return ResponseEntity.status(HttpStatus.OK).body("Administrador borrado con exito");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El administrador a borrar no existe");
+        }
     }
 
-    @GetMapping("/anular/{cuentaId}") //chequear si es lo mismo que esta arriba
-    public Boolean anularCuenta(@PathVariable Long cuentaId) throws Exception{
-        return cuentaService.anularCuenta(cuentaId);
+    @GetMapping("/anular/{cuentaId}")
+    public ResponseEntity<String> anularCuenta(@PathVariable Long cuentaId) throws Exception{
+        Boolean resultado = cuentaService.anularCuenta(cuentaId);
+        if (resultado) {
+            return ResponseEntity.status(HttpStatus.OK).body("Cuenta Anulada");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("la cuenta no existe");
+        }
     }
-    
-
 }

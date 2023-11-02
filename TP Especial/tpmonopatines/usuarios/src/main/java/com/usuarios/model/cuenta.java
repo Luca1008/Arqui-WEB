@@ -19,7 +19,6 @@ public class cuenta {
     private Date fechaAlta;
     private Boolean activada;
 
-    // Relación muchos a muchos con Usuarios
     @JsonIgnore
     @ManyToMany (mappedBy = "cuentas")
     private List<usuario> usuarios;

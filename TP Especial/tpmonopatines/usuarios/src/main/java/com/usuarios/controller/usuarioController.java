@@ -2,8 +2,11 @@ package com.usuarios.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.usuarios.Dtos.DtoUsuario;
 import com.usuarios.model.usuario;
 import com.usuarios.servicios.usuarioService;
 
@@ -20,23 +23,56 @@ public class usuarioController {
         this.usuarioService = usuarioService;
     }
 
+   @GetMapping("/")
+    public ResponseEntity<List<DtoUsuario>> findAll() throws Exception {
+        List<DtoUsuario> resultado = usuarioService.findAll();
+        if (!resultado.isEmpty()) {
+            return ResponseEntity.ok(resultado);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DtoUsuario> findById(@PathVariable Long id) {
+        DtoUsuario resultado = usuarioService.findById(id);
+        if (resultado != null) {
+            return ResponseEntity.ok(resultado);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping("/")
-    public usuario crearUsuario(@RequestBody usuario usuario) {
-        return usuarioService.save(usuario);
+    public ResponseEntity<?> save(@RequestBody usuario usuario) {
+        DtoUsuario resultado = usuarioService.save(usuario);
+        if (resultado != null) {
+            return ResponseEntity.ok(resultado);
+        } else {
+            return ResponseEntity.badRequest().body("Hay un error de sintaxis en el body");
+        }
     }
 
-    @GetMapping("/")
-    public List<usuario> obtenerUsuarios() throws Exception {
-        return usuarioService.findAll();
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        Boolean resultado = usuarioService.deleteById(id);
+        if (resultado) {
+            return ResponseEntity.status(HttpStatus.OK).body("usuario borrado con exito");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El usuario a borrar no existe");
+        }
     }
 
-    @PutMapping("/{id}/")
-    public usuario actualizarUsuario(@PathVariable Long id, @RequestBody usuario usuarioActualizado) throws Exception {
-        return usuarioService.update(id, usuarioActualizado);
-    }
-
-    @DeleteMapping("/{id}/")
-    public void borrarUsuario(@PathVariable Long id) {
-        usuarioService.deleteById(id);
+    @GetMapping("/monopatin/x/{x}/y/{y}/maxDistance/{maxDistance}")
+    public ResponseEntity<String> getUsersByPositionAndMaxDistance(@PathVariable int x,@PathVariable int y, @PathVariable int maxDistance) throws Exception{
+        String resultado = usuarioService.monopatinesCercanos(x,y,maxDistance);
+        if (!resultado.isEmpty()) {
+            return ResponseEntity.ok(resultado);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No hay monopatines");
+        }
     }
 }
