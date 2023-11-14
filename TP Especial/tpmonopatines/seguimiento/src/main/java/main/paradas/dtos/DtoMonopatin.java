@@ -7,7 +7,7 @@ import main.paradas.model.parada;
 
 @Data
 public class DtoMonopatin {
-    private Long id_monopatin;
+    private Long id;
     private Time tiempo_uso;
     private Double km_recorridos;
     private Boolean monopatin_mantenimiento;
@@ -15,9 +15,9 @@ public class DtoMonopatin {
     private int y;
     private parada parada;
 
-    public DtoMonopatin(Long id_monopatin, Time tiempo_uso, Double km_recorridos, Boolean monopatin_mantenimiento,
+    public DtoMonopatin(Long id, Time tiempo_uso, Double km_recorridos, Boolean monopatin_mantenimiento,
             int x, int y, parada parada) {
-        this.id_monopatin = id_monopatin;
+        this.id = id;
         this.tiempo_uso = tiempo_uso;
         this.km_recorridos = km_recorridos;
         this.monopatin_mantenimiento = monopatin_mantenimiento;

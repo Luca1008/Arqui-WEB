@@ -25,7 +25,7 @@ public class cuenta {
     private Date fechaAlta;
 
     @Column(nullable = false)
-    private Boolean activada;
+    private Boolean activada = true;
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "cuentas")

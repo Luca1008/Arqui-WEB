@@ -19,6 +19,7 @@
 	</properties>
 	<packaging>pom</packaging>
 	<modules>
+		<module>api-gateway</module>
 		<module>administrador</module>
 		<module>mantenimiento</module>
 		<module>usuarios</module>

@@ -23,6 +23,6 @@ public class autoridad implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(length = 50)
+    @Column(length = 50, nullable = false)
     private String nombre;
 }

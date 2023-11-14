@@ -29,7 +29,7 @@ public class administradorService {
     public List<DtoAdministrador> findAll() throws Exception {
         var resultados = administradorRepository.findAll();
         try {
-            return resultados.stream().map(resultado -> new DtoAdministrador(resultado.getId_administrador(),
+            return resultados.stream().map(resultado -> new DtoAdministrador(resultado.getId(),
                     resultado.getTarifa(), resultado.getTarifaPausa())).collect(Collectors.toList());
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -41,7 +41,7 @@ public class administradorService {
         Optional<administrador> res = administradorRepository.findById(id);
         if (res.isPresent()) {
             administrador resultado = res.get();
-            return new DtoAdministrador(resultado.getId_administrador(), resultado.getTarifa(), resultado.getTarifaPausa());
+            return new DtoAdministrador(resultado.getId(), resultado.getTarifa(), resultado.getTarifaPausa());
         } else {
             return null;
         }
@@ -50,13 +50,13 @@ public class administradorService {
     @Transactional
     public DtoAdministrador save(administrador administrador) {
         administrador resultado = administradorRepository.save(administrador);
-        return new DtoAdministrador(resultado.getId_administrador(), resultado.getTarifa(), resultado.getTarifaPausa());
+        return new DtoAdministrador(resultado.getId(), resultado.getTarifa(), resultado.getTarifaPausa());
     }
 
     @Transactional
     public DtoAdministrador update(Long id, administrador administrador) {
         administrador resultado = administradorRepository.save(administrador);
-        return new DtoAdministrador(resultado.getId_administrador(), resultado.getTarifa(), resultado.getTarifaPausa());
+        return new DtoAdministrador(resultado.getId(), resultado.getTarifa(), resultado.getTarifaPausa());
     }
 
     @Transactional

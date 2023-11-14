@@ -4,12 +4,12 @@ import lombok.Data;
 
 @Data
 public class DtoParada {
-    private Long nro_parada;
+    private Long id;
     private String nombre;
     private Boolean parada_permitida;
     
-    public DtoParada(Long nro_parada, String nombre, Boolean parada_permitida) {
-        this.nro_parada = nro_parada;
+    public DtoParada(Long id, String nombre, Boolean parada_permitida) {
+        this.id = id;
         this.nombre = nombre;
         this.parada_permitida = parada_permitida;
     }

@@ -7,12 +7,12 @@ import lombok.Data;
 @Data
 public class DtoMantenimiento{
 
-    private Long nro_atencion;
+    private Long id;
     private Time tiempo_uso;
     private Double km_recorridos;
     
-    public DtoMantenimiento(Long nro_atencion, Time tiempo_uso, Double km_recorridos) {
-        this.nro_atencion = nro_atencion;
+    public DtoMantenimiento(Long id, Time tiempo_uso, Double km_recorridos) {
+        this.id = id;
         this.tiempo_uso = tiempo_uso;
         this.km_recorridos = km_recorridos;
     }

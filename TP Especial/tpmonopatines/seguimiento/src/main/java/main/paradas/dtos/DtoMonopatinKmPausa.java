@@ -6,13 +6,13 @@ import lombok.Data;
 
 @Data
 public class DtoMonopatinKmPausa {
-    private Long id_monopatin;
+    private Long id;
     private Double km_recorridos;
     private Time pausa;
 
 
-    public DtoMonopatinKmPausa(Object id_monopatin, Object km_recorridos, Object pausa) {
-        this.id_monopatin = (Long) id_monopatin;
+    public DtoMonopatinKmPausa(Object id, Object km_recorridos, Object pausa) {
+        this.id = (Long) id;
         this.km_recorridos = (Double) km_recorridos;
         this.pausa = (Time) pausa;
     }

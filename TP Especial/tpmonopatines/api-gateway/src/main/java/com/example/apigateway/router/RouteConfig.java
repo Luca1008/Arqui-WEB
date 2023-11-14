@@ -12,54 +12,52 @@ public class RouteConfig {
         @Bean
         public RouteLocator routes(RouteLocatorBuilder builder, AuthenticationFilter authFilter) {
                 return builder.routes()
+                                //Ruteo Autenticacion:
                                 .route("lll", r -> r.path("/api/authenticate")
-                                                .filters(f -> f.filter(
-                                                                authFilter.apply(new AuthenticationFilter.Config())))
+                                                // .filters(f -> f.filter(
+                                                                // authFilter.apply(new AuthenticationFilter.Config())))
                                                 .uri("http://localhost:8081"))
                                 .route("auth-service", r -> r.path("/api/register")
-                                                .filters(f -> f.filter(
-                                                                authFilter.apply(new AuthenticationFilter.Config())))
+                                                // .filters(f -> f.filter(
+                                                                // authFilter.apply(new AuthenticationFilter.Config())))
                                                 .uri("http://localhost:8081"))
-                                .route("micro-a-product", r -> r.path("/api/admin/products/**")
-                                                .filters(f -> f.filter(
-                                                                authFilter.apply(new AuthenticationFilter.Config())))
+                                // Ruteo Administrador:
+                                .route("admin-base", r -> r.path("/administrador/**")
+                                                // .filters(f -> f.filter(
+                                                                // authFilter.apply(new AuthenticationFilter.Config())))
+                                                .uri("http://localhost:8081"))
+                                // ruteo mantenimienoto:
+                                .route("mantenimiento-base", r -> r.path("/mantenimiento/**")
+                                                // .filters(f -> f.filter(
+                                                                // authFilter.apply(new AuthenticationFilter.Config())))
                                                 .uri("http://localhost:8082"))
-                                .route("micro-a-product", r -> r.path("/api/products/**")
-                                                .filters(f -> f.filter(
-                                                                authFilter.apply(new AuthenticationFilter.Config())))
-                                                .uri("http://localhost:8082"))
-                                .route("admin-crear", r -> r.path("/api/administrador/")
-                                                .filters(f -> f.filter(
-                                                                authFilter.apply(new AuthenticationFilter.Config())))
-                                                .uri("http://localhost:8082"))
-                                .route("admin-findById", r -> r.path("/api/administrador/{id}")
-                                                .filters(f -> f.filter(
-                                                                authFilter.apply(new AuthenticationFilter.Config())))
-                                                .uri("http://localhost:8082"))
-                                .route("admin-findAll", r -> r.path("/api/administrador/")
-                                                .filters(f -> f.filter(
-                                                                authFilter.apply(new AuthenticationFilter.Config())))
-                                                .uri("http://localhost:8082"))
-                                .route("admin-delete", r -> r.path("/api/administrador/{id}")
-                                                .filters(f -> f.filter(
-                                                                authFilter.apply(new AuthenticationFilter.Config())))
-                                                .uri("http://localhost:8082"))
-                                .route("admin-anularCuenta", r -> r.path("/api/administrador/cuenta/anular/{id}")
-                                                .filters(f -> f.filter(
-                                                                authFilter.apply(new AuthenticationFilter.Config())))
-                                                .uri("http://localhost:8082"))
-                                .route("admin-viajesAño", r -> r.path("/api/administrador/buscar/year/{year}/viajes/{numViajes}")
-                                                .filters(f -> f.filter(
-                                                                authFilter.apply(new AuthenticationFilter.Config())))
-                                                .uri("http://localhost:8082"))
-                                .route("admin-factura", r -> r.path("/api/administrador/CalcularTotal/year/{year}/mesInicio/{mesInicio}/mesFin/{mesFin}")
-                                                .filters(f -> f.filter(
-                                                                authFilter.apply(new AuthenticationFilter.Config())))
-                                                .uri("http://localhost:8082"))
-                                .route("admin-enFuncionamiento", r -> r.path("/api/administrador/monopatinesEnOperacionOEnMantenimiento")
-                                                .filters(f -> f.filter(
-                                                                authFilter.apply(new AuthenticationFilter.Config())))
-                                                .uri("http://localhost:8082"))
+                                //Ruteo Seguimiento:
+                                //-Ruteo Monopatin:
+                                .route("monopatin-base", r -> r.path("/monopatin/**")
+                                                // .filters(f -> f.filter(
+                                                                // authFilter.apply(new AuthenticationFilter.Config())))
+                                                .uri("http://localhost:8083"))
+                                //-Ruteo Paradas:
+                                .route("parada-base", r -> r.path("/parada/**")
+                                                // .filters(f -> f.filter(
+                                                                // authFilter.apply(new AuthenticationFilter.Config())))
+                                                .uri("http://localhost:8083"))
+                                //-Ruteo Viaje:
+                                .route("viaje-base", r -> r.path("/viaje/**")
+                                                // .filters(f -> f.filter(
+                                                                // authFilter.apply(new AuthenticationFilter.Config())))
+                                                .uri("http://localhost:8083"))
+                                //Ruteo Usuario
+                                //-Ruteo Usuario:
+                                .route("Usuario-Base", r -> r.path("/usuarios/**")
+                                                // .filters(f -> f.filter(
+                                                                // authFilter.apply(new AuthenticationFilter.Config())))
+                                                .uri("http://localhost:8084"))
+                                //-Ruteo Cuenta:
+                                 .route("cuenta-Base", r -> r.path("/cuentas/**")
+                                                // .filters(f -> f.filter(
+                                                                // authFilter.apply(new AuthenticationFilter.Config())))
+                                                .uri("http://localhost:8084"))
                                 .build();
         }
 

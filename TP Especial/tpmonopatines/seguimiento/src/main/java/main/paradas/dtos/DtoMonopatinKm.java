@@ -4,12 +4,12 @@ import lombok.Data;
 
 @Data
 public class DtoMonopatinKm {
-    private Long id_monopatin;
+    private Long id;
     private Double km_recorridos;
 
 
-    public DtoMonopatinKm(Object id_monopatin, Object km_recorridos) {
-        this.id_monopatin = (Long) id_monopatin;
+    public DtoMonopatinKm(Object id, Object km_recorridos) {
+        this.id = (Long) id;
         this.km_recorridos = (Double) km_recorridos;
     }
 }

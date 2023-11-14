@@ -5,22 +5,31 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Data
+@NoArgsConstructor
 @Entity
 public class monopatin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_monopatin;
+    private Long id;
+
+    @Column(nullable = false)
     private Time tiempo_uso;
+
+    @Column(nullable = false)
     private Double km_recorridos;
-    private Boolean monopatin_mantenimiento;
+
+    @Column(nullable = false)
+    private Boolean monopatin_mantenimiento = false;
+
+    @Column(nullable = false)
     private int x;
+
+    @Column(nullable = false)
     private int y;
-    @JoinColumn(name = "nro_parada", referencedColumnName = "nro_parada")
+
+    @JoinColumn(name = "id_parada", referencedColumnName = "id")
     @ManyToOne
     private parada parada;
-
-    public monopatin() {
-    }
 
     public monopatin(Time tiempo_uso, Double km_recorridos, Boolean monopatin_mantenimiento, int x,
             int y) {

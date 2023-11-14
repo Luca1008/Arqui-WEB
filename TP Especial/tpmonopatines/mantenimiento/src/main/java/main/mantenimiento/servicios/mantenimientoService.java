@@ -28,7 +28,7 @@ public class mantenimientoService {
     public List<DtoMantenimiento> findAll() throws Exception {
         var resultados =  mantenimientoRepository.findAll();
         try {
-            return resultados.stream().map(resultado -> new DtoMantenimiento(resultado.getNro_atencion(),resultado.getTiempo_uso(),resultado.getKm_recorridos())).collect(Collectors.toList());
+            return resultados.stream().map(resultado -> new DtoMantenimiento(resultado.getId(),resultado.getTiempo_uso(),resultado.getKm_recorridos())).collect(Collectors.toList());
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -39,7 +39,7 @@ public class mantenimientoService {
         Optional<mantenimiento> res = mantenimientoRepository.findById(id);
         if (res.isPresent()) {
             mantenimiento resultado = res.get();
-            return new DtoMantenimiento(resultado.getNro_atencion(),resultado.getTiempo_uso(),resultado.getKm_recorridos());
+            return new DtoMantenimiento(resultado.getId(),resultado.getTiempo_uso(),resultado.getKm_recorridos());
         } else {
             return null;
         }
@@ -49,7 +49,7 @@ public class mantenimientoService {
     @Transactional
     public DtoMantenimiento save(mantenimiento mantenimiento) {
         mantenimiento resultado = mantenimientoRepository.save(mantenimiento);
-        return new DtoMantenimiento(resultado.getNro_atencion(),resultado.getTiempo_uso(),resultado.getKm_recorridos());
+        return new DtoMantenimiento(resultado.getId(),resultado.getTiempo_uso(),resultado.getKm_recorridos());
     }
 
     @Transactional

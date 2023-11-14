@@ -25,14 +25,14 @@ public class monopatinService {
     @Transactional
     public DtoMonopatin save(monopatin monopatin) {
         var resultado =  monopatinRepository.save(monopatin);
-        return new DtoMonopatin(resultado.getId_monopatin(), resultado.getTiempo_uso(), resultado.getKm_recorridos(), resultado.getMonopatin_mantenimiento(), resultado.getX(), resultado.getY(),resultado.getParada());
+        return new DtoMonopatin(resultado.getId(), resultado.getTiempo_uso(), resultado.getKm_recorridos(), resultado.getMonopatin_mantenimiento(), resultado.getX(), resultado.getY(),resultado.getParada());
     }
 
     @Transactional
     public List<DtoMonopatin> findAll() throws Exception {
         var resultados = monopatinRepository.findAll();
         try {
-            return resultados.stream().map(resultado -> new DtoMonopatin(resultado.getId_monopatin(), resultado.getTiempo_uso(), resultado.getKm_recorridos(), resultado.getMonopatin_mantenimiento(), resultado.getX(), resultado.getY(),resultado.getParada())).collect(Collectors.toList());
+            return resultados.stream().map(resultado -> new DtoMonopatin(resultado.getId(), resultado.getTiempo_uso(), resultado.getKm_recorridos(), resultado.getMonopatin_mantenimiento(), resultado.getX(), resultado.getY(),resultado.getParada())).collect(Collectors.toList());
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -43,7 +43,7 @@ public class monopatinService {
         Optional<monopatin> res = monopatinRepository.findById(id);
         if (res.isPresent()) {
             monopatin resultado = res.get();
-            return new DtoMonopatin(resultado.getId_monopatin(), resultado.getTiempo_uso(), resultado.getKm_recorridos(), resultado.getMonopatin_mantenimiento(), resultado.getX(), resultado.getY(),resultado.getParada());
+            return new DtoMonopatin(resultado.getId(), resultado.getTiempo_uso(), resultado.getKm_recorridos(), resultado.getMonopatin_mantenimiento(), resultado.getX(), resultado.getY(),resultado.getParada());
         } else {
             return null;
         }
@@ -97,7 +97,7 @@ public class monopatinService {
     public List<DtoMonopatin> buscarMonopatinesConMasDeXViajesEnAnio(int year, int numViajes) throws Exception {
         var resultados = monopatinRepository.buscarMonopatinesConMasDeXViajesEnAnio(year, numViajes);
         try {
-            return resultados.stream().map(resultado -> new DtoMonopatin(resultado.getId_monopatin(), resultado.getTiempo_uso(), resultado.getKm_recorridos(), resultado.getMonopatin_mantenimiento(), resultado.getX(), resultado.getY(),resultado.getParada())).collect(Collectors.toList());
+            return resultados.stream().map(resultado -> new DtoMonopatin(resultado.getId(), resultado.getTiempo_uso(), resultado.getKm_recorridos(), resultado.getMonopatin_mantenimiento(), resultado.getX(), resultado.getY(),resultado.getParada())).collect(Collectors.toList());
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }

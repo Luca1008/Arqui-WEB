@@ -22,14 +22,14 @@ public class paradaService {
     @Transactional
     public DtoParada save(parada parada) {
         parada resultado = paradaRepository.save(parada);
-        return new DtoParada(resultado.getNro_parada(), resultado.getNombre(), resultado.getParada_permitida());
+        return new DtoParada(resultado.getId(), resultado.getNombre(), resultado.getParada_permitida());
     }
 
     @Transactional
     public List<DtoParada> findAll() throws Exception {
         var resultados =  paradaRepository.findAll();
         try {
-            return resultados.stream().map(resultado -> new DtoParada(resultado.getNro_parada(),resultado.getNombre(),resultado.getParada_permitida())).collect(Collectors.toList());
+            return resultados.stream().map(resultado -> new DtoParada(resultado.getId(),resultado.getNombre(),resultado.getParada_permitida())).collect(Collectors.toList());
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -40,7 +40,7 @@ public class paradaService {
         Optional<parada> res = paradaRepository.findById(id);
         if (res.isPresent()) {
             parada resultado = res.get();
-            return new DtoParada(resultado.getNro_parada(), resultado.getNombre(), resultado.getParada_permitida());
+            return new DtoParada(resultado.getId(), resultado.getNombre(), resultado.getParada_permitida());
         } else {
             return null;
         }

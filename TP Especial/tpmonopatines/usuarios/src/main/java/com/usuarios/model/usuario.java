@@ -16,10 +16,21 @@ public class usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String nombre;
+
+    @Column(nullable = false)
     private String apellido;
+
+    @Column(nullable = false)
     private int celular;
+
+    @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
+    private String contrasenia;
 
     @ManyToMany()
     @JoinTable(
@@ -37,10 +48,11 @@ public class usuario {
     )
     private Set<autoridad> autoridades;
 
-    public usuario(String nombre, String apellido, int celular, String email) {
+    public usuario(String nombre, String apellido, int celular, String email, String contrasenia) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.celular = celular;
         this.email = email;
+        this.contrasenia = contrasenia;
     }
 }
