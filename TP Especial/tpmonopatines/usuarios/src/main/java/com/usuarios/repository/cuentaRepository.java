@@ -12,7 +12,7 @@ public interface cuentaRepository extends JpaRepository<cuenta, Long> {
 
     //Anular cuentas para inhabilitar el uso momentáneo de la misma (b)
     @Modifying
-    @Query("UPDATE cuenta c SET c.activada = false WHERE c.nro_cuenta = :cuentaId")
+    @Query("UPDATE cuenta c SET c.activada = false WHERE c.id = :cuentaId")
     void anularCuenta(@Param("cuentaId") Long cuentaId);
 }
 

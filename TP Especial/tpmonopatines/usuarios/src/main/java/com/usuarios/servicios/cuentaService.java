@@ -22,14 +22,14 @@ public class cuentaService {
     @Transactional
     public DtoCuenta save(cuenta cuenta) throws Exception {
         cuenta resultado = cuentaRepository.save(cuenta);
-        return new DtoCuenta(resultado.getNro_cuenta(), resultado.getDinero(), resultado.getFechaAlta(), resultado.getActivada(), resultado.getUsuarios());
+        return new DtoCuenta(resultado.getId(), resultado.getDinero(), resultado.getFechaAlta(), resultado.getActivada(), resultado.getUsuarios());
     }
 
     @Transactional
     public List<DtoCuenta> findAll() throws Exception {
         var resultados =  cuentaRepository.findAll();
         try {
-            return resultados.stream().map(resultado -> new DtoCuenta(resultado.getNro_cuenta(), resultado.getDinero(), resultado.getFechaAlta(), resultado.getActivada(), resultado.getUsuarios())).collect(Collectors.toList());
+            return resultados.stream().map(resultado -> new DtoCuenta(resultado.getId(), resultado.getDinero(), resultado.getFechaAlta(), resultado.getActivada(), resultado.getUsuarios())).collect(Collectors.toList());
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -41,7 +41,7 @@ public class cuentaService {
             Optional<cuenta> res = cuentaRepository.findById(id);
             if (res.isPresent()) {
                 cuenta resultado = res.get();
-                return new DtoCuenta(resultado.getNro_cuenta(), resultado.getDinero(), resultado.getFechaAlta(), resultado.getActivada(), resultado.getUsuarios());
+                return new DtoCuenta(resultado.getId(), resultado.getDinero(), resultado.getFechaAlta(), resultado.getActivada(), resultado.getUsuarios());
             } else {
                 return null;
             }

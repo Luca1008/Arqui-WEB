@@ -1,14 +1,16 @@
 package com.usuarios.model;
 
 import java.util.List;
+import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data
+@NoArgsConstructor
 @Entity
 public class usuario {
     @Id
@@ -19,17 +21,21 @@ public class usuario {
     private int celular;
     private String email;
 
+    @ManyToMany()
     @JoinTable(
-        name = "cuenta",
-        joinColumns = @JoinColumn(name = "id_usuario"), 
-        inverseJoinColumns = @JoinColumn(name = "nro_cuenta")
+            name = "usuario_cuenta",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "cuenta_id")
     )
-    @JsonIgnore
+    private Set<cuenta> cuentas;
+
     @ManyToMany
-    private List<cuenta> cuentas;
-    
-    public usuario() {
-    }
+    @JoinTable(
+            name = "usuario_autoridad",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "autoridad_id")
+    )
+    private Set<autoridad> autoridades;
 
     public usuario(String nombre, String apellido, int celular, String email) {
         this.nombre = nombre;
