@@ -20,6 +20,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>api-gateway</module>
+		<module>authentication</module>
 		<module>administrador</module>
 		<module>mantenimiento</module>
 		<module>usuarios</module>
@@ -53,6 +54,11 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-csv</artifactId>
 			<version>1.8</version> <!-- Verifica la última versión disponible -->
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.2.0</version>
 		</dependency>
 	</dependencies>
 

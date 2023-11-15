@@ -18,9 +18,8 @@ import java.util.function.Predicate;
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
 
     private static final String _AuthHeader = "Authorization";
-    List<String> excludedUrls = List.of( "api/authenticate" , "api/register");
+    List<String> excludedUrls = List.of("usuarios/authenticate", "usuarios/register");
     private final WebClient.Builder webClientBuilder;
-
 
     public AuthenticationFilter(WebClient.Builder webClientBuilder) {
         super(Config.class);
@@ -28,19 +27,19 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     }
 
     @Override
-    public GatewayFilter apply( Config config ) {
+    public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
-            String bearerToken = request.getHeaders().getFirst( _AuthHeader );
+            String bearerToken = request.getHeaders().getFirst(_AuthHeader);
 
-            if( this.isSecured.test( request ) ) {
+            if (this.isSecured.test(request)) {
                 return webClientBuilder.build().get()
-                        .uri("http://localhost:8081/api/validate")
-                        .header( _AuthHeader, bearerToken )
-                        .retrieve().bodyToMono( ValidateTokenDTO.class )
-                        .map( response -> {
-                            if( ! response.isAuthenticated() )
-                                throw new BadCredentialsException( "JWT invalido" );
+                        .uri("http://localhost:8084/usuarios/validate")
+                        .header(_AuthHeader, bearerToken)
+                        .retrieve().bodyToMono(ValidateTokenDTO.class)
+                        .map(response -> {
+                            if (!response.isAuthenticated())
+                                throw new BadCredentialsException("JWT invalido");
                             return exchange;
                         })
                         .flatMap(chain::filter);
@@ -49,13 +48,14 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
         };
     }
 
-    private final Predicate<ServerHttpRequest> isSecured = request -> excludedUrls.stream().noneMatch(uri -> request.getURI().getPath().contains(uri) );
-
+    private final Predicate<ServerHttpRequest> isSecured = request -> excludedUrls.stream()
+            .noneMatch(uri -> request.getURI().getPath().contains(uri));
 
     /**
      * Required by AbstractGatewayFilterFactory
      */
     @NoArgsConstructor
-    public static class Config {}
+    public static class Config {
+    }
 
 }

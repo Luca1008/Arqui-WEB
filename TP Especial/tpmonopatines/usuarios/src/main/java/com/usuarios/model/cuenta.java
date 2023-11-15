@@ -1,7 +1,6 @@
 package com.usuarios.model;
 
 import java.sql.Date;
-import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

@@ -1,11 +1,6 @@
 package com.usuarios.Dtos;
 
-import java.util.List;
-
-import com.usuarios.model.cuenta;
-
 import lombok.Data;
-
 
 @Data
 public class DtoUsuario {

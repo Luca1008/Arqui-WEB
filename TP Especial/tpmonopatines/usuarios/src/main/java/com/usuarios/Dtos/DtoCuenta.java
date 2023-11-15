@@ -1,7 +1,6 @@
 package com.usuarios.Dtos;
 
 import java.sql.Date;
-import java.util.List;
 import java.util.Set;
 
 import com.usuarios.model.usuario;

@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 
-import main.paradas.dtos.DtoParada;
 import main.paradas.dtos.DtoViaje;
 import main.paradas.model.viaje;
 import main.paradas.servicios.viajeService;

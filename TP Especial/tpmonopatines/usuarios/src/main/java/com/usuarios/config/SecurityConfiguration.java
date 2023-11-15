@@ -1,8 +1,7 @@
-package com.example.config;
+package com.usuarios.config;
 
-import com.example.security.jwt.JwtConfigurer;
-import com.example.security.jwt.TokenProvider;
-import com.example.service.constant.AuthorityConstant;
+import com.usuarios.security.jwt.JwtConfigurer;
+import com.usuarios.security.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +32,7 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // AGREGAMOS NUESTRA CONFIG DE JWT.
@@ -42,8 +42,8 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 // MANEJAMOS LOS PERMISOS A LOS ENDPOINTS.
                 .authorizeHttpRequests(auth -> auth
-                        .antMatchers("/usuarios/authenticate").permitAll()
-                        .antMatchers("/usuarios/register").permitAll()
+                        .requestMatchers("/usuarios/authenticate").permitAll()
+                        .requestMatchers("/usuarios/register").permitAll()
                         .anyRequest().authenticated()
                 )
                 .anonymous(AbstractHttpConfigurer::disable)
