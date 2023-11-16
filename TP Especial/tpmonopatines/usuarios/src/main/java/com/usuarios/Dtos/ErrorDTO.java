@@ -1,4 +1,4 @@
-package com.usuarios.servicios.exception.user;
+package com.usuarios.Dtos;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

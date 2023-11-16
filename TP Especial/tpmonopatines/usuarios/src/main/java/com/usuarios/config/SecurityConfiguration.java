@@ -1,11 +1,14 @@
 package com.usuarios.config;
 
+import com.usuarios.security.DomainUserDetailsService;
 import com.usuarios.security.jwt.JwtConfigurer;
 import com.usuarios.security.jwt.TokenProvider;
+import com.usuarios.servicios.constant.AuthorityConstant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,7 +25,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration {
 
     private final TokenProvider tokenProvider;
-
+    private DomainUserDetailsService DomainUserDetailsService;
 
     /**
      * Password encoder
@@ -32,7 +35,11 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
-
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(DomainUserDetailsService)
+            .passwordEncoder(getPasswordEncoder());
+    }
+    
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // AGREGAMOS NUESTRA CONFIG DE JWT.

@@ -37,7 +37,7 @@ public class usuario {
     @JoinTable(name = "usuario_cuenta", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "cuenta_id"))
     private Set<cuenta> cuentas;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuario_autoridad", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "autoridad_id"))
     private Set<autoridad> autoridades;
 

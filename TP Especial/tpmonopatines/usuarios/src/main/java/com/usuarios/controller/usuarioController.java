@@ -28,6 +28,12 @@ import com.usuarios.security.jwt.JWTFilter;
 import com.usuarios.security.jwt.TokenProvider;
 import com.usuarios.servicios.usuarioService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import lombok.Builder;
 import lombok.Data;
@@ -70,7 +76,6 @@ public class usuarioController {
     // INICIAR SESION
     @PostMapping("/authenticate")
     public ResponseEntity<JWTToken> authenticate(@Valid @RequestBody AuthRequestDTO request) {
-        System.out.println(request.getEmail());
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 request.getEmail(), request.getContrasenia());
 
@@ -99,6 +104,7 @@ public class usuarioController {
         }
     }
 
+    @Operation(summary = "mostrar todos los usuarios")
     @GetMapping("/")
     public ResponseEntity<List<DtoUsuario>> findAll() throws Exception {
         List<DtoUsuario> resultado = usuarioService.findAll();
@@ -109,16 +115,38 @@ public class usuarioController {
         }
     }
 
+    @Operation(summary = "encontrar usuario por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "usuario encontrado con exito",
+            content = {
+                    @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = usuario.class))
+                    }),
+            @ApiResponse(responseCode = "500",description = "Id invalido", content = @Content),
+            @ApiResponse(responseCode = "400",description = "Error in Response Body",content = @Content)
+                })
+
     @GetMapping("/{id}")
     public ResponseEntity<DtoUsuario> findById(@PathVariable Long id) {
         DtoUsuario resultado = usuarioService.findById(id);
         if (resultado != null) {
             return ResponseEntity.ok(resultado);
-        } else {
+        } else { 
             return ResponseEntity.notFound().build();
         }
     }
 
+
+@Operation(summary = "Registrar usuario")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",description = "usuario registrado",
+            content = {
+                    @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = usuario.class))
+                    }),
+            @ApiResponse(responseCode = "500",description = "error server", content = @Content),
+            @ApiResponse(responseCode = "400",description = "Error in Response Body",content = @Content)
+                })
     @PostMapping("/register")
     public ResponseEntity<?> save(@RequestBody UserRequestDTO usuario) {
         var resultado = usuarioService.createUser(usuario);
@@ -129,6 +157,16 @@ public class usuarioController {
         }
     }
 
+@Operation(summary = "Eliminar usuario")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "usuario eliminado",
+            content = {
+                    @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = usuario.class))
+                    }),
+            @ApiResponse(responseCode = "500",description = "error server", content = @Content),
+            @ApiResponse(responseCode = "400",description = "Error in Response Body",content = @Content)
+                })
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         Boolean resultado = usuarioService.deleteById(id);
@@ -139,6 +177,16 @@ public class usuarioController {
         }
     }
 
+@Operation(summary = "Obtener monopatines por distancia")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Monopatines cercanos",
+            content = {
+                    @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = usuario.class))
+                    }),
+            @ApiResponse(responseCode = "500",description = "error server", content = @Content),
+            @ApiResponse(responseCode = "400",description = "Error in Response Body",content = @Content)
+                })
     @GetMapping("/monopatin/x/{x}/y/{y}/maxDistance/{maxDistance}")
     public ResponseEntity<String> getUsersByPositionAndMaxDistance(@PathVariable int x, @PathVariable int y,
             @PathVariable int maxDistance) throws Exception {

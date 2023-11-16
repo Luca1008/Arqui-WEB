@@ -115,20 +115,4 @@ public class usuarioService {
         }
     }
 
-    // @Transactional
-    // public DtoUsuario update(Long id, usuario usuarioActualizado) {
-    // Optional<usuario> usuarioExistente = usuarioRepository.findById(id);
-
-    // if (usuarioExistente.isPresent()) {
-    // usuario usuario = usuarioExistente.get();
-    // usuario.setNombre(usuarioActualizado.getNombre());
-    // usuario.setApellido(usuarioActualizado.getApellido());
-    // usuario.setCelular(usuarioActualizado.getCelular());
-    // usuario.setEmail(usuarioActualizado.getEmail());
-    // return usuarioRepository.save(usuario);
-    // } else {
-    // // Manejar el caso en el que el usuario no existe.
-    // return null;
-    // }
-    // }
 }
