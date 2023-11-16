@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MantenimientoApplication",
+            "request": "launch",
+            "mainClass": "main.mantenimiento.MantenimientoApplication",
+            "projectName": "mantenimiento"
+        },
+        {
+            "type": "java",
             "name": "usuarioApplication",
             "request": "launch",
             "mainClass": "com.usuarios.usuarioApplication",

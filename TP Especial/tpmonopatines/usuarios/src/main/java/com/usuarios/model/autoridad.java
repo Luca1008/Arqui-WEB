@@ -14,7 +14,11 @@ import java.io.Serializable;
 @Entity
 public class autoridad implements Serializable {
 
-    @Id    
+    @Id
     @Column(length = 50, nullable = false)
     private String nombre;
+
+    public autoridad(String nombre) {
+        this.nombre = nombre;
+    }
 }
