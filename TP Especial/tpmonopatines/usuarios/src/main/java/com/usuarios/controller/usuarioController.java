@@ -1,6 +1,5 @@
 package com.usuarios.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,14 +15,7 @@ import com.usuarios.Dtos.DtoUsuario;
 import com.usuarios.Dtos.UserRequestDTO;
 import com.usuarios.model.usuario;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
 import com.usuarios.security.jwt.JWTFilter;
 import com.usuarios.security.jwt.TokenProvider;
 import com.usuarios.servicios.usuarioService;

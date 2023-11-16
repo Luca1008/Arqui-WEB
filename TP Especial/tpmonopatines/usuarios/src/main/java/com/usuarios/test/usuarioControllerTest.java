@@ -1,7 +1,5 @@
 package com.usuarios.test;
 import com.usuarios.Dtos.DtoUsuario;
-import com.usuarios.Dtos.UserRequestDTO;
-import com.usuarios.model.usuario;
 import com.usuarios.servicios.usuarioService;
 import com.usuarios.controller.usuarioController;
 

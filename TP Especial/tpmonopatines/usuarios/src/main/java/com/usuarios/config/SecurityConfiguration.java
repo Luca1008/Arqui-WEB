@@ -3,7 +3,6 @@ package com.usuarios.config;
 import com.usuarios.security.DomainUserDetailsService;
 import com.usuarios.security.jwt.JwtConfigurer;
 import com.usuarios.security.jwt.TokenProvider;
-import com.usuarios.servicios.constant.AuthorityConstant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
