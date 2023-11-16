@@ -26,7 +26,7 @@ public class TokenProvider {
     private final Logger log = LoggerFactory.getLogger(TokenProvider.class);
 
     public static final String AUTHORITIES_KEY = "auth";
-    private final String secret = "QJeKx+s7XIv1WbBlj7vJ9CD3Ozj1rB3qjlNZY9ofWKJSaBNBo5r1q9Rru/OWlYb+UHV1n4/LJl1OBYYZZ7rhJEnn5peyHCd+eLJfRdArE37pc+QDIsJlabQtR7tYRa+SnvGRyL01uZsK33+gezV+/GPXBnPTj8fOojDUzJiPAvE=";
+    private final String secret = "TklDTyBGQUxPUEVSTyBZIExVQ0EgU0UgTEEgUkVDT05UUkEgTUVHQSBBUkNISSBSRSBDT01FIFBPUlFVRSBFUyBQVVRBWk8=";
     private final Key key;
     private final JwtParser jwtParser;
 

@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.http.HttpStatus;
 
+import main.paradas.security.AuthorityConstants;
 import main.paradas.dtos.DtoViaje;
 import main.paradas.model.viaje;
 import main.paradas.servicios.viajeService;
@@ -25,6 +27,7 @@ public class viajeController {
     }
 
     @PostMapping("/")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.MANTENIMIENTO + "\" )")
     public ResponseEntity<?> save(@RequestBody viaje viaje) {
         DtoViaje resultado = viajeService.save(viaje);
         if (resultado != null) {

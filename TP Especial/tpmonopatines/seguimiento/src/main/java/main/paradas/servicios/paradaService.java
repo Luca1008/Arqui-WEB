@@ -10,14 +10,20 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import jakarta.transaction.Transactional;
 
 @Service("paradaService")
 public class paradaService {
-    
+
     @Autowired
     private paradaRepository paradaRepository;
+    private final RestTemplate restTemplate;
+
+    public paradaService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     @Transactional
     public DtoParada save(parada parada) {
@@ -27,9 +33,10 @@ public class paradaService {
 
     @Transactional
     public List<DtoParada> findAll() throws Exception {
-        var resultados =  paradaRepository.findAll();
+        var resultados = paradaRepository.findAll();
         try {
-            return resultados.stream().map(resultado -> new DtoParada(resultado.getId(),resultado.getNombre(),resultado.getParada_permitida())).collect(Collectors.toList());
+            return resultados.stream().map(resultado -> new DtoParada(resultado.getId(), resultado.getNombre(),
+                    resultado.getParada_permitida())).collect(Collectors.toList());
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -53,8 +60,7 @@ public class paradaService {
         if (admin.isPresent()) {
             paradaRepository.deleteById(id);
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }

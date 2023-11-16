@@ -7,11 +7,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 
+import main.paradas.security.AuthorityConstants;
 import main.paradas.dtos.DtoParada;
 import main.paradas.model.parada;
 import main.paradas.servicios.paradaService;
-
 
 @RestController
 @RequestMapping("/parada")
@@ -26,6 +27,7 @@ public class paradaController {
     }
 
     @GetMapping("/")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.MANTENIMIENTO + "\" )")
     public ResponseEntity<List<DtoParada>> findAll() throws Exception {
         List<DtoParada> resultado = paradaService.findAll();
         if (!resultado.isEmpty()) {
@@ -46,7 +48,7 @@ public class paradaController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> save(@RequestBody parada parada) {     
+    public ResponseEntity<?> save(@RequestBody parada parada) {
         DtoParada resultado = paradaService.save(parada);
         if (resultado != null) {
             return ResponseEntity.ok(resultado);
@@ -54,10 +56,10 @@ public class paradaController {
             return ResponseEntity.badRequest().body("Hay un error de sintaxis en el body");
         }
     }
-    
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
-        
+
         Boolean resultado = paradaService.deleteById(id);
         if (resultado) {
             return ResponseEntity.status(HttpStatus.OK).body("Parada borrada con exito");
@@ -66,4 +68,3 @@ public class paradaController {
         }
     }
 }
-

@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import jakarta.transaction.Transactional;
 
@@ -17,36 +18,47 @@ import jakarta.transaction.Transactional;
 public class viajeService {
     @Autowired
     private viajeRepository viajeRepository;
+    private final RestTemplate restTemplate;
+
+    public viajeService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     @Transactional
     public DtoViaje save(viaje viaje) {
         viaje resultado = viajeRepository.save(viaje);
-        return new DtoViaje(resultado.getId(), resultado.getFecha_inicio(), resultado.getHora_inicio(), resultado.getFecha_fin(), resultado.getHora_fin(), resultado.getKm_recorridos(), resultado.getPausa(), resultado.getPrecio(), resultado.getMonopatin());
+        return new DtoViaje(resultado.getId(), resultado.getFecha_inicio(), resultado.getHora_inicio(),
+                resultado.getFecha_fin(), resultado.getHora_fin(), resultado.getKm_recorridos(), resultado.getPausa(),
+                resultado.getPrecio(), resultado.getMonopatin());
     }
 
     @Transactional
-    public List<DtoViaje> findAll() throws Exception{
-        var resultados =  viajeRepository.findAll();
+    public List<DtoViaje> findAll() throws Exception {
+        var resultados = viajeRepository.findAll();
         try {
-            return resultados.stream().map(resultado -> new DtoViaje(resultado.getId(), resultado.getFecha_inicio(), resultado.getHora_inicio(), resultado.getFecha_fin(), resultado.getHora_fin(), resultado.getKm_recorridos(), resultado.getPausa(), resultado.getPrecio(), resultado.getMonopatin())).collect(Collectors.toList());
+            return resultados.stream()
+                    .map(resultado -> new DtoViaje(resultado.getId(), resultado.getFecha_inicio(),
+                            resultado.getHora_inicio(), resultado.getFecha_fin(), resultado.getHora_fin(),
+                            resultado.getKm_recorridos(), resultado.getPausa(), resultado.getPrecio(),
+                            resultado.getMonopatin()))
+                    .collect(Collectors.toList());
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
-
-    
 
     @Transactional
     public DtoViaje findById(Long id) {
         Optional<viaje> res = viajeRepository.findById(id);
         if (res.isPresent()) {
             viaje resultado = res.get();
-            return new DtoViaje(resultado.getId(), resultado.getFecha_inicio(), resultado.getHora_inicio(), resultado.getFecha_fin(), resultado.getHora_fin(), resultado.getKm_recorridos(), resultado.getPausa(), resultado.getPrecio(), resultado.getMonopatin());
+            return new DtoViaje(resultado.getId(), resultado.getFecha_inicio(), resultado.getHora_inicio(),
+                    resultado.getFecha_fin(), resultado.getHora_fin(), resultado.getKm_recorridos(),
+                    resultado.getPausa(), resultado.getPrecio(), resultado.getMonopatin());
         } else {
             return null;
         }
     }
-
 
     @Transactional
     public boolean deleteById(Long id) {

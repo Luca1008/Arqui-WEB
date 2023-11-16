@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.http.HttpStatus;
 
+import main.paradas.security.AuthorityConstants;
 import main.paradas.dtos.DtoMonopatin;
 import main.paradas.dtos.DtoMonopatinDistancia;
 import main.paradas.dtos.DtoMonopatinEnMatenimiento;
@@ -29,6 +31,7 @@ public class monopatinController {
     }
 
     @GetMapping("/")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.MANTENIMIENTO + "\" )")
     public ResponseEntity<List<DtoMonopatin>> findAll() throws Exception {
         List<DtoMonopatin> resultado = monopatinServicio.findAll();
         if (!resultado.isEmpty()) {
@@ -58,7 +61,6 @@ public class monopatinController {
         }
     }
 
-
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteById(@PathVariable Long id) {
         Boolean resultado = monopatinServicio.deleteById(id);
@@ -81,7 +83,7 @@ public class monopatinController {
     }
 
     @GetMapping("/reporteKM/tiempoPausa")
-    public ResponseEntity<?> generarReporteKmConPausa() throws Exception{
+    public ResponseEntity<?> generarReporteKmConPausa() throws Exception {
         List<DtoMonopatinKmPausa> resultado = monopatinServicio.generarReporteKmConPausa();
         if (!resultado.isEmpty()) {
             return ResponseEntity.ok(resultado);
@@ -91,9 +93,9 @@ public class monopatinController {
         }
     }
 
-    //endpoint que traiga cantidad de monopatines en mantenimiento
+    // endpoint que traiga cantidad de monopatines en mantenimiento
     @GetMapping("/monopatinesEnOperacionOEnMantenimiento")
-    public ResponseEntity<?> monopatinesEnOperacionOEnMantenimiento() throws Exception{
+    public ResponseEntity<?> monopatinesEnOperacionOEnMantenimiento() throws Exception {
         List<DtoMonopatinEnMatenimiento> resultado = monopatinServicio.monopatinesEnOperacionOEnMantenimiento();
         if (!resultado.isEmpty()) {
             return ResponseEntity.ok(resultado);
@@ -103,9 +105,9 @@ public class monopatinController {
         }
     }
 
-
     @GetMapping("/buscar/year/{year}/viajes/{numViajes}")
-    public ResponseEntity<?> buscarMonopatinesConMasDeXViajesEnAnio(@PathVariable int year,@PathVariable int numViajes) throws Exception{
+    public ResponseEntity<?> buscarMonopatinesConMasDeXViajesEnAnio(@PathVariable int year, @PathVariable int numViajes)
+            throws Exception {
         List<DtoMonopatin> resultado = monopatinServicio.buscarMonopatinesConMasDeXViajesEnAnio(year, numViajes);
         if (!resultado.isEmpty()) {
             return ResponseEntity.ok(resultado);
@@ -115,9 +117,9 @@ public class monopatinController {
         }
     }
 
-
     @GetMapping("/x/{x}/y/{y}/maxDistance/{maxDistance}")
-    public ResponseEntity<?> getMonopatinCercanos(@PathVariable int x, @PathVariable int y, @PathVariable int maxDistance) throws Exception {
+    public ResponseEntity<?> getMonopatinCercanos(@PathVariable int x, @PathVariable int y,
+            @PathVariable int maxDistance) throws Exception {
         List<DtoMonopatinDistancia> resultado = monopatinServicio.getMonopatinCercanos(x, y, maxDistance);
         if (!resultado.isEmpty()) {
             return ResponseEntity.ok(resultado);
