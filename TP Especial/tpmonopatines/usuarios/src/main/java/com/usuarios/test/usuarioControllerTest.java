@@ -8,7 +8,11 @@ import com.usuarios.controller.usuarioController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.mockito.*;
+import org.junit.jupiter.api.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +37,6 @@ public class usuarioControllerTest {
         List<DtoUsuario> usuarios = new ArrayList<>();
         usuarios.add(new DtoUsuario());
         usuarios.add(new DtoUsuario());
-
         // Simular el comportamiento del servicio al llamar a findAll
         when(usuarioService.findAll()).thenReturn(usuarios);
 
