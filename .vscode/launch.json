@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ApiGatewayApplication",
+            "request": "launch",
+            "mainClass": "com.example.apigateway.ApiGatewayApplication",
+            "projectName": "api-gateway"
+        },
+        {
+            "type": "java",
             "name": "MantenimientoApplication",
             "request": "launch",
             "mainClass": "main.mantenimiento.MantenimientoApplication",

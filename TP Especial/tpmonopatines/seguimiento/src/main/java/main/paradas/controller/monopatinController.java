@@ -3,6 +3,13 @@ package main.paradas.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.http.HttpStatus;
@@ -41,6 +48,14 @@ public class monopatinController {
         }
     }
 
+    @Operation(summary = "Obtener monopatin por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "monopatin encontrado", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = monopatin.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "error server", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Error in Response Body", content = @Content)
+    })
     @GetMapping("/{id}")
     public ResponseEntity<DtoMonopatin> findById(@PathVariable Long id) {
         DtoMonopatin resultado = monopatinServicio.findById(id);
@@ -51,6 +66,14 @@ public class monopatinController {
         }
     }
 
+    @Operation(summary = "Agregar monopatin ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Monopatin agregado con exito", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = monopatin.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "error server", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Error in Response Body", content = @Content)
+    })
     @PostMapping("/")
     public ResponseEntity<?> save(@RequestBody monopatin monopatin) {
         DtoMonopatin resultado = monopatinServicio.save(monopatin);
@@ -61,6 +84,14 @@ public class monopatinController {
         }
     }
 
+    @Operation(summary = "Eliminar monopaatin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Monopatin eliminado", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = monopatin.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "error server", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Error in Response Body", content = @Content)
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteById(@PathVariable Long id) {
         Boolean resultado = monopatinServicio.deleteById(id);
@@ -71,6 +102,14 @@ public class monopatinController {
         }
     }
 
+    @Operation(summary = "Reporte KM")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Reporte exitoso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = monopatin.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "error server", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Error in Response Body", content = @Content)
+    })
     @GetMapping("/reporteKM")
     public ResponseEntity<?> generarReporteKm() throws Exception {
         List<DtoMonopatinKm> resultado = monopatinServicio.generarReporteKm();
@@ -82,6 +121,14 @@ public class monopatinController {
         }
     }
 
+    @Operation(summary = " Reporte Km con pausas")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Reporte Km con pausas ", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = monopatin.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "error server", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Error in Response Body", content = @Content)
+    })
     @GetMapping("/reporteKM/tiempoPausa")
     public ResponseEntity<?> generarReporteKmConPausa() throws Exception {
         List<DtoMonopatinKmPausa> resultado = monopatinServicio.generarReporteKmConPausa();
