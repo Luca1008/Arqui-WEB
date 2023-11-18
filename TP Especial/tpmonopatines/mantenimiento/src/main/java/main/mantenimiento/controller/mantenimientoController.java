@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import main.mantenimiento.Dtos.DtoMantenimiento;
-import main.mantenimiento.model.mantenimiento;
+import main.mantenimiento.model.mongodb.mantenimiento;
 import main.mantenimiento.security.AuthorityConstants;
 import main.mantenimiento.servicios.mantenimientoService;
 

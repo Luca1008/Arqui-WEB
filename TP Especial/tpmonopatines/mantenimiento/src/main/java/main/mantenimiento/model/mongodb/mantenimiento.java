@@ -1,14 +1,15 @@
-package main.mantenimiento.model;
+package main.mantenimiento.model.mongodb;
 
 import java.sql.Time;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 @Data
-@NoArgsConstructor
-@Entity
 public class mantenimiento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
