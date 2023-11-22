@@ -11,8 +11,8 @@ import org.springframework.web.client.RestTemplate;
 
 import jakarta.transaction.Transactional;
 import main.mantenimiento.Dtos.DtoMantenimiento;
-import main.mantenimiento.model.mongodb.mantenimiento;
-import main.mantenimiento.repository.mongodb.mantenimientoRepository;
+import main.mantenimiento.model.mantenimiento;
+import main.mantenimiento.repository.mantenimientoRepository;
 
 @Service("mantenimientoService")
 public class mantenimientoService {
