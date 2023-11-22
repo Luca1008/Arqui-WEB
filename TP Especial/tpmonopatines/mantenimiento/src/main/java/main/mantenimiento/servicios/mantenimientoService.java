@@ -35,7 +35,7 @@ public class mantenimientoService {
     }
 
     @Transactional
-    public DtoMantenimiento findById(Long id) {
+    public DtoMantenimiento findById(String id) {
         Optional<mantenimiento> res = mantenimientoRepository.findById(id);
         if (res.isPresent()) {
             mantenimiento resultado = res.get();
@@ -53,7 +53,7 @@ public class mantenimientoService {
     }
 
     @Transactional
-    public boolean deleteById(Long id) {
+    public boolean deleteById(String id) {
         Optional<mantenimiento> admin = mantenimientoRepository.findById(id);
         if (admin.isPresent()) {
             mantenimientoRepository.deleteById(id);

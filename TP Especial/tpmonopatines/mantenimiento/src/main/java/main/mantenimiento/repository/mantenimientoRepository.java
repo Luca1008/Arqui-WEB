@@ -2,8 +2,13 @@ package main.mantenimiento.repository;
 
 import main.mantenimiento.model.mantenimiento;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
 
-public interface mantenimientoRepository extends JpaRepository<mantenimiento, Long> {
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+public interface mantenimientoRepository extends MongoRepository<mantenimiento, String> {
+    Optional<mantenimiento> findById(String id);
+
+    void deleteById(String id);
 }
 

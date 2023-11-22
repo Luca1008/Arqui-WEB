@@ -39,7 +39,7 @@ public class mantenimientoController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.USER + "\" )")
-    public ResponseEntity<DtoMantenimiento> findById(@PathVariable Long id) {
+    public ResponseEntity<DtoMantenimiento> findById(@PathVariable String id) {
         DtoMantenimiento resultado = mantenimientoService.findById(id);
         if (resultado != null) {
             return ResponseEntity.ok(resultado);
@@ -61,7 +61,7 @@ public class mantenimientoController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\" )")
-    public ResponseEntity<String> delete(@PathVariable Long id) {
+    public ResponseEntity<String> delete(@PathVariable String id) {
         Boolean resultado = mantenimientoService.deleteById(id);
         if (resultado) {
             return ResponseEntity.status(HttpStatus.OK).body("Administrador borrado con exito");
