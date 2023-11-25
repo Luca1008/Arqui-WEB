@@ -39,6 +39,7 @@ public class cuentaController {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = cuenta.class))
             }),
             @ApiResponse(responseCode = "500", description = "Id invalido", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Cuenta no encontrada"),
             @ApiResponse(responseCode = "400", description = "Error in Response Body", content = @Content)
     })
     @GetMapping("/{cuentaId}")
