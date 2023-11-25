@@ -27,7 +27,6 @@ public class administradorController {
     }
 
     @GetMapping("/")
-    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\" )")
     public ResponseEntity<List<DtoAdministrador>> findAll() throws Exception {
         List<DtoAdministrador> resultado = administradorService.findAll();
         if (!resultado.isEmpty()) {
@@ -38,7 +37,6 @@ public class administradorController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\" )")
     public ResponseEntity<DtoAdministrador> findById(@PathVariable Long id) {
         DtoAdministrador resultado = administradorService.findById(id);
         if (resultado != null) {

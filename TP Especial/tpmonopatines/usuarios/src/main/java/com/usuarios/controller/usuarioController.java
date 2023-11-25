@@ -3,6 +3,7 @@ package com.usuarios.controller;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,6 +17,8 @@ import com.usuarios.Dtos.UserRequestDTO;
 import com.usuarios.model.usuario;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
+
+import com.usuarios.security.AuthorityConstants;
 import com.usuarios.security.jwt.JWTFilter;
 import com.usuarios.security.jwt.TokenProvider;
 import com.usuarios.servicios.usuarioService;
@@ -152,6 +155,7 @@ public class usuarioController {
             @ApiResponse(responseCode = "400", description = "Error in Response Body", content = @Content)
     })
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.USER + "\" )")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         Boolean resultado = usuarioService.deleteById(id);
         if (resultado) {

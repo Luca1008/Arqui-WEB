@@ -27,7 +27,7 @@ public class viajeController {
     }
 
     @PostMapping("/")
-    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.MANTENIMIENTO + "\" )")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\" )")
     public ResponseEntity<?> save(@RequestBody viaje viaje) {
         DtoViaje resultado = viajeService.save(viaje);
         if (resultado != null) {
@@ -58,6 +58,7 @@ public class viajeController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\" )")
     public ResponseEntity<String> deleteById(@PathVariable Long id) {
         Boolean resultado = viajeService.deleteById(id);
         if (resultado) {

@@ -27,7 +27,6 @@ public class mantenimientoController {
     }
 
     @GetMapping("/")
-    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.MANTENIMIENTO + "\" )")
     public ResponseEntity<List<DtoMantenimiento>> findAll() throws Exception {
         List<DtoMantenimiento> resultado = mantenimientoService.findAll();
         if (!resultado.isEmpty()) {
@@ -38,7 +37,6 @@ public class mantenimientoController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.USER + "\" )")
     public ResponseEntity<DtoMantenimiento> findById(@PathVariable String id) {
         DtoMantenimiento resultado = mantenimientoService.findById(id);
         if (resultado != null) {
@@ -49,7 +47,7 @@ public class mantenimientoController {
     }
 
     @PostMapping("/")
-    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\" )")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.MANTENIMIENTO + "\" )")
     public ResponseEntity<?> save(@RequestBody mantenimiento mantenimiento) {
         DtoMantenimiento resultado = mantenimientoService.save(mantenimiento);
         if (resultado != null) {
@@ -60,7 +58,7 @@ public class mantenimientoController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\" )")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.MANTENIMIENTO + "\" )")
     public ResponseEntity<String> delete(@PathVariable String id) {
         Boolean resultado = mantenimientoService.deleteById(id);
         if (resultado) {
@@ -71,7 +69,6 @@ public class mantenimientoController {
     }
 
     @GetMapping("/monopatinesKM/")
-    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\" )")
     public ResponseEntity<String> reporteMonopatinesKm() throws Exception {
         String resultado = mantenimientoService.reporteDeMonopatinesKM();
         if (!resultado.isEmpty()) {

@@ -38,7 +38,6 @@ public class monopatinController {
     }
 
     @GetMapping("/")
-    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.MANTENIMIENTO + "\" )")
     public ResponseEntity<List<DtoMonopatin>> findAll() throws Exception {
         List<DtoMonopatin> resultado = monopatinServicio.findAll();
         if (!resultado.isEmpty()) {
@@ -75,6 +74,7 @@ public class monopatinController {
             @ApiResponse(responseCode = "400", description = "Error in Response Body", content = @Content)
     })
     @PostMapping("/")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\" )")
     public ResponseEntity<?> save(@RequestBody monopatin monopatin) {
         DtoMonopatin resultado = monopatinServicio.save(monopatin);
         if (resultado != null) {
@@ -93,6 +93,7 @@ public class monopatinController {
             @ApiResponse(responseCode = "400", description = "Error in Response Body", content = @Content)
     })
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\" )")
     public ResponseEntity<String> deleteById(@PathVariable Long id) {
         Boolean resultado = monopatinServicio.deleteById(id);
         if (resultado) {

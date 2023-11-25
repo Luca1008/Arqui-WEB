@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.usuarios.Dtos.DtoCuenta;
 import com.usuarios.model.cuenta;
 import com.usuarios.model.usuario;
+import com.usuarios.security.AuthorityConstants;
 import com.usuarios.servicios.cuentaService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -86,6 +88,7 @@ public class cuentaController {
             @ApiResponse(responseCode = "400", description = "Error in Response Body", content = @Content)
     })
     @DeleteMapping("/{cuentaId}")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.USER + "\" )")
     public ResponseEntity<String> deleteById(@PathVariable Long cuentaId) throws Exception {
         Boolean resultado = cuentaService.deleteById(cuentaId);
         if (resultado) {
@@ -104,6 +107,7 @@ public class cuentaController {
             @ApiResponse(responseCode = "400", description = "Error in Response Body", content = @Content)
     })
     @GetMapping("/anular/{cuentaId}")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\" )")
     public ResponseEntity<String> anularCuenta(@PathVariable Long cuentaId) throws Exception {
         Boolean resultado = cuentaService.anularCuenta(cuentaId);
         if (resultado) {

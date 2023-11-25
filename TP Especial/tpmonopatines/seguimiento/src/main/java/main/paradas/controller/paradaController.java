@@ -27,7 +27,6 @@ public class paradaController {
     }
 
     @GetMapping("/")
-    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.MANTENIMIENTO + "\" )")
     public ResponseEntity<List<DtoParada>> findAll() throws Exception {
         List<DtoParada> resultado = paradaService.findAll();
         if (!resultado.isEmpty()) {
@@ -48,6 +47,7 @@ public class paradaController {
     }
 
     @PostMapping("/")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\" )")
     public ResponseEntity<?> save(@RequestBody parada parada) {
         DtoParada resultado = paradaService.save(parada);
         if (resultado != null) {
@@ -58,6 +58,7 @@ public class paradaController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\" )")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
 
         Boolean resultado = paradaService.deleteById(id);
