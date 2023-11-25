@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "20ad0239-0101-4fe2-b13a-20823bf275c2",
+		"name": "Pruebas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24236328"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/usuarios/authenticate",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "12345",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"admin@gmail.com\",\r\n  \"contrasenia\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/usuarios/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/usuarios/authenticate",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "user@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "12345",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"user@gmail.com\",\r\n  \"contrasenia\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/usuarios/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/usuarios/authenticate",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "mantenimiento@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "12345",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"mantenimiento@gmail.com\",\r\n  \"contrasenia\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/usuarios/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/usuarios/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Nico\",\r\n  \"apellido\": \"Unardagian\",\r\n  \"email\": \"profe@gmail.com\",\r\n  \"password\": \"12345\",\r\n  \"cuentas\": [1],\r\n  \"authorities\": [\"MANTENIMIENTO\", \"USER\", \"ADMIN\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/usuarios/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/mantenimiento/",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYW50ZW5pbWllbnRvQGdtYWlsLmNvbSIsImF1dGgiOiJNQU5URU5JTUlFTlRPIiwiZXhwIjoxNzAwNjIyOTA0fQ.LIeveGGBamPeR3pQxAYYBXDlY3lX5RUWEk2IpBlt3vkT6A2HvhVDtcUNZn9q7t5E37C-jJ0sm2K1Sk8QmrjXBQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/mantenimiento/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"mantenimiento",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/mantenimiento/",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYW50ZW5pbWllbnRvQGdtYWlsLmNvbSIsImF1dGgiOiJNQU5URU5JTUlFTlRPIiwiZXhwIjoxNzAwNjIyOTA0fQ.LIeveGGBamPeR3pQxAYYBXDlY3lX5RUWEk2IpBlt3vkT6A2HvhVDtcUNZn9q7t5E37C-jJ0sm2K1Sk8QmrjXBQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/mantenimiento/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"mantenimiento",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
